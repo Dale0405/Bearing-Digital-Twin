@@ -43,89 +43,83 @@ st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>",
 # Bearing Parameters
 # ----------------------------
 
-st.subheader("Bearing Parameters")
+st.markdown("<h3 style='text-align:center;'>Bearing Parameters</h3>", unsafe_allow_html=True)
 
-col1, col2 = st.columns([1.2,1])
+left, right = st.columns([1,1])
 
-with col1:
+# ----------------------------
+# PARAMETER TABLE
+# ----------------------------
+
+with left:
 
     st.markdown("""
     <style>
     .param-table {
-        width: 100%;
-        border-collapse: collapse;
+        width:100%;
+        border-collapse:collapse;
+    }
+    .param-table th {
+        text-align:center;
+        border:1px solid #555;
+        padding:8px;
     }
     .param-table td {
-        border: 1px solid #444;
-        padding: 6px;
-        text-align: center;
-    }
-    .param-name {
-        text-align: left;
-        font-weight: 600;
+        border:1px solid #555;
+        padding:6px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-    c1, c2 = st.columns([2,2])
+    c1, c2 = st.columns([1,1])
 
     with c1:
-        st.markdown("**ID (mm)**")
-        st.markdown("**OD (mm)**")
-        st.markdown("**Width (mm)**")
-        st.markdown("**Ball Diameter (mm)**")
-        st.markdown("**Number of Balls**")
-        st.markdown("**Dynamic C (N)**")
-        st.markdown("**Static Co (N)**")
+        st.markdown("**Parameters**")
+        st.markdown("ID (mm)")
+        st.markdown("OD (mm)")
+        st.markdown("Width (mm)")
+        st.markdown("Ball Diameter (mm)")
+        st.markdown("Number of Balls")
+        st.markdown("Dynamic Load Cr (N)")
+        st.markdown("Static Load Co (N)")
 
     with c2:
-        bearing_id = st.number_input("", value=40.0, label_visibility="collapsed")
-        bearing_od = st.number_input("", value=90.0, label_visibility="collapsed")
-        bearing_width = st.number_input("", value=23.0, label_visibility="collapsed")
-        ball_diameter = st.number_input("", value=15.875, label_visibility="collapsed")
-        number_of_balls = st.number_input("", value=8, label_visibility="collapsed")
-        dynamic_rating = st.number_input("", value=31500, label_visibility="collapsed")
-        static_rating = st.number_input("", value=24000, label_visibility="collapsed")
+        st.markdown("**Values**")
 
+        bearing_id = float(st.text_input("", "40"))
+        bearing_od = float(st.text_input("", "90"))
+        bearing_width = float(st.text_input("", "23"))
+        ball_diameter = float(st.text_input("", "15.88"))
+        number_of_balls = int(st.text_input("", "8"))
+        dynamic_rating = float(st.text_input("", "31500"))
+        static_rating = float(st.text_input("", "24000"))
 
-with col2:
-
-    st.subheader("Bearing Visualization")
 
 # ----------------------------
-# Dynamic DGBB Visualization
+# BEARING VISUALIZATION
 # ----------------------------
 
-st.subheader("Bearing Visualization")
+with right:
 
-import matplotlib.pyplot as plt
-import numpy as np
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
+    import matplotlib.pyplot as plt
+    import numpy as np
 
     fig, ax = plt.subplots(figsize=(6,6))
 
-    # transparent background
     fig.patch.set_alpha(0)
     ax.set_facecolor("none")
 
-    # normalized geometry
     outer_r = 1.0
     inner_r = bearing_id / bearing_od
     pitch_r = (outer_r + inner_r)/2
     ball_r = ball_diameter / bearing_od * 0.5
 
-    # outer ring
     ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#6f6f6f"))
     ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#6f6f6f"))
 
-    # inner ring
     ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#6f6f6f"))
     ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#6f6f6f"))
 
-    # balls
     angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
 
     for a in angles:
@@ -139,57 +133,29 @@ with col1:
 
         ax.add_patch(ball)
 
-    # ----------------------------
-    # Red broken line labels
-    # ----------------------------
-
-    # OD reference point
+    # OD label
     od_x = -outer_r * 0.7
     od_y = outer_r * 0.7
 
-    ax.plot([od_x, -1.2], [od_y, 1.1],
-            linestyle="--", color="red", linewidth=0.5)
-
+    ax.plot([od_x, -1.2], [od_y, 1.1], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([od_x], [od_y], color="red", s=15)
+    ax.text(-1.22, 1.12, f"OD = {bearing_od} mm", color="white", fontsize=20, ha="right")
 
-    ax.text(-1.22, 1.12,
-            f"OD = {bearing_od} mm",
-            color="white",
-            fontsize=20,
-            ha="right")
-
-
-    # ID reference point
+    # ID label
     id_x = -inner_r * 0.7
     id_y = -inner_r * 0.7
 
-    ax.plot([id_x, -1.2], [id_y, -1.1],
-            linestyle="--", color="red", linewidth=0.5)
-
+    ax.plot([id_x, -1.2], [id_y, -1.1], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([id_x], [id_y], color="red", s=15)
+    ax.text(-1.22, -1.13, f"ID = {bearing_id} mm", color="white", fontsize=20, ha="right")
 
-    ax.text(-1.22, -1.13,
-            f"ID = {bearing_id} mm",
-            color="white",
-            fontsize=20,
-            ha="right")
-
-
-    # Ball reference point
+    # Ball label
     bx = pitch_r*np.cos(angles[0])
     by = pitch_r*np.sin(angles[0])
 
-    ax.plot([bx+ball_r, 1.15], [by, by],
-            linestyle="--", color="red", linewidth=0.5)
-
+    ax.plot([bx+ball_r, 1.15], [by, by], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([bx+ball_r], [by], color="red", s=15)
-
-    ax.text(1.18, by,
-            f"Ball = {ball_diameter} mm",
-            color="white",
-            fontsize=20,
-            va="center")
-
+    ax.text(1.18, by, f"Ball = {ball_diameter} mm", color="white", fontsize=20, va="center")
 
     ax.set_xlim(-1.4,1.4)
     ax.set_ylim(-1.4,1.4)
@@ -199,8 +165,7 @@ with col1:
 
     st.pyplot(fig)
 
-    st.markdown("<div style='text-align:center;'>Front View</div>",
-                unsafe_allow_html=True)
+    st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
     
 # ----------------------------
 # Derived Geometry
