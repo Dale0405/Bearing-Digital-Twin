@@ -275,9 +275,9 @@ with col2:
             pitch_r*0.7*np.cos(np.deg2rad(ball_spacing/2)),
             pitch_r*0.7*np.sin(np.deg2rad(ball_spacing/2)),
             f"{ball_spacing:.1f}°",
-            color="red",
+            color="white",
             fontsize=8,
-            ha="center"
+            ha="right"
         )
 
         ax.set_xlim(-1.2,1.2)
