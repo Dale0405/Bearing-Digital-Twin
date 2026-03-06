@@ -45,49 +45,37 @@ st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>",
 
 st.subheader("Bearing Parameters")
 
-# CSS styling for wrapped headers and centered values
-st.markdown("""
-<style>
-[data-testid="stDataEditor"] th {
-    white-space: normal !important;
-    text-align: center !important;
-    line-height: 1.2em;
-}
+col1, col2 = st.columns([1.2,1])
 
-[data-testid="stDataEditor"] td {
-    text-align: center !important;
-}
+# LEFT SIDE (PARAMETER TABLE)
 
-[data-testid="stDataEditor"] table {
-    table-layout: fixed !important;
-}
-</style>
-""", unsafe_allow_html=True)
+with col1:
 
-bearing_table = pd.DataFrame({
-    "ID<br>(mm)": [40.0],
-    "OD<br>(mm)": [90.0],
-    "Width<br>(mm)": [23.0],
-    "Ball Dia<br>(mm)": [15.875],
-    "Balls": [8],
-    "Dynamic C<br>(N)": [31500],
-    "Static Co<br>(N)": [24000]
-})
+    p1, p2 = st.columns(2)
 
-bearing_data = st.data_editor(
-    bearing_table,
-    hide_index=True,
-    use_container_width=True
-)
+    with p1:
+        st.markdown("**ID (mm)**")
+        st.markdown("**OD (mm)**")
+        st.markdown("**Width (mm)**")
+        st.markdown("**Ball Diameter (mm)**")
+        st.markdown("**Number of Balls**")
+        st.markdown("**Dynamic C (N)**")
+        st.markdown("**Static Co (N)**")
 
-# Extract values AFTER the table
-bearing_id = float(bearing_data.iloc[0]["ID<br>(mm)"])
-bearing_od = float(bearing_data.iloc[0]["OD<br>(mm)"])
-bearing_width = float(bearing_data.iloc[0]["Width<br>(mm)"])
-ball_diameter = float(bearing_data.iloc[0]["Ball Dia<br>(mm)"])
-number_of_balls = int(bearing_data.iloc[0]["Balls"])
-dynamic_rating = float(bearing_data.iloc[0]["Dynamic C<br>(N)"])
-static_rating = float(bearing_data.iloc[0]["Static Co<br>(N)"])
+    with p2:
+        bearing_id = st.number_input("", value=40.0)
+        bearing_od = st.number_input("", value=90.0)
+        bearing_width = st.number_input("", value=23.0)
+        ball_diameter = st.number_input("", value=15.875)
+        number_of_balls = st.number_input("", value=8)
+        dynamic_rating = st.number_input("", value=31500)
+        static_rating = st.number_input("", value=24000)
+
+
+# RIGHT SIDE (VISUALIZATION)
+
+with col2:
+    st.subheader("Bearing Visualization")
 
 # ----------------------------
 # Dynamic DGBB Visualization
