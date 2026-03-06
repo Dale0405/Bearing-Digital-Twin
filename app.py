@@ -53,46 +53,38 @@ left, right = st.columns([1,1])
 
 with left:
 
-    st.markdown("""
-    <style>
-    .param-table {
-        width:100%;
-        border-collapse:collapse;
-    }
-    .param-table th {
-        text-align:center;
-        border:1px solid #555;
-        padding:8px;
-    }
-    .param-table td {
-        border:1px solid #555;
-        padding:6px;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    header1, header2 = st.columns([1,1])
 
-    c1, c2 = st.columns([1,1])
+    header1.markdown("**Parameters**")
+    header2.markdown("**Values**")
 
-    with c1:
-        st.markdown("**Parameters**")
-        st.markdown("ID (mm)")
-        st.markdown("OD (mm)")
-        st.markdown("Width (mm)")
-        st.markdown("Ball Diameter (mm)")
-        st.markdown("Number of Balls")
-        st.markdown("Dynamic Load Cr (N)")
-        st.markdown("Static Load Co (N)")
+    r1c1, r1c2 = st.columns([1,1])
+    r1c1.markdown("ID (mm)")
+    bearing_id = float(r1c2.text_input("", "40", label_visibility="collapsed"))
 
-    with c2:
-        st.markdown("**Values**")
+    r2c1, r2c2 = st.columns([1,1])
+    r2c1.markdown("OD (mm)")
+    bearing_od = float(r2c2.text_input("", "90", label_visibility="collapsed"))
 
-        bearing_id = float(st.text_input("", "40"))
-        bearing_od = float(st.text_input("", "90"))
-        bearing_width = float(st.text_input("", "23"))
-        ball_diameter = float(st.text_input("", "15.88"))
-        number_of_balls = int(st.text_input("", "8"))
-        dynamic_rating = float(st.text_input("", "31500"))
-        static_rating = float(st.text_input("", "24000"))
+    r3c1, r3c2 = st.columns([1,1])
+    r3c1.markdown("Width (mm)")
+    bearing_width = float(r3c2.text_input("", "23", label_visibility="collapsed"))
+
+    r4c1, r4c2 = st.columns([1,1])
+    r4c1.markdown("Ball Diameter (mm)")
+    ball_diameter = float(r4c2.text_input("", "15.88", label_visibility="collapsed"))
+
+    r5c1, r5c2 = st.columns([1,1])
+    r5c1.markdown("Number of Balls")
+    number_of_balls = int(r5c2.text_input("", "8", label_visibility="collapsed"))
+
+    r6c1, r6c2 = st.columns([1,1])
+    r6c1.markdown("Dynamic Load Cr (N)")
+    dynamic_rating = float(r6c2.text_input("", "31500", label_visibility="collapsed"))
+
+    r7c1, r7c2 = st.columns([1,1])
+    r7c1.markdown("Static Load Co (N)")
+    static_rating = float(r7c2.text_input("", "24000", label_visibility="collapsed"))
 
 
 # ----------------------------
