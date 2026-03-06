@@ -99,7 +99,7 @@ with col1:
     ax.text(-1.22, 1.12,
             f"OD = {bearing_od} mm",
             color="white",
-            fontsize=50,
+            fontsize=15,
             ha="right")
 
 
@@ -115,7 +115,7 @@ with col1:
     ax.text(-1.22, -1.13,
             f"ID = {bearing_id} mm",
             color="white",
-            fontsize=12,
+            fontsize=15,
             ha="right")
 
 
@@ -131,7 +131,7 @@ with col1:
     ax.text(1.18, by,
             f"Ball = {ball_diameter} mm",
             color="white",
-            fontsize=12,
+            fontsize=15,
             va="center")
 
 
