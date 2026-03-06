@@ -63,3 +63,18 @@ st.subheader("Derived Geometry")
 
 st.write("Pitch Diameter (mm):", round(pitch_diameter,3))
 st.write("Ball Angular Spacing (deg):", round(angular_spacing,3))
+# ----------------------------
+# Internal Clearance
+# ----------------------------
+
+st.sidebar.header("Internal Clearance")
+
+initial_clearance = st.sidebar.number_input("Initial Radial Clearance (mm)", value=0.020)
+fit_reduction = st.sidebar.number_input("Clearance Reduction due to Fit (mm)", value=0.0124)
+
+effective_clearance = initial_clearance - fit_reduction
+st.subheader("Internal Clearance")
+
+st.write("Initial Clearance (mm):", initial_clearance)
+st.write("Fit Reduction (mm):", fit_reduction)
+st.write("Effective Clearance (mm):", round(effective_clearance,6))
