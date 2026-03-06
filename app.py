@@ -130,21 +130,19 @@ with right:
 
     angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
 
-    for a in angles:
+for a in angles:
+    x = pitch_r * np.cos(a)
+    y = pitch_r * np.sin(a)
 
-    x = pitch_r*np.cos(a)
-    y = pitch_r*np.sin(a)
-
-    # base metal sphere
+    # base sphere
     base = plt.Circle(
-        (x,y),
+        (x, y),
         ball_r,
         color="#cfd3d6",
         ec="#2b2b2b",
         linewidth=1.2,
         zorder=3
     )
-
     ax.add_patch(base)
 
     # shadow
@@ -155,7 +153,6 @@ with right:
         alpha=0.45,
         zorder=2
     )
-
     ax.add_patch(shadow)
 
     # highlight
@@ -166,7 +163,6 @@ with right:
         alpha=0.55,
         zorder=4
     )
-
     ax.add_patch(highlight)
 
     # OD label
