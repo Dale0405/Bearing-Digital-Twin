@@ -113,7 +113,7 @@ with right:
     import matplotlib.pyplot as plt
     import numpy as np
 
-    # ----------------------------
+# ----------------------------
 # FRONT VIEW
 # ----------------------------
 
@@ -164,7 +164,6 @@ st.markdown(
     "<div style='text-align:center;'>Front View</div>",
     unsafe_allow_html=True
 )
-
 
     # ----------------------------
     # SIDE CROSS SECTION
