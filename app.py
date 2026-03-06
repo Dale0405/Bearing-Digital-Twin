@@ -4,6 +4,10 @@ import pandas as pd
 
 st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
+# ----------------------------
+# Bearing Parameters
+# ----------------------------
+
 st.subheader("Bearing Parameters")
 
 bearing_table = pd.DataFrame({
@@ -35,6 +39,15 @@ with col1:
         }
     )
 
+    bearing_id = bearing_data["ID (mm)"][0]
+    bearing_od = bearing_data["OD (mm)"][0]
+    bearing_width = bearing_data["Width (mm)"][0]
+    ball_diameter = bearing_data["Ball Dia (mm)"][0]
+    number_of_balls = int(bearing_data["Balls"][0])
+    dynamic_rating = bearing_data["Dynamic C (N)"][0]
+    static_rating = bearing_data["Static Co (N)"][0]
+
+
 with col2:
 
     import matplotlib.pyplot as plt
@@ -56,13 +69,7 @@ with col2:
 
     st.pyplot(fig)
 
-bearing_id = bearing_data["ID (mm)"][0]
-bearing_od = bearing_data["OD (mm)"][0]
-bearing_width = bearing_data["Width (mm)"][0]
-ball_diameter = bearing_data["Ball Dia (mm)"][0]
-number_of_balls = int(bearing_data["Balls"][0])
-dynamic_rating = bearing_data["Dynamic C (N)"][0]
-static_rating = bearing_data["Static Co (N)"][0]
+
 
 # ----------------------------
 # Test Conditions
