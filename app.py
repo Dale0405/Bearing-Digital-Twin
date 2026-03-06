@@ -277,7 +277,7 @@ with col2:
             f"{ball_spacing:.1f}°",
             color="white",
             fontsize=8,
-            ha="left"
+            ha="right"
         )
 
         ax.set_xlim(-1.2,1.2)
