@@ -107,10 +107,6 @@ with left:
 # BEARING VISUALIZATION
 # ----------------------------
 
-# ----------------------------
-# BEARING VISUALIZATION
-# ----------------------------
-
 with right:
 
     import matplotlib.pyplot as plt
@@ -132,11 +128,36 @@ with right:
     # Draw Bearing Rings
     # ----------------------------
 
-    ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#8c8f94"))
+    aax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#8c8f94"))
     ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#8c8f94"))
 
     ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#8c8f94"))
     ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#8c8f94"))
+
+# ----------------------------
+# Outer Ring Shading
+# ----------------------------
+
+ax.add_patch(plt.Circle((0,0), outer_r, color="#b7bcc2", ec="#6f6f6f", linewidth=2, zorder=1))
+ax.add_patch(plt.Circle((0,0), outer_r-0.02, color="#9ea4aa", zorder=1))
+ax.add_patch(plt.Circle((0,0), outer_r-0.04, color="#d0d4d8", zorder=1))
+ax.add_patch(plt.Circle((0,0), outer_r-0.07, color="#8f959b", zorder=1))
+
+# inner edge of outer ring
+ax.add_patch(plt.Circle((0,0), outer_r-0.09, color="#1c1f24", zorder=1))
+
+
+# ----------------------------
+# Inner Ring Shading
+# ----------------------------
+
+ax.add_patch(plt.Circle((0,0), inner_r+0.07, color="#b7bcc2", ec="#6f6f6f", linewidth=2, zorder=1))
+ax.add_patch(plt.Circle((0,0), inner_r+0.05, color="#9ea4aa", zorder=1))
+ax.add_patch(plt.Circle((0,0), inner_r+0.03, color="#d0d4d8", zorder=1))
+ax.add_patch(plt.Circle((0,0), inner_r, color="#8f959b", zorder=1))
+
+# bore
+ax.add_patch(plt.Circle((0,0), inner_r-0.02, color="#0f1216", zorder=1))
 
     # ----------------------------
     # Ball Positions
