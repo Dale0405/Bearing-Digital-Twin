@@ -10,31 +10,48 @@ st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>",
 
 st.subheader("Bearing Parameters")
 
+# CSS to wrap header text and center values
+st.markdown("""
+<style>
+[data-testid="stDataEditor"] th {
+    white-space: normal !important;
+    text-align: center !important;
+}
+[data-testid="stDataEditor"] td {
+    text-align: center !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 bearing_table = pd.DataFrame({
-    "ID (mm)": [40.0],
-    "OD (mm)": [90.0],
-    "Width (mm)": [23.0],
-    "Ball Dia (mm)": [15.875],
+    "ID<br>(mm)": [40.0],
+    "OD<br>(mm)": [90.0],
+    "Width<br>(mm)": [23.0],
+    "Ball Dia<br>(mm)": [15.875],
     "Balls": [8],
-    "Dynamic C (N)": [31500],
-    "Static Co (N)": [24000]
+    "Dynamic C<br>(N)": [31500],
+    "Static Co<br>(N)": [24000]
 })
 
 bearing_data = st.data_editor(
     bearing_table,
     hide_index=True,
-    use_container_width=True
+    use_container_width=True,
+    column_config={
+        col: st.column_config.NumberColumn()
+        for col in bearing_table.columns
+    }
 )
 
-# Extract values AFTER the table
-bearing_id = float(bearing_data.iloc[0]["ID (mm)"])
-bearing_od = float(bearing_data.iloc[0]["OD (mm)"])
-bearing_width = float(bearing_data.iloc[0]["Width (mm)"])
-ball_diameter = float(bearing_data.iloc[0]["Ball Dia (mm)"])
+# Extract values
+bearing_id = float(bearing_data.iloc[0]["ID<br>(mm)"])
+bearing_od = float(bearing_data.iloc[0]["OD<br>(mm)"])
+bearing_width = float(bearing_data.iloc[0]["Width<br>(mm)"])
+ball_diameter = float(bearing_data.iloc[0]["Ball Dia<br>(mm)"])
 number_of_balls = int(bearing_data.iloc[0]["Balls"])
-dynamic_rating = float(bearing_data.iloc[0]["Dynamic C (N)"])
-static_rating = float(bearing_data.iloc[0]["Static Co (N)"])
-
+dynamic_rating = float(bearing_data.iloc[0]["Dynamic C<br>(N)"])
+static_rating = float(bearing_data.iloc[0]["Static Co<br>(N)"])
 
 # ----------------------------
 # Dynamic DGBB Visualization
