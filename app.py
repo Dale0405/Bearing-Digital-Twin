@@ -32,21 +32,6 @@ with col7:
     static_rating = float(st.text_input("Static Load Rating Co (N)", "24000"))
 
 # ----------------------------
-# Test Conditions
-# ----------------------------
-st.header("Test Conditions")
-
-radial_load = float(st.text_input("Radial Load (N)", "14000"))
-axial_load = float(st.text_input("Axial Load (N)", "0"))
-rpm = float(st.text_input("RPM", "3000"))
-ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
-
-lubrication = st.selectbox(
-    "Lubrication Type",
-    ["Grease", "Oil"]
-)
-
-# ----------------------------
 # Bearing Parameter Table
 # ----------------------------
 st.subheader("Bearing Parameters")
@@ -75,6 +60,21 @@ table_html = f"""
 """
 
 st.markdown(table_html, unsafe_allow_html=True)
+
+# ----------------------------
+# Test Conditions
+# ----------------------------
+st.header("Test Conditions")
+
+radial_load = float(st.text_input("Radial Load (N)", "14000"))
+axial_load = float(st.text_input("Axial Load (N)", "0"))
+rpm = float(st.text_input("RPM", "3000"))
+ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
+
+lubrication = st.selectbox(
+    "Lubrication Type",
+    ["Grease", "Oil"]
+)
 
 # ----------------------------
 # Derived Geometry
