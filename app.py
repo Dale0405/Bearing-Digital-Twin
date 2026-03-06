@@ -113,6 +113,10 @@ with right:
     import matplotlib.pyplot as plt
     import numpy as np
 
+    # ----------------------------
+    # FRONT VIEW
+    # ----------------------------
+
     fig, ax = plt.subplots(figsize=(6,6))
 
     fig.patch.set_alpha(0)
@@ -123,163 +127,85 @@ with right:
     pitch_r = (outer_r + inner_r)/2
     ball_r = ball_diameter / bearing_od * 0.5
 
-    ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#6f6f6f"))
-    ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#6f6f6f"))
-
-    ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#6f6f6f"))
-    ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#6f6f6f"))
-
-    angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
-
-    for a in angles:
-        x = pitch_r*np.cos(a)
-        y = pitch_r*np.sin(a)
-
-        ball = plt.Circle((x,y), ball_r,
-                          color="#cfd3d6",
-                          ec="#2b2b2b",
-                          linewidth=1)
-
-        ax.add_patch(ball)
-
-    # OD label
-    od_x = -outer_r * 0.7
-    od_y = outer_r * 0.7
-
-    ax.plot([od_x, -1.2], [od_y, 1.1], linestyle="--", color="red", linewidth=0.5)
-    ax.scatter([od_x], [od_y], color="red", s=15)
-    ax.text(-1.22, 1.12, f"OD = {bearing_od} mm", color="white", fontsize=20, ha="right")
-
-    # ID label
-    id_x = -inner_r * 0.7
-    id_y = -inner_r * 0.7
-
-    ax.plot([id_x, -1.2], [id_y, -1.1], linestyle="--", color="red", linewidth=0.5)
-    ax.scatter([id_x], [id_y], color="red", s=15)
-    ax.text(-1.22, -1.13, f"ID = {bearing_id} mm", color="white", fontsize=20, ha="right")
-
-    # Ball label
-    bx = pitch_r*np.cos(angles[0])
-    by = pitch_r*np.sin(angles[0])
-
-    ax.plot([bx+ball_r, 1.15], [by, by], linestyle="--", color="red", linewidth=0.5)
-    ax.scatter([bx+ball_r], [by], color="red", s=15)
-    ax.text(1.18, by, f"Ball = {ball_diameter} mm", color="white", fontsize=20, va="center")
-
-    ax.set_xlim(-1.4,1.4)
-    ax.set_ylim(-1.4,1.4)
-
-    ax.set_aspect('equal')
-    ax.axis('off')
-
+    ...
     st.pyplot(fig)
 
     st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
 
-# ----------------------------
-# Dynamic DGBB Side Cross Section
-# ----------------------------
 
-import matplotlib.pyplot as plt
-import numpy as np
+    # ----------------------------
+    # SIDE CROSS SECTION
+    # ----------------------------
 
-fig2, ax2 = plt.subplots(figsize=(6,6))
+    fig2, ax2 = plt.subplots(figsize=(6,6))
 
-fig2.patch.set_alpha(0)
-ax2.set_facecolor("none")
+    fig2.patch.set_alpha(0)
+    ax2.set_facecolor("none")
 
-# normalized geometry
-outer_r = 1.0
-inner_r = bearing_id / bearing_od
-width = bearing_width / bearing_od * 1.5
-ball_r = ball_diameter / bearing_od * 0.5
+    outer_r = 1.0
+    inner_r = bearing_id / bearing_od
+    width = bearing_width / bearing_od * 1.5
+    ball_r = ball_diameter / bearing_od * 0.5
 
-# outer ring
-ax2.add_patch(plt.Rectangle(
-    (-width/2, -outer_r),
-    width,
-    outer_r-inner_r+0.05,
-    fill=False,
-    linewidth=3,
-    edgecolor="#6f6f6f"
-))
+    # outer ring
+    ax2.add_patch(plt.Rectangle(
+        (-width/2, -outer_r),
+        width,
+        outer_r-inner_r+0.05,
+        fill=False,
+        linewidth=3,
+        edgecolor="#6f6f6f"
+    ))
 
-ax2.add_patch(plt.Rectangle(
-    (-width/2, inner_r-0.05),
-    width,
-    outer_r-inner_r+0.05,
-    fill=False,
-    linewidth=3,
-    edgecolor="#6f6f6f"
-))
+    ax2.add_patch(plt.Rectangle(
+        (-width/2, inner_r-0.05),
+        width,
+        outer_r-inner_r+0.05,
+        fill=False,
+        linewidth=3,
+        edgecolor="#6f6f6f"
+    ))
 
-# inner ring
-ax2.add_patch(plt.Rectangle(
-    (-width/2, -inner_r),
-    width,
-    inner_r*2,
-    fill=False,
-    linewidth=3,
-    edgecolor="#6f6f6f"
-))
+    # inner ring
+    ax2.add_patch(plt.Rectangle(
+        (-width/2, -inner_r),
+        width,
+        inner_r*2,
+        fill=False,
+        linewidth=3,
+        edgecolor="#6f6f6f"
+    ))
 
-# rolling element
-ball = plt.Circle(
-    (0, inner_r + (outer_r-inner_r)/2),
-    ball_r,
-    color="#cfd3d6",
-    ec="#2b2b2b",
-    linewidth=1
-)
+    # ball
+    ball = plt.Circle(
+        (0, inner_r + (outer_r-inner_r)/2),
+        ball_r,
+        color="#cfd3d6",
+        ec="#2b2b2b",
+        linewidth=1
+    )
 
-ax2.add_patch(ball)
+    ax2.add_patch(ball)
 
-# ----------------------------
-# Labels
-# ----------------------------
+    # width label
+    ax2.plot([-width/2, width/2], [-outer_r-0.35, -outer_r-0.35],
+             linestyle="--", color="red")
 
-# Width label
-ax2.plot([-width/2, -width/2], [-outer_r-0.2, -outer_r-0.35],
-         linestyle="--", color="red", linewidth=0.7)
+    ax2.text(0, -outer_r-0.45,
+             f"Width = {bearing_width} mm",
+             color="white",
+             fontsize=18,
+             ha="center")
 
-ax2.plot([width/2, width/2], [-outer_r-0.2, -outer_r-0.35],
-         linestyle="--", color="red", linewidth=0.7)
+    ax2.set_xlim(-1.4,1.4)
+    ax2.set_ylim(-1.4,1.4)
 
-ax2.plot([-width/2, width/2], [-outer_r-0.35, -outer_r-0.35],
-         linestyle="--", color="red", linewidth=0.7)
+    ax2.set_aspect('equal')
+    ax2.axis('off')
 
-ax2.text(0, -outer_r-0.45,
-         f"Width = {bearing_width} mm",
-         color="white",
-         fontsize=18,
-         ha="center")
+    st.pyplot(fig2)
 
-# Ball label
-bx = 0
-by = inner_r + (outer_r-inner_r)/2
-
-ax2.plot([bx+ball_r, 1.2], [by, by],
-         linestyle="--", color="red", linewidth=0.7)
-
-ax2.scatter([bx+ball_r], [by], color="red", s=15)
-
-ax2.text(1.22, by,
-         f"Ball = {ball_diameter} mm",
-         color="white",
-         fontsize=18,
-         va="center")
-
-# axes
-ax2.set_xlim(-1.4,1.4)
-ax2.set_ylim(-1.4,1.4)
-
-ax2.set_aspect('equal')
-ax2.axis('off')
-
-st.pyplot(fig2)
-
-st.markdown("<div style='text-align:center;'>Side Cross Section</div>",
-            unsafe_allow_html=True)
+    st.markdown("<div style='text-align:center;'>Side Cross Section</div>", unsafe_allow_html=True)
     
 # ----------------------------
 # Derived Geometry
