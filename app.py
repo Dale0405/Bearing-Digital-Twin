@@ -150,6 +150,10 @@ with col1:
 # Derived Geometry
 # ----------------------------
 
+# ----------------------------
+# Derived Geometry
+# ----------------------------
+
 st.subheader("Derived Geometry")
 
 pitch_diameter = (bearing_id + bearing_od) / 2
@@ -164,10 +168,6 @@ col1, col2 = st.columns(2)
 # Pitch Diameter
 # ----------------------------
 
-# ----------------------------
-# Pitch Diameter
-# ----------------------------
-
 with col1:
 
     metric_col, img_col = st.columns([1,1])
@@ -176,7 +176,43 @@ with col1:
         st.metric("Pitch Diameter (mm)", f"{pitch_diameter:.3f}")
 
     with img_col:
-        st.image("pitch_diameter.png", width=200)
+
+        fig, ax = plt.subplots(figsize=(2.4,2.4))
+
+        # transparent background
+        fig.patch.set_alpha(0)
+        ax.set_facecolor("none")
+
+        outer_r = 1.0
+        inner_r = bearing_id / bearing_od
+        pitch_r = (outer_r + inner_r)/2
+
+        # OD
+        ax.add_patch(plt.Circle((0,0), outer_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
+
+        # Pitch Diameter
+        ax.add_patch(plt.Circle((0,0), pitch_r,
+                                fill=False,
+                                linestyle=":",
+                                linewidth=2,
+                                color="red"))
+
+        # ID
+        ax.add_patch(plt.Circle((0,0), inner_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
+
+        ax.set_xlim(-1.2,1.2)
+        ax.set_ylim(-1.2,1.2)
+
+        ax.set_aspect("equal")
+        ax.axis("off")
+
+        st.pyplot(fig)
 
 
 
@@ -192,8 +228,69 @@ with col2:
         st.metric("Ball Angular Spacing (deg)", f"{ball_spacing:.3f}")
 
     with img_col:
-        st.image("Ball angle spacing.png", width=200)
 
+        fig, ax = plt.subplots(figsize=(2.4,2.4))
+
+        fig.patch.set_alpha(0)
+        ax.set_facecolor("none")
+
+        outer_r = 1.0
+        inner_r = 0.6
+        pitch_r = (outer_r + inner_r)/2
+
+        # rings
+        ax.add_patch(plt.Circle((0,0), outer_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
+
+        ax.add_patch(plt.Circle((0,0), inner_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
+
+        # two balls showing spacing
+        angles = [0, np.deg2rad(ball_spacing)]
+
+        ball_r = 0.08
+
+        for a in angles:
+
+            x = pitch_r*np.cos(a)
+            y = pitch_r*np.sin(a)
+
+            ball = plt.Circle((x,y), ball_r,
+                              color="#cfd3d6",
+                              ec="#222222")
+
+            ax.add_patch(ball)
+
+        # angular arc
+        theta = np.linspace(0, np.deg2rad(ball_spacing), 100)
+
+        ax.plot(
+            pitch_r*np.cos(theta),
+            pitch_r*np.sin(theta),
+            color="red",
+            linewidth=2
+        )
+
+        ax.text(
+            pitch_r*0.7*np.cos(np.deg2rad(ball_spacing/2)),
+            pitch_r*0.7*np.sin(np.deg2rad(ball_spacing/2)),
+            f"{ball_spacing:.1f}°",
+            color="red",
+            fontsize=8,
+            ha="center"
+        )
+
+        ax.set_xlim(-1.2,1.2)
+        ax.set_ylim(-1.2,1.2)
+
+        ax.set_aspect("equal")
+        ax.axis("off")
+
+        st.pyplot(fig)
 # ----------------------------
 # Bearing Internal Clearance
 # ----------------------------
