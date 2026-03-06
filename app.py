@@ -60,7 +60,7 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
 
-    fig, ax = plt.subplots(figsize=(3,3))
+    fig, ax = plt.subplots(figsize=(3.5,3.5))
 
     # transparent background
     fig.patch.set_alpha(0)
@@ -103,13 +103,13 @@ with col1:
     od_y = outer_r * 0.7
 
     ax.plot([od_x, -1.2], [od_y, 1.1],
-            linestyle="--", color="red", linewidth=1)
+            linestyle="--", color="red", linewidth=0.5)
 
     ax.scatter([od_x], [od_y], color="red", s=15)
 
     ax.text(-1.22, 1.12,
             f"OD = {bearing_od} mm",
-            color="red",
+            color="white",
             fontsize=8,
             ha="right")
 
@@ -119,13 +119,13 @@ with col1:
     id_y = -inner_r * 0.7
 
     ax.plot([id_x, -1.2], [id_y, -1.1],
-            linestyle="--", color="red", linewidth=1)
+            linestyle="--", color="red", linewidth=0.5)
 
     ax.scatter([id_x], [id_y], color="red", s=15)
 
     ax.text(-1.22, -1.13,
             f"ID = {bearing_id} mm",
-            color="red",
+            color="white",
             fontsize=8,
             ha="right")
 
@@ -135,13 +135,13 @@ with col1:
     by = pitch_r*np.sin(angles[0])
 
     ax.plot([bx+ball_r, 1.15], [by, by],
-            linestyle="--", color="red", linewidth=1)
+            linestyle="--", color="red", linewidth=0.5)
 
     ax.scatter([bx+ball_r], [by], color="red", s=15)
 
     ax.text(1.18, by,
             f"Ball = {ball_diameter} mm",
-            color="red",
+            color="white",
             fontsize=8,
             va="center")
 
