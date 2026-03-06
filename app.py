@@ -127,3 +127,101 @@ clearance_table = f"""
 """
 
 st.markdown(clearance_table, unsafe_allow_html=True)
+
+# ----------------------------
+# Bearing Internal Clearance
+# ----------------------------
+
+st.subheader("Bearing Internal Clearance")
+
+col1,col2,col3 = st.columns(3)
+
+with col1:
+    clearance_min = float(st.text_input("Minimum Clearance (mm)", "0.010"))
+
+with col2:
+    clearance_mean = float(st.text_input("Mean Clearance (mm)", "0.020"))
+
+with col3:
+    clearance_max = float(st.text_input("Maximum Clearance (mm)", "0.030"))
+
+
+clearance_table = f"""
+<table style="width:100%; text-align:center; border-collapse:collapse;">
+<tr>
+<th>Minimum Clearance</th>
+<th>Mean Clearance</th>
+<th>Maximum Clearance</th>
+</tr>
+<tr>
+<td>{clearance_min}</td>
+<td>{clearance_mean}</td>
+<td>{clearance_max}</td>
+</tr>
+</table>
+"""
+
+st.markdown(clearance_table, unsafe_allow_html=True)
+
+# ----------------------------
+# Fit Conditions
+# ----------------------------
+
+st.subheader("Fit Conditions")
+
+col1,col2,col3,col4 = st.columns(4)
+
+with col1:
+    bearing_id_min = float(st.text_input("Bearing ID Min (mm)", "40.000"))
+
+with col2:
+    bearing_id_max = float(st.text_input("Bearing ID Max (mm)", "40.020"))
+
+with col3:
+    shaft_min = float(st.text_input("Shaft Min (mm)", "40.010"))
+
+with col4:
+    shaft_max = float(st.text_input("Shaft Max (mm)", "40.030"))
+
+
+col5,col6,col7,col8 = st.columns(4)
+
+with col5:
+    bearing_od_min = float(st.text_input("Bearing OD Min (mm)", "90.000"))
+
+with col6:
+    bearing_od_max = float(st.text_input("Bearing OD Max (mm)", "90.020"))
+
+with col7:
+    housing_min = float(st.text_input("Housing Min (mm)", "89.980"))
+
+with col8:
+    housing_max = float(st.text_input("Housing Max (mm)", "90.000"))
+
+
+fit_table = f"""
+<table style="width:100%; text-align:center; border-collapse:collapse;">
+<tr>
+<th>Bearing ID Min</th>
+<th>Bearing ID Max</th>
+<th>Shaft Min</th>
+<th>Shaft Max</th>
+<th>Bearing OD Min</th>
+<th>Bearing OD Max</th>
+<th>Housing Min</th>
+<th>Housing Max</th>
+</tr>
+<tr>
+<td>{bearing_id_min}</td>
+<td>{bearing_id_max}</td>
+<td>{shaft_min}</td>
+<td>{shaft_max}</td>
+<td>{bearing_od_min}</td>
+<td>{bearing_od_max}</td>
+<td>{housing_min}</td>
+<td>{housing_max}</td>
+</tr>
+</table>
+"""
+
+st.markdown(fit_table, unsafe_allow_html=True)
