@@ -146,11 +146,6 @@ with col1:
     st.markdown("<div style='text-align:center;'>Front View</div>",
                 unsafe_allow_html=True)
     
-
-# ----------------------------
-# Derived Geometry
-# ----------------------------
-
 # ----------------------------
 # Derived Geometry
 # ----------------------------
@@ -169,6 +164,10 @@ col1, col2 = st.columns(2)
 # Pitch Diameter
 # ----------------------------
 
+# ----------------------------
+# Pitch Diameter
+# ----------------------------
+
 with col1:
 
     metric_col, img_col = st.columns([1,1])
@@ -177,30 +176,8 @@ with col1:
         st.metric("Pitch Diameter (mm)", f"{pitch_diameter:.3f}")
 
     with img_col:
+        st.image("pitch_diameter.png", width=200)
 
-        fig, ax = plt.subplots(figsize=(2.2,2.2))
-
-        outer_r = 1.0
-        inner_r = bearing_id / bearing_od
-        pitch_r = (outer_r + inner_r)/2
-
-        # rings
-        ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=2))
-        ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=2))
-
-        # pitch diameter
-        ax.add_patch(plt.Circle((0,0), pitch_r, linestyle="--", color="red"))
-
-        ax.text(0, pitch_r+0.05, "Pitch Diameter",
-                color="red", ha="center", fontsize=7)
-
-        ax.set_xlim(-1.2,1.2)
-        ax.set_ylim(-1.2,1.2)
-
-        ax.set_aspect('equal')
-        ax.axis('off')
-
-        st.pyplot(fig)
 
 
 # ----------------------------
@@ -215,47 +192,7 @@ with col2:
         st.metric("Ball Angular Spacing (deg)", f"{ball_spacing:.3f}")
 
     with img_col:
-
-        fig, ax = plt.subplots(figsize=(2.2,2.2))
-
-        pitch_r = 0.8
-
-        # circle
-        ax.add_patch(plt.Circle((0,0), pitch_r, fill=False))
-
-        # two balls showing spacing
-        angles = [0, np.deg2rad(ball_spacing)]
-
-        for a in angles:
-            x = pitch_r*np.cos(a)
-            y = pitch_r*np.sin(a)
-
-            ax.scatter(x,y)
-
-        # spacing arc
-        theta = np.linspace(0, np.deg2rad(ball_spacing), 100)
-
-        ax.plot(
-            pitch_r*np.cos(theta),
-            pitch_r*np.sin(theta),
-            color="red"
-        )
-
-        ax.text(
-            pitch_r*0.7*np.cos(np.deg2rad(ball_spacing/2)),
-            pitch_r*0.7*np.sin(np.deg2rad(ball_spacing/2)),
-            f"{ball_spacing:.1f}°",
-            color="red",
-            fontsize=7
-        )
-
-        ax.set_xlim(-1.2,1.2)
-        ax.set_ylim(-1.2,1.2)
-
-        ax.set_aspect('equal')
-        ax.axis('off')
-
-        st.pyplot(fig)
+        st.image("Ball angle spacing.png", width=200)
 
 # ----------------------------
 # Bearing Internal Clearance
