@@ -48,7 +48,7 @@ with col1:
     static_rating = bearing_data["Static Co (N)"][0]
 
 # ----------------------------
-# DGBB Front View Diagram
+# Dynamic DGBB Front View
 # ----------------------------
 
 st.subheader("Bearing Visualization")
@@ -62,11 +62,11 @@ with col1:
 
     fig, ax = plt.subplots(figsize=(2,2))
 
-    # Normalized radii for visualization
+    # Normalize geometry so drawing always fits
     outer_r = 1.0
-    inner_r = 0.55
-    ball_r = 0.12
-    pitch_r = 0.78
+    inner_r = bearing_id / bearing_od * 0.9
+    pitch_r = (outer_r + inner_r)/2
+    ball_r = ball_diameter / bearing_od * 0.8
 
     # Outer ring
     ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=2))
@@ -85,16 +85,16 @@ with col1:
         ax.add_patch(ball)
 
     # Center cross
-    ax.axhline(0, linewidth=0.6)
-    ax.axvline(0, linewidth=0.6)
+    ax.axhline(0, linewidth=0.5)
+    ax.axvline(0, linewidth=0.5)
 
     ax.set_xlim(-1.2,1.2)
     ax.set_ylim(-1.2,1.2)
-
     ax.set_aspect('equal')
     ax.axis('off')
 
     st.pyplot(fig)
+    
 # ----------------------------
 # Test Conditions
 # ----------------------------
