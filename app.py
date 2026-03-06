@@ -92,3 +92,38 @@ with col1:
 
 with col2:
     st.metric("Ball Angular Spacing (deg)", round(ball_spacing,3))
+
+# ----------------------------
+# Internal Clearance
+# ----------------------------
+
+st.subheader("Internal Clearance")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    initial_clearance = float(st.text_input("Initial Radial Clearance (mm)", "0.020"))
+
+with col2:
+    fit_reduction = float(st.text_input("Clearance Reduction from Fit (mm)", "0.0124"))
+
+effective_clearance = initial_clearance - fit_reduction
+
+
+# Horizontal table display
+clearance_table = f"""
+<table style="width:100%; text-align:center; border-collapse:collapse;">
+<tr>
+<th>Initial Clearance (mm)</th>
+<th>Fit Reduction (mm)</th>
+<th>Effective Clearance (mm)</th>
+</tr>
+<tr>
+<td>{initial_clearance}</td>
+<td>{fit_reduction}</td>
+<td>{round(effective_clearance,6)}</td>
+</tr>
+</table>
+"""
+
+st.markdown(clearance_table, unsafe_allow_html=True)
