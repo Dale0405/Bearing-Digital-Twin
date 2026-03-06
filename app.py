@@ -164,36 +164,37 @@ with col1:
 with col2:
     st.metric("Ball Angular Spacing (deg)", round(ball_spacing,3))
 
+# ----------------------------
+# Bearing Internal Clearance
+# ----------------------------
+
 st.subheader("Bearing Internal Clearance")
 
-# store defaults in session
-if "clearance_min" not in st.session_state:
-    st.session_state.clearance_min = 0.01000
-    st.session_state.clearance_max = 0.03000
+col1, col2, col3 = st.columns(3)
 
-# compute mean
-clearance_mean = (st.session_state.clearance_min + st.session_state.clearance_max) / 2
+with col1:
+    clearance_min = st.number_input(
+        "Min Clearance (mm)",
+        value=0.01000,
+        format="%.5f"
+    )
 
-clearance_table = pd.DataFrame({
-    "Min Clearance (mm)": [st.session_state.clearance_min],
-    "Mean Clearance (mm)": [clearance_mean],
-    "Max Clearance (mm)": [st.session_state.clearance_max]
-})
+with col2:
+    clearance_max = st.number_input(
+        "Max Clearance (mm)",
+        value=0.03000,
+        format="%.5f"
+    )
 
-clearance_data = st.data_editor(
-    clearance_table,
-    hide_index=True,
-    use_container_width=True,
-    column_config={
-        "Min Clearance (mm)": st.column_config.NumberColumn(format="%.5f"),
-        "Mean Clearance (mm)": st.column_config.NumberColumn(format="%.5f", disabled=True),
-        "Max Clearance (mm)": st.column_config.NumberColumn(format="%.5f")
-    }
-)
+# automatic calculation
+clearance_mean = (clearance_min + clearance_max) / 2
 
-# update session values
-st.session_state.clearance_min = float(clearance_data.iloc[0]["Min Clearance (mm)"])
-st.session_state.clearance_max = float(clearance_data.iloc[0]["Max Clearance (mm)"])
+with col3:
+    st.text_input(
+        "Mean Clearance (mm)",
+        value=f"{clearance_mean:.5f}",
+        disabled=True
+    )
 
 st.subheader("Fit Conditions")
 
