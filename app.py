@@ -48,16 +48,18 @@ st.markdown("<h3 style='text-align:center;'>Bearing Parameters</h3>", unsafe_all
 # Table CSS
 st.markdown("""
 <style>
+
+.param-header{
+    text-align:center;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
 .param-row{
     border:1px solid #555;
     padding:6px;
 }
-.param-header{
-    border:1px solid #555;
-    padding:6px;
-    font-weight:bold;
-    text-align:center;
-}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -67,7 +69,7 @@ left, right = st.columns([1,1])
 # PARAMETER TABLE
 # ----------------------------
 
-with center:
+with left:
 
     h1, h2 = st.columns([1,1])
     h1.markdown('<div class="param-header">Parameters</div>', unsafe_allow_html=True)
