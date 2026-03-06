@@ -158,24 +158,42 @@ ball_spacing = 360 / number_of_balls
 import matplotlib.pyplot as plt
 import numpy as np
 
-col1, col2 = st.columns(2)
+left_col, right_col = st.columns([1.2,1])
 
 # ----------------------------
-# Pitch Diameter
+# LEFT COLUMN (VALUES)
 # ----------------------------
 
-with col1:
+with left_col:
 
-    metric_col, img_col = st.columns([1,1])
+    st.markdown("**Pitch Diameter (mm)**")
+    st.markdown(f"<span style='font-size:18px'>{pitch_diameter:.3f}</span>",
+                unsafe_allow_html=True)
 
-    with metric_col:
-        st.metric("Pitch Diameter (mm)", f"{pitch_diameter:.3f}")
+    st.markdown("---")
 
-    with img_col:
+    st.markdown("**Ball Angular Spacing (deg)**")
+    st.markdown(f"<span style='font-size:18px'>{ball_spacing:.3f}</span>",
+                unsafe_allow_html=True)
 
-        fig, ax = plt.subplots(figsize=(3.5,3.5))
 
-        # transparent background
+
+# ----------------------------
+# RIGHT COLUMN (DIAGRAMS)
+# ----------------------------
+
+with right_col:
+
+    colA, colB = st.columns(2)
+
+    # ----------------------------
+    # Pitch Diameter Diagram
+    # ----------------------------
+
+    with colA:
+
+        fig, ax = plt.subplots(figsize=(2.4,2.4))
+
         fig.patch.set_alpha(0)
         ax.set_facecolor("none")
 
@@ -183,23 +201,20 @@ with col1:
         inner_r = bearing_id / bearing_od
         pitch_r = (outer_r + inner_r)/2
 
-        # OD
         ax.add_patch(plt.Circle((0,0), outer_r,
                                 fill=False,
-                                linewidth=3,
+                                linewidth=2,
                                 color="white"))
 
-        # Pitch Diameter
         ax.add_patch(plt.Circle((0,0), pitch_r,
                                 fill=False,
                                 linestyle=":",
                                 linewidth=2,
                                 color="red"))
 
-        # ID
         ax.add_patch(plt.Circle((0,0), inner_r,
                                 fill=False,
-                                linewidth=3,
+                                linewidth=2,
                                 color="white"))
 
         ax.set_xlim(-1.2,1.2)
@@ -212,20 +227,13 @@ with col1:
 
 
 
-# ----------------------------
-# Ball Angular Spacing
-# ----------------------------
+    # ----------------------------
+    # Ball Spacing Diagram
+    # ----------------------------
 
-with col2:
+    with colB:
 
-    metric_col, img_col = st.columns([1,1])
-
-    with metric_col:
-        st.metric("Ball Angular Spacing (deg)", f"{ball_spacing:.3f}")
-
-    with img_col:
-
-        fig, ax = plt.subplots(figsize=(3,3))
+        fig, ax = plt.subplots(figsize=(2.4,2.4))
 
         fig.patch.set_alpha(0)
         ax.set_facecolor("none")
@@ -234,18 +242,16 @@ with col2:
         inner_r = 0.6
         pitch_r = (outer_r + inner_r)/2
 
-        # rings
         ax.add_patch(plt.Circle((0,0), outer_r,
                                 fill=False,
-                                linewidth=3,
+                                linewidth=2,
                                 color="white"))
 
         ax.add_patch(plt.Circle((0,0), inner_r,
                                 fill=False,
-                                linewidth=3,
+                                linewidth=2,
                                 color="white"))
 
-        # two balls showing spacing
         angles = [0, np.deg2rad(ball_spacing)]
 
         ball_r = 0.08
@@ -261,7 +267,6 @@ with col2:
 
             ax.add_patch(ball)
 
-        # angular arc
         theta = np.linspace(0, np.deg2rad(ball_spacing), 100)
 
         ax.plot(
@@ -275,9 +280,9 @@ with col2:
             pitch_r*0.7*np.cos(np.deg2rad(ball_spacing/2)),
             pitch_r*0.7*np.sin(np.deg2rad(ball_spacing/2)),
             f"{ball_spacing:.1f}°",
-            color="white",
+            color="red",
             fontsize=8,
-            ha="right"
+            ha="center"
         )
 
         ax.set_xlim(-1.2,1.2)
@@ -287,6 +292,7 @@ with col2:
         ax.axis("off")
 
         st.pyplot(fig)
+        
 # ----------------------------
 # Bearing Internal Clearance
 # ----------------------------
