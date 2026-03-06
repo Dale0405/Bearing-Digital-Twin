@@ -94,7 +94,27 @@ with col1:
                           linewidth=1)
 
         ax.add_patch(ball)
+# ------------------------
+# Broken Line Labels
+# ------------------------
 
+# OD (Upper Left)
+ax.plot([-0.7, -1.2], [0.7, 1.05], linestyle="--", color="red", linewidth=1)
+ax.scatter([-0.7], [0.7], color="red", s=10)
+ax.text(-1.25, 1.08, f"OD = {bearing_od} mm", color="red", fontsize=8, ha="right")
+
+# ID (Lower Left)
+ax.plot([-0.4, -1.2], [-0.4, -1.0], linestyle="--", color="red", linewidth=1)
+ax.scatter([-0.4], [-0.4], color="red", s=10)
+ax.text(-1.25, -1.03, f"ID = {bearing_id} mm", color="red", fontsize=8, ha="right")
+
+# Ball (Middle Right)
+bx = pitch_r*np.cos(angles[0])
+by = pitch_r*np.sin(angles[0])
+
+ax.plot([bx+ball_r, 1.15], [by, by], linestyle="--", color="red", linewidth=1)
+ax.scatter([bx+ball_r], [by], color="red", s=10)
+ax.text(1.18, by, f"Ball = {ball_diameter} mm", color="red", fontsize=8, va="center")
     
 # ----------------------------
 # Test Conditions
