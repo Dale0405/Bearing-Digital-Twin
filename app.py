@@ -166,10 +166,11 @@ with col2:
 
 st.subheader("Bearing Internal Clearance")
 
+# Default values
 clearance_table = pd.DataFrame({
-    "Min Clearance (mm)": [0.010],
-    "Mean Clearance (mm)": [0.020],
-    "Max Clearance (mm)": [0.030]
+    "Min Clearance (mm)": [0.01000],
+    "Mean Clearance (mm)": [0.02000],
+    "Max Clearance (mm)": [0.03000]
 })
 
 clearance_data = st.data_editor(
@@ -177,18 +178,21 @@ clearance_data = st.data_editor(
     hide_index=True,
     use_container_width=True,
     column_config={
-        "Mean Clearance (mm)": st.column_config.NumberColumn(disabled=True)
+        "Min Clearance (mm)": st.column_config.NumberColumn(format="%.5f"),
+        "Mean Clearance (mm)": st.column_config.NumberColumn(format="%.5f", disabled=True),
+        "Max Clearance (mm)": st.column_config.NumberColumn(format="%.5f")
     }
 )
 
+# Read edited values
 clearance_min = float(clearance_data.iloc[0]["Min Clearance (mm)"])
 clearance_max = float(clearance_data.iloc[0]["Max Clearance (mm)"])
 
-# Mean calculated automatically
+# Compute mean
 clearance_mean = (clearance_min + clearance_max) / 2
 
-# Update dataframe display
-clearance_data.at[0, "Mean Clearance (mm)"] = clearance_mean
+# Display computed mean
+st.write(f"Mean Clearance (mm): **{clearance_mean:.5f}**")
 
 st.subheader("Fit Conditions")
 
