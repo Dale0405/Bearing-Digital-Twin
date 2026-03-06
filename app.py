@@ -47,13 +47,29 @@ st.subheader("Bearing Parameters")
 
 col1, col2 = st.columns([1.2,1])
 
-# LEFT SIDE (PARAMETER TABLE)
-
 with col1:
 
-    p1, p2 = st.columns(2)
+    st.markdown("""
+    <style>
+    .param-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .param-table td {
+        border: 1px solid #444;
+        padding: 6px;
+        text-align: center;
+    }
+    .param-name {
+        text-align: left;
+        font-weight: 600;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    with p1:
+    c1, c2 = st.columns([2,2])
+
+    with c1:
         st.markdown("**ID (mm)**")
         st.markdown("**OD (mm)**")
         st.markdown("**Width (mm)**")
@@ -62,19 +78,18 @@ with col1:
         st.markdown("**Dynamic C (N)**")
         st.markdown("**Static Co (N)**")
 
-    with p2:
-        bearing_id = st.number_input("", value=40.0)
-        bearing_od = st.number_input("", value=90.0)
-        bearing_width = st.number_input("", value=23.0)
-        ball_diameter = st.number_input("", value=15.875)
-        number_of_balls = st.number_input("", value=8)
-        dynamic_rating = st.number_input("", value=31500)
-        static_rating = st.number_input("", value=24000)
+    with c2:
+        bearing_id = st.number_input("", value=40.0, label_visibility="collapsed")
+        bearing_od = st.number_input("", value=90.0, label_visibility="collapsed")
+        bearing_width = st.number_input("", value=23.0, label_visibility="collapsed")
+        ball_diameter = st.number_input("", value=15.875, label_visibility="collapsed")
+        number_of_balls = st.number_input("", value=8, label_visibility="collapsed")
+        dynamic_rating = st.number_input("", value=31500, label_visibility="collapsed")
+        static_rating = st.number_input("", value=24000, label_visibility="collapsed")
 
-
-# RIGHT SIDE (VISUALIZATION)
 
 with col2:
+
     st.subheader("Bearing Visualization")
 
 # ----------------------------
