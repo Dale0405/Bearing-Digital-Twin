@@ -158,117 +158,135 @@ ball_spacing = 360 / number_of_balls
 import matplotlib.pyplot as plt
 import numpy as np
 
-row1_col1, row1_col2 = st.columns([1,1])
-row2_col1, row2_col2 = st.columns([1,1])
+col1, col2 = st.columns(2)
 
 # ----------------------------
-# Pitch Diameter Row
+# Pitch Diameter
 # ----------------------------
 
-with row1_col1:
+with col1:
 
-    st.markdown(
-        f"""
-        <div style="text-align:center">
-        <b>Pitch Diameter (mm)</b><br>
-        <span style="font-size:16px">{pitch_diameter:.3f}</span>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    metric_col, img_col = st.columns([1,1])
 
-with row1_col2:
+    with metric_col:
+        st.metric("Pitch Diameter (mm)", f"{pitch_diameter:.3f}")
 
-    fig, ax = plt.subplots(figsize=(0.3,0.3))
+    with img_col:
 
-    fig.patch.set_alpha(0)
-    ax.set_facecolor("none")
+        fig, ax = plt.subplots(figsize=(2.4,2.4))
 
-    outer_r = 1.0
-    inner_r = bearing_id / bearing_od
-    pitch_r = (outer_r + inner_r)/2
+        # transparent background
+        fig.patch.set_alpha(0)
+        ax.set_facecolor("none")
 
-    ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=2, color="white"))
-    ax.add_patch(plt.Circle((0,0), pitch_r, fill=False, linestyle=":", linewidth=2, color="red"))
-    ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=2, color="white"))
+        outer_r = 1.0
+        inner_r = bearing_id / bearing_od
+        pitch_r = (outer_r + inner_r)/2
 
-    ax.set_xlim(-1.2,1.2)
-    ax.set_ylim(-1.2,1.2)
+        # OD
+        ax.add_patch(plt.Circle((0,0), outer_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
 
-    ax.set_aspect("equal")
-    ax.axis("off")
+        # Pitch Diameter
+        ax.add_patch(plt.Circle((0,0), pitch_r,
+                                fill=False,
+                                linestyle=":",
+                                linewidth=2,
+                                color="red"))
 
-    st.pyplot(fig)
+        # ID
+        ax.add_patch(plt.Circle((0,0), inner_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
+
+        ax.set_xlim(-1.2,1.2)
+        ax.set_ylim(-1.2,1.2)
+
+        ax.set_aspect("equal")
+        ax.axis("off")
+
+        st.pyplot(fig)
 
 
 
 # ----------------------------
-# Ball Angular Spacing Row
+# Ball Angular Spacing
 # ----------------------------
 
-with row2_col1:
+with col2:
 
-    st.markdown(
-        f"""
-        <div style="text-align:center">
-        <b>Ball Angular Spacing (deg)</b><br>
-        <span style="font-size:16px">{ball_spacing:.3f}</span>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    metric_col, img_col = st.columns([1,1])
 
-with row2_col2:
+    with metric_col:
+        st.metric("Ball Angular Spacing (deg)", f"{ball_spacing:.3f}")
 
-    fig, ax = plt.subplots(figsize=(1.8,1.8))
+    with img_col:
 
-    fig.patch.set_alpha(0)
-    ax.set_facecolor("none")
+        fig, ax = plt.subplots(figsize=(2.4,2.4))
 
-    outer_r = 1.0
-    inner_r = 0.6
-    pitch_r = (outer_r + inner_r)/2
+        fig.patch.set_alpha(0)
+        ax.set_facecolor("none")
 
-    ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=2, color="white"))
-    ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=2, color="white"))
+        outer_r = 1.0
+        inner_r = 0.6
+        pitch_r = (outer_r + inner_r)/2
 
-    angles = [0, np.deg2rad(ball_spacing)]
+        # rings
+        ax.add_patch(plt.Circle((0,0), outer_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
 
-    ball_r = 0.08
+        ax.add_patch(plt.Circle((0,0), inner_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
 
-    for a in angles:
+        # two balls showing spacing
+        angles = [0, np.deg2rad(ball_spacing)]
 
-        x = pitch_r*np.cos(a)
-        y = pitch_r*np.sin(a)
+        ball_r = 0.08
 
-        ball = plt.Circle((x,y), ball_r, color="#cfd3d6", ec="#222222")
-        ax.add_patch(ball)
+        for a in angles:
 
-    theta = np.linspace(0, np.deg2rad(ball_spacing), 100)
+            x = pitch_r*np.cos(a)
+            y = pitch_r*np.sin(a)
 
-    ax.plot(
-        pitch_r*np.cos(theta),
-        pitch_r*np.sin(theta),
-        color="red",
-        linewidth=2
-    )
+            ball = plt.Circle((x,y), ball_r,
+                              color="#cfd3d6",
+                              ec="#222222")
 
-    ax.text(
-        pitch_r*0.7*np.cos(np.deg2rad(ball_spacing/2)),
-        pitch_r*0.7*np.sin(np.deg2rad(ball_spacing/2)),
-        f"{ball_spacing:.1f}°",
-        color="red",
-        fontsize=7,
-        ha="center"
-    )
+            ax.add_patch(ball)
 
-    ax.set_xlim(-1.2,1.2)
-    ax.set_ylim(-1.2,1.2)
+        # angular arc
+        theta = np.linspace(0, np.deg2rad(ball_spacing), 100)
 
-    ax.set_aspect("equal")
-    ax.axis("off")
+        ax.plot(
+            pitch_r*np.cos(theta),
+            pitch_r*np.sin(theta),
+            color="red",
+            linewidth=2
+        )
 
-    st.pyplot(fig)
+        ax.text(
+            pitch_r*0.7*np.cos(np.deg2rad(ball_spacing/2)),
+            pitch_r*0.7*np.sin(np.deg2rad(ball_spacing/2)),
+            f"{ball_spacing:.1f}°",
+            color="red",
+            fontsize=8,
+            ha="center"
+        )
+
+        ax.set_xlim(-1.2,1.2)
+        ax.set_ylim(-1.2,1.2)
+
+        ax.set_aspect("equal")
+        ax.axis("off")
+
+        st.pyplot(fig)
 # ----------------------------
 # Test Conditions
 # ----------------------------
