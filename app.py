@@ -315,35 +315,118 @@ with col3:
         value=f"{clearance_mean:.5f}",
         disabled=True
     )
+# ----------------------------
+# Fit Conditions
+# ----------------------------
+
 st.subheader("Fit Conditions")
 
-fit_table = pd.DataFrame({
-    "Bearing ID Min": [40.000],
-    "Bearing ID Max": [40.020],
-    "Shaft Min": [40.010],
-    "Shaft Max": [40.030],
-    "Bearing OD Min": [90.000],
-    "Bearing OD Max": [90.020],
-    "Housing Min": [89.980],
-    "Housing Max": [90.000]
-})
+# Row 1
+col1, col2, col3, col4 = st.columns(4)
 
-fit_data = st.data_editor(
-    fit_table,
-    num_rows="fixed",
-    use_container_width=True
-)
+with col1:
+    bearing_id_min = st.number_input(
+        "Bearing ID Min (mm)",
+        value=40.00000,
+        format="%.5f"
+    )
 
-bearing_id_min = fit_data["Bearing ID Min"][0]
-bearing_id_max = fit_data["Bearing ID Max"][0]
-shaft_min = fit_data["Shaft Min"][0]
-shaft_max = fit_data["Shaft Max"][0]
+with col2:
+    bearing_id_max = st.number_input(
+        "Bearing ID Max (mm)",
+        value=40.02000,
+        format="%.5f"
+    )
 
-bearing_od_min = fit_data["Bearing OD Min"][0]
-bearing_od_max = fit_data["Bearing OD Max"][0]
-housing_min = fit_data["Housing Min"][0]
-housing_max = fit_data["Housing Max"][0]
+with col3:
+    shaft_min = st.number_input(
+        "Shaft Min (mm)",
+        value=40.01000,
+        format="%.5f"
+    )
 
+with col4:
+    shaft_max = st.number_input(
+        "Shaft Max (mm)",
+        value=40.03000,
+        format="%.5f"
+    )
+
+
+# Row 2
+col5, col6, col7, col8 = st.columns(4)
+
+with col5:
+    bearing_od_min = st.number_input(
+        "Bearing OD Min (mm)",
+        value=90.00000,
+        format="%.5f"
+    )
+
+with col6:
+    bearing_od_max = st.number_input(
+        "Bearing OD Max (mm)",
+        value=90.02000,
+        format="%.5f"
+    )
+
+with col7:
+    housing_min = st.number_input(
+        "Housing Min (mm)",
+        value=89.98000,
+        format="%.5f"
+    )
+
+with col8:
+    housing_max = st.number_input(
+        "Housing Max (mm)",
+        value=90.00000,
+        format="%.5f"
+    )
+
+
+# ----------------------------
+# Calculations
+# ----------------------------
+
+# Shaft interference
+min_shaft_fit = shaft_min - bearing_id_max
+max_shaft_fit = shaft_max - bearing_id_min
+
+effective_shaft_interference = (min_shaft_fit + max_shaft_fit) / 2
+
+# RIC reduction assumption
+ric_reduction = effective_shaft_interference * 0.8
+
+effective_radial_clearance = clearance_mean - ric_reduction
+
+
+# ----------------------------
+# Results
+# ----------------------------
+
+st.markdown("---")
+st.subheader("Fit Results")
+
+colA, colB, colC = st.columns(3)
+
+with colA:
+    st.metric("Minimum Shaft Fit (mm)", f"{min_shaft_fit:.5f}")
+
+with colB:
+    st.metric("Maximum Shaft Fit (mm)", f"{max_shaft_fit:.5f}")
+
+with colC:
+    st.metric("Effective Shaft Interference (mm)", f"{effective_shaft_interference:.5f}")
+
+
+colD, colE = st.columns(2)
+
+with colD:
+    st.metric("RIC Reduction due to Shaft Fit (mm)", f"{ric_reduction:.5f}")
+
+with colE:
+    st.metric("Effective Radial Clearance (mm)", f"{effective_radial_clearance:.5f}")
 # ----------------------------
 # Test Conditions
 # ----------------------------
