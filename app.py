@@ -146,20 +146,6 @@ with col1:
     st.markdown("<div style='text-align:center;'>Front View</div>",
                 unsafe_allow_html=True)
     
-# ----------------------------
-# Test Conditions
-# ----------------------------
-st.header("Test Conditions")
-
-radial_load = float(st.text_input("Radial Load (N)", "14000"))
-axial_load = float(st.text_input("Axial Load (N)", "0"))
-rpm = float(st.text_input("RPM", "3000"))
-ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
-
-lubrication = st.selectbox(
-    "Lubrication Type",
-    ["Grease", "Oil"]
-)
 
 # ----------------------------
 # Derived Geometry
@@ -224,3 +210,18 @@ bearing_od_min = fit_data["Bearing OD Min"][0]
 bearing_od_max = fit_data["Bearing OD Max"][0]
 housing_min = fit_data["Housing Min"][0]
 housing_max = fit_data["Housing Max"][0]
+
+# ----------------------------
+# Test Conditions
+# ----------------------------
+st.header("Test Conditions")
+
+radial_load = float(st.text_input("Radial Load (N)", "14000"))
+axial_load = float(st.text_input("Axial Load (N)", "0"))
+rpm = float(st.text_input("RPM", "3000"))
+ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
+
+lubrication = st.selectbox(
+    "Lubrication Type",
+    ["Grease", "Oil"]
+)
