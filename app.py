@@ -184,69 +184,86 @@ fig2, ax2 = plt.subplots(figsize=(6,6))
 fig2.patch.set_alpha(0)
 ax2.set_facecolor("none")
 
-# normalized geometry
+# same scaling system as front view
 outer_r = 1.0
 inner_r = bearing_id / bearing_od
-width = bearing_width / bearing_od * 1.5
 ball_r = ball_diameter / bearing_od * 0.5
 
-# outer ring
-ax2.add_patch(plt.Rectangle(
-    (-width/2, -outer_r),
-    width,
-    outer_r-inner_r,
-    fill=False,
-    linewidth=3,
-    edgecolor="#6f6f6f"
-))
+# distance from raceway center
+raceway_center = (outer_r + inner_r) / 2
 
-ax2.add_patch(plt.Rectangle(
-    (-width/2, inner_r),
-    width,
-    outer_r-inner_r,
-    fill=False,
-    linewidth=3,
-    edgecolor="#6f6f6f"
-))
+# ----------------------------
+# Outer ring
+# ----------------------------
 
-# inner ring
-ax2.add_patch(plt.Rectangle(
-    (-width/2, -inner_r),
-    width,
-    inner_r*2,
-    fill=False,
-    linewidth=3,
-    edgecolor="#6f6f6f"
-))
+ax2.plot([-0.35,0.35],[outer_r,outer_r],color="#6f6f6f",linewidth=3)
+ax2.plot([-0.35,0.35],[-outer_r,-outer_r],color="#6f6f6f",linewidth=3)
 
-# rolling element
-ball_y = inner_r + (outer_r-inner_r)/2
+# outer raceway grooves
+theta = np.linspace(np.pi/2,3*np.pi/2,100)
+x = ball_r*np.cos(theta)
+y = ball_r*np.sin(theta)
 
-ball = plt.Circle(
-    (0, ball_y),
+ax2.plot(x,y+raceway_center,color="#6f6f6f",linewidth=2)
+ax2.plot(x,y-raceway_center,color="#6f6f6f",linewidth=2)
+
+# ----------------------------
+# Inner ring
+# ----------------------------
+
+ax2.plot([-0.35,0.35],[inner_r,inner_r],color="#6f6f6f",linewidth=3)
+ax2.plot([-0.35,0.35],[-inner_r,-inner_r],color="#6f6f6f",linewidth=3)
+
+# inner raceway grooves
+theta2 = np.linspace(-np.pi/2,np.pi/2,100)
+x2 = ball_r*np.cos(theta2)
+y2 = ball_r*np.sin(theta2)
+
+ax2.plot(x2,y2+raceway_center,color="#6f6f6f",linewidth=2)
+ax2.plot(x2,y2-raceway_center,color="#6f6f6f",linewidth=2)
+
+# ----------------------------
+# Rolling elements
+# ----------------------------
+
+ball_top = plt.Circle(
+    (0,raceway_center),
     ball_r,
     color="#cfd3d6",
     ec="#2b2b2b",
     linewidth=1
 )
 
-ax2.add_patch(ball)
+ball_bottom = plt.Circle(
+    (0,-raceway_center),
+    ball_r,
+    color="#cfd3d6",
+    ec="#2b2b2b",
+    linewidth=1
+)
+
+ax2.add_patch(ball_top)
+ax2.add_patch(ball_bottom)
 
 # ----------------------------
-# WIDTH LABEL (far right)
+# Width dimension
 # ----------------------------
 
-ax2.plot([width/2, 1.1], [-outer_r-0.2, -outer_r-0.2],
-         linestyle="--", color="red", linewidth=0.7)
+width = bearing_width / bearing_od * 0.8
 
-ax2.plot([width/2, width/2], [-outer_r, -outer_r-0.2],
-         linestyle="--", color="red", linewidth=0.7)
+ax2.plot([-width/2,-width/2],[-outer_r-0.15,-outer_r-0.35],linestyle="--",color="red",linewidth=0.7)
+ax2.plot([width/2,width/2],[-outer_r-0.15,-outer_r-0.35],linestyle="--",color="red",linewidth=0.7)
+ax2.plot([-width/2,width/2],[-outer_r-0.35,-outer_r-0.35],linestyle="--",color="red",linewidth=0.7)
 
-ax2.text(1.15, -outer_r-0.22,
-         f"Width = {bearing_width} mm",
-         color="white",
-         fontsize=18,
-         ha="left")
+ax2.text(
+    1.2,
+    -outer_r-0.35,
+    f"{bearing_width} mm",
+    color="white",
+    fontsize=18,
+    ha="left",
+    va="center"
+)
 
 # axes
 ax2.set_xlim(-1.4,1.4)
