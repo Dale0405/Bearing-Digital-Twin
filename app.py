@@ -48,15 +48,63 @@ with col1:
     static_rating = bearing_data["Static Co (N)"][0]
 
 # ----------------------------
-# Bearing Visualization
+# Dynamic DGBB Visualization
 # ----------------------------
 
 st.subheader("Bearing Visualization")
 
+import matplotlib.pyplot as plt
+import numpy as np
+
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.image("bearing_reference.png", width=220)
+
+    fig, ax = plt.subplots(figsize=(2,2))
+
+    # Normalize geometry
+    outer_r = 1.0
+    inner_r = bearing_id / bearing_od
+    pitch_r = (outer_r + inner_r)/2
+    ball_r = ball_diameter / bearing_od * 0.5
+
+    # Outer ring
+    ax.add_patch(plt.Circle((0,0), outer_r, color="#6f6f6f", fill=False, linewidth=3))
+    ax.add_patch(plt.Circle((0,0), outer_r-0.08, color="#6f6f6f", fill=False, linewidth=2))
+
+    # Inner ring
+    ax.add_patch(plt.Circle((0,0), inner_r, color="#6f6f6f", fill=False, linewidth=3))
+    ax.add_patch(plt.Circle((0,0), inner_r+0.08, color="#6f6f6f", fill=False, linewidth=2))
+
+    # Balls
+    angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
+
+    for a in angles:
+
+        x = pitch_r*np.cos(a)
+        y = pitch_r*np.sin(a)
+
+        ball = plt.Circle(
+            (x,y),
+            ball_r,
+            color="#bfc3c6",
+            ec="#2c2c2c",
+            linewidth=1
+        )
+
+        ax.add_patch(ball)
+
+    # Center lines
+    ax.axhline(0, linewidth=0.4, color="gray")
+    ax.axvline(0, linewidth=0.4, color="gray")
+
+    ax.set_xlim(-1.2,1.2)
+    ax.set_ylim(-1.2,1.2)
+
+    ax.set_aspect('equal')
+    ax.axis('off')
+
+    st.pyplot(fig)
     
 # ----------------------------
 # Test Conditions
