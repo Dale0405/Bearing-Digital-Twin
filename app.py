@@ -4,6 +4,18 @@ import pandas as pd
 
 st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
+# Create table first
+bearing_table = pd.DataFrame({
+    "ID (mm)": [40.0],
+    "OD (mm)": [90.0],
+    "Width (mm)": [23.0],
+    "Ball Dia (mm)": [15.875],
+    "Balls": [8],
+    "Dynamic C (N)": [31500],
+    "Static Co (N)": [24000]
+})
+
+# Then call data editor
 bearing_data = st.data_editor(
     bearing_table,
     hide_index=True,
@@ -16,6 +28,8 @@ bearing_data = st.data_editor(
         "Balls": st.column_config.NumberColumn(width="medium"),
         "Dynamic C (N)": st.column_config.NumberColumn(width="medium"),
         "Static Co (N)": st.column_config.NumberColumn(width="medium")
+    }
+)
     }
 )
 
