@@ -34,7 +34,7 @@ ball_diameter = float(bearing_data.iloc[0]["Ball Dia (mm)"])
 number_of_balls = int(bearing_data.iloc[0]["Balls"])
 dynamic_rating = float(bearing_data.iloc[0]["Dynamic C (N)"])
 static_rating = float(bearing_data.iloc[0]["Static Co (N)"])
-)
+
 
 # ----------------------------
 # Dynamic DGBB Visualization
