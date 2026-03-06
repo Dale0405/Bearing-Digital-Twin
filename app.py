@@ -158,104 +158,110 @@ ball_spacing = 360 / number_of_balls
 import matplotlib.pyplot as plt
 import numpy as np
 
-left_col, right_col = st.columns([1.2,1])
+# Create two rows instead of one row
+row1_col1, row1_col2 = st.columns([1.2,1])
+row2_col1, row2_col2 = st.columns([1.2,1])
+
 
 # ----------------------------
-# LEFT COLUMN (VALUES)
+# Pitch Diameter
 # ----------------------------
 
-with left_col:
+with row1_col1:
 
     st.markdown("**Pitch Diameter (mm)**")
-    st.markdown(f"<span style='font-size:18px'>{pitch_diameter:.3f}</span>",
-                unsafe_allow_html=True)
+    st.markdown(
+        f"<span style='font-size:18px'>{pitch_diameter:.3f}</span>",
+        unsafe_allow_html=True
+    )
 
-    st.markdown("---")
+with row1_col2:
+
+    fig, ax = plt.subplots(figsize=(2.4,2.4))
+
+    fig.patch.set_alpha(0)
+    ax.set_facecolor("none")
+
+    outer_r = 1.0
+    inner_r = bearing_id / bearing_od
+    pitch_r = (outer_r + inner_r)/2
+
+    ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=2, color="white"))
+    ax.add_patch(plt.Circle((0,0), pitch_r, fill=False, linestyle=":", linewidth=2, color="red"))
+    ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=2, color="white"))
+
+    ax.set_xlim(-1.2,1.2)
+    ax.set_ylim(-1.2,1.2)
+
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+    st.pyplot(fig)
+
+
+# ----------------------------
+# Ball Angular Spacing
+# ----------------------------
+
+with row2_col1:
 
     st.markdown("**Ball Angular Spacing (deg)**")
-    st.markdown(f"<span style='font-size:18px'>{ball_spacing:.3f}</span>",
-                unsafe_allow_html=True)
+    st.markdown(
+        f"<span style='font-size:18px'>{ball_spacing:.3f}</span>",
+        unsafe_allow_html=True
+    )
 
+with row2_col2:
 
-
-# ----------------------------
-# RIGHT COLUMN (DIAGRAMS)
-# ----------------------------
-
-with right_col:
-
-    # Pitch Diameter Diagram
     fig, ax = plt.subplots(figsize=(2.4,2.4))
-    ...
+
+    fig.patch.set_alpha(0)
+    ax.set_facecolor("none")
+
+    outer_r = 1.0
+    inner_r = 0.6
+    pitch_r = (outer_r + inner_r)/2
+
+    ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=2, color="white"))
+    ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=2, color="white"))
+
+    angles = [0, np.deg2rad(ball_spacing)]
+
+    ball_r = 0.08
+
+    for a in angles:
+
+        x = pitch_r*np.cos(a)
+        y = pitch_r*np.sin(a)
+
+        ball = plt.Circle((x,y), ball_r, color="#cfd3d6", ec="#222222")
+        ax.add_patch(ball)
+
+    theta = np.linspace(0, np.deg2rad(ball_spacing), 100)
+
+    ax.plot(
+        pitch_r*np.cos(theta),
+        pitch_r*np.sin(theta),
+        color="red",
+        linewidth=2
+    )
+
+    ax.text(
+        pitch_r*0.7*np.cos(np.deg2rad(ball_spacing/2)),
+        pitch_r*0.7*np.sin(np.deg2rad(ball_spacing/2)),
+        f"{ball_spacing:.1f}°",
+        color="red",
+        fontsize=8,
+        ha="center"
+    )
+
+    ax.set_xlim(-1.2,1.2)
+    ax.set_ylim(-1.2,1.2)
+
+    ax.set_aspect("equal")
+    ax.axis("off")
+
     st.pyplot(fig)
-
-    st.write("")  # spacing line
-
-    # Ball Angular Spacing Diagram
-    fig, ax = plt.subplots(figsize=(2.4,2.4))
-    ...
-    st.pyplot(fig)
-        
-# ----------------------------
-# Bearing Internal Clearance
-# ----------------------------
-
-st.subheader("Bearing Internal Clearance")
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    clearance_min = st.number_input(
-        "Min Clearance (mm)",
-        value=0.01000,
-        format="%.5f"
-    )
-
-with col2:
-    clearance_max = st.number_input(
-        "Max Clearance (mm)",
-        value=0.03000,
-        format="%.5f"
-    )
-
-# automatic calculation
-clearance_mean = (clearance_min + clearance_max) / 2
-
-with col3:
-    st.text_input(
-        "Mean Clearance (mm)",
-        value=f"{clearance_mean:.5f}",
-        disabled=True
-    )
-
-st.subheader("Fit Conditions")
-
-fit_table = pd.DataFrame({
-    "Bearing ID Min": [40.000],
-    "Bearing ID Max": [40.020],
-    "Shaft Min": [40.010],
-    "Shaft Max": [40.030],
-    "Bearing OD Min": [90.000],
-    "Bearing OD Max": [90.020],
-    "Housing Min": [89.980],
-    "Housing Max": [90.000]
-})
-
-fit_data = st.data_editor(
-    fit_table,
-    num_rows="fixed",
-    use_container_width=True
-)
-
-bearing_id_min = fit_data["Bearing ID Min"][0]
-bearing_id_max = fit_data["Bearing ID Max"][0]
-shaft_min = fit_data["Shaft Min"][0]
-shaft_max = fit_data["Shaft Max"][0]
-
-bearing_od_min = fit_data["Bearing OD Min"][0]
-bearing_od_max = fit_data["Bearing OD Max"][0]
-housing_min = fit_data["Housing Min"][0]
-housing_max = fit_data["Housing Max"][0]
 
 # ----------------------------
 # Test Conditions
