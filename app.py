@@ -114,23 +114,56 @@ with right:
     import numpy as np
 
     # ----------------------------
-    # FRONT VIEW
-    # ----------------------------
+# FRONT VIEW
+# ----------------------------
 
-    fig, ax = plt.subplots(figsize=(6,6))
+fig, ax = plt.subplots(figsize=(6,6))
 
-    fig.patch.set_alpha(0)
-    ax.set_facecolor("none")
+fig.patch.set_alpha(0)
+ax.set_facecolor("none")
 
-    outer_r = 1.0
-    inner_r = bearing_id / bearing_od
-    pitch_r = (outer_r + inner_r)/2
-    ball_r = ball_diameter / bearing_od * 0.5
+outer_r = 1.0
+inner_r = bearing_id / bearing_od
+pitch_r = (outer_r + inner_r)/2
+ball_r = ball_diameter / bearing_od * 0.5
 
-    ...
-    st.pyplot(fig)
+# outer ring
+ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#6f6f6f"))
+ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#6f6f6f"))
 
-    st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
+# inner ring
+ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#6f6f6f"))
+ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#6f6f6f"))
+
+# balls
+angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
+
+for a in angles:
+    x = pitch_r*np.cos(a)
+    y = pitch_r*np.sin(a)
+
+    ball = plt.Circle(
+        (x,y),
+        ball_r,
+        color="#cfd3d6",
+        ec="#2b2b2b",
+        linewidth=1
+    )
+
+    ax.add_patch(ball)
+
+ax.set_xlim(-1.4,1.4)
+ax.set_ylim(-1.4,1.4)
+
+ax.set_aspect('equal')
+ax.axis('off')
+
+st.pyplot(fig)
+
+st.markdown(
+    "<div style='text-align:center;'>Front View</div>",
+    unsafe_allow_html=True
+)
 
 
     # ----------------------------
