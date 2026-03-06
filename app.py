@@ -80,13 +80,13 @@ bearing_data = st.data_editor(
 )
 
 # Extract values
-bearing_id = float(bearing_data.iloc[0]["ID<br>(mm)"])
-bearing_od = float(bearing_data.iloc[0]["OD<br>(mm)"])
-bearing_width = float(bearing_data.iloc[0]["Width<br>(mm)"])
-ball_diameter = float(bearing_data.iloc[0]["Ball Dia<br>(mm)"])
+bearing_id = float(bearing_data.iloc[0]["ID(mm)"])
+bearing_od = float(bearing_data.iloc[0]["OD(mm)"])
+bearing_width = float(bearing_data.iloc[0]["Width(mm)"])
+ball_diameter = float(bearing_data.iloc[0]["Ball Dia(mm)"])
 number_of_balls = int(bearing_data.iloc[0]["Balls"])
-dynamic_rating = float(bearing_data.iloc[0]["Dynamic C<br>(N)"])
-static_rating = float(bearing_data.iloc[0]["Static Co<br>(N)"])
+dynamic_rating = float(bearing_data.iloc[0]["Dynamic Cr(N)"])
+static_rating = float(bearing_data.iloc[0]["Static Co(N)"])
 
 # ----------------------------
 # Dynamic DGBB Visualization
