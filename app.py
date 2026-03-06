@@ -4,20 +4,32 @@ import pandas as pd
 
 st.title("BEARING TESTING DIGITAL TWIN")
 
-# ----------------------------
-# Bearing Parameters
-# ----------------------------
-st.sidebar.header("Bearing Parameters")
+st.header("Bearing Parameters")
 
-bearing_id = float(st.sidebar.text_input("Bearing ID (mm)", "40"))
-bearing_od = float(st.sidebar.text_input("Bearing OD (mm)", "90"))
-bearing_width = float(st.sidebar.text_input("Bearing Width (mm)", "23"))
+col1,col2,col3,col4 = st.columns(4)
 
-ball_diameter = float(st.sidebar.text_input("Ball Diameter (mm)", "15.875"))
-number_of_balls = int(st.sidebar.text_input("Number of Balls", "8"))
+with col1:
+    bearing_id = float(st.text_input("Bearing ID (mm)", "40"))
 
-dynamic_rating = float(st.sidebar.text_input("Dynamic Load Rating C (N)", "31500"))
-static_rating = float(st.sidebar.text_input("Static Load Rating Co (N)", "24000"))
+with col2:
+    bearing_od = float(st.text_input("Bearing OD (mm)", "90"))
+
+with col3:
+    bearing_width = float(st.text_input("Bearing Width (mm)", "23"))
+
+with col4:
+    ball_diameter = float(st.text_input("Ball Diameter (mm)", "15.875"))
+
+col5,col6,col7 = st.columns(3)
+
+with col5:
+    number_of_balls = int(st.text_input("Number of Balls", "8"))
+
+with col6:
+    dynamic_rating = float(st.text_input("Dynamic Load Rating C (N)", "31500"))
+
+with col7:
+    static_rating = float(st.text_input("Static Load Rating Co (N)", "24000"))
 
 # ----------------------------
 # Test Conditions
