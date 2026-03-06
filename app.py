@@ -20,32 +20,28 @@ bearing_table = pd.DataFrame({
     "Static Co (N)": [24000]
 })
 
-col1, col2 = st.columns([3,2])
+bearing_data = st.data_editor(
+    bearing_table,
+    hide_index=True,
+    use_container_width=True,
+    column_config={
+        "ID (mm)": st.column_config.NumberColumn(width="large"),
+        "OD (mm)": st.column_config.NumberColumn(width="large"),
+        "Width (mm)": st.column_config.NumberColumn(width="large"),
+        "Ball Dia (mm)": st.column_config.NumberColumn(width="large"),
+        "Balls": st.column_config.NumberColumn(width="large"),
+        "Dynamic C (N)": st.column_config.NumberColumn(width="large"),
+        "Static Co (N)": st.column_config.NumberColumn(width="large")
+    }
+)
 
-with col1:
-
-    bearing_data = st.data_editor(
-        bearing_table,
-        hide_index=True,
-        use_container_width=True,
-        column_config={
-            "ID (mm)": st.column_config.NumberColumn(),
-            "OD (mm)": st.column_config.NumberColumn(),
-            "Width (mm)": st.column_config.NumberColumn(),
-            "Ball Dia (mm)": st.column_config.NumberColumn(),
-            "Balls": st.column_config.NumberColumn(),
-            "Dynamic C (N)": st.column_config.NumberColumn(),
-            "Static Co (N)": st.column_config.NumberColumn()
-        }
-    )
-
-    bearing_id = bearing_data["ID (mm)"][0]
-    bearing_od = bearing_data["OD (mm)"][0]
-    bearing_width = bearing_data["Width (mm)"][0]
-    ball_diameter = bearing_data["Ball Dia (mm)"][0]
-    number_of_balls = int(bearing_data["Balls"][0])
-    dynamic_rating = bearing_data["Dynamic C (N)"][0]
-    static_rating = bearing_data["Static Co (N)"][0]
+bearing_id = bearing_data["ID (mm)"][0]
+bearing_od = bearing_data["OD (mm)"][0]
+bearing_width = bearing_data["Width (mm)"][0]
+ball_diameter = bearing_data["Ball Dia (mm)"][0]
+number_of_balls = int(bearing_data["Balls"][0])
+dynamic_rating = bearing_data["Dynamic C (N)"][0]
+static_rating = bearing_data["Static Co (N)"][0]
 
 # ----------------------------
 # Dynamic DGBB Visualization
