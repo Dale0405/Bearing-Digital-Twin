@@ -287,6 +287,54 @@ with col2:
         ax.axis("off")
 
         st.pyplot(fig)
+
+st.subheader("Bearing Internal Clearance")
+
+clearance_table = pd.DataFrame({
+    "Min Clearance (mm)": [0.010],
+    "Mean Clearance (mm)": [0.020],
+    "Max Clearance (mm)": [0.030]
+})
+
+clearance_data = st.data_editor(
+    clearance_table,
+    num_rows="fixed",
+    use_container_width=True
+)
+
+clearance_min = clearance_data["Min Clearance (mm)"][0]
+clearance_mean = clearance_data["Mean Clearance (mm)"][0]
+clearance_max = clearance_data["Max Clearance (mm)"][0]
+
+st.subheader("Fit Conditions")
+
+fit_table = pd.DataFrame({
+    "Bearing ID Min": [40.000],
+    "Bearing ID Max": [40.020],
+    "Shaft Min": [40.010],
+    "Shaft Max": [40.030],
+    "Bearing OD Min": [90.000],
+    "Bearing OD Max": [90.020],
+    "Housing Min": [89.980],
+    "Housing Max": [90.000]
+})
+
+fit_data = st.data_editor(
+    fit_table,
+    num_rows="fixed",
+    use_container_width=True
+)
+
+bearing_id_min = fit_data["Bearing ID Min"][0]
+bearing_id_max = fit_data["Bearing ID Max"][0]
+shaft_min = fit_data["Shaft Min"][0]
+shaft_max = fit_data["Shaft Max"][0]
+
+bearing_od_min = fit_data["Bearing OD Min"][0]
+bearing_od_max = fit_data["Bearing OD Max"][0]
+housing_min = fit_data["Housing Min"][0]
+housing_max = fit_data["Housing Max"][0]
+
 # ----------------------------
 # Test Conditions
 # ----------------------------
