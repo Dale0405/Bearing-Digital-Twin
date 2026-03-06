@@ -402,31 +402,25 @@ effective_radial_clearance = clearance_mean - ric_reduction
 
 
 # ----------------------------
-# Results
+# Fit Results
 # ----------------------------
 
 st.markdown("---")
 st.subheader("Fit Results")
 
-colA, colB, colC = st.columns(3)
+fit_results = pd.DataFrame({
+    "Minimum Shaft Fit (mm)": [f"{min_shaft_fit:.5f}"],
+    "Maximum Shaft Fit (mm)": [f"{max_shaft_fit:.5f}"],
+    "Effective Shaft Interference (mm)": [f"{effective_shaft_interference:.5f}"],
+    "RIC Reduction due to Shaft Fit (mm)": [f"{ric_reduction:.5f}"],
+    "Effective Radial Clearance (mm)": [f"{effective_radial_clearance:.5f}"]
+})
 
-with colA:
-    st.metric("Minimum Shaft Fit (mm)", f"{min_shaft_fit:.5f}")
-
-with colB:
-    st.metric("Maximum Shaft Fit (mm)", f"{max_shaft_fit:.5f}")
-
-with colC:
-    st.metric("Effective Shaft Interference (mm)", f"{effective_shaft_interference:.5f}")
-
-
-colD, colE = st.columns(2)
-
-with colD:
-    st.metric("RIC Reduction due to Shaft Fit (mm)", f"{ric_reduction:.5f}")
-
-with colE:
-    st.metric("Effective Radial Clearance (mm)", f"{effective_radial_clearance:.5f}")
+st.dataframe(
+    fit_results,
+    use_container_width=True,
+    hide_index=True
+)
 # ----------------------------
 # Test Conditions
 # ----------------------------
