@@ -45,6 +45,22 @@ st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>",
 
 st.markdown("<h3 style='text-align:center;'>Bearing Parameters</h3>", unsafe_allow_html=True)
 
+# Table CSS
+st.markdown("""
+<style>
+.param-row{
+    border:1px solid #555;
+    padding:6px;
+}
+.param-header{
+    border:1px solid #555;
+    padding:6px;
+    font-weight:bold;
+    text-align:center;
+}
+</style>
+""", unsafe_allow_html=True)
+
 left, right = st.columns([1,1])
 
 # ----------------------------
@@ -53,37 +69,36 @@ left, right = st.columns([1,1])
 
 with left:
 
-    header1, header2 = st.columns([1,1])
-
-    header1.markdown("**Parameters**")
-    header2.markdown("**Values**")
+    h1, h2 = st.columns([1,1])
+    h1.markdown('<div class="param-header">Parameters</div>', unsafe_allow_html=True)
+    h2.markdown('<div class="param-header">Values</div>', unsafe_allow_html=True)
 
     r1c1, r1c2 = st.columns([1,1])
-    r1c1.markdown("ID (mm)")
+    r1c1.markdown('<div class="param-row">ID (mm)</div>', unsafe_allow_html=True)
     bearing_id = float(r1c2.text_input("", "40", label_visibility="collapsed"))
 
     r2c1, r2c2 = st.columns([1,1])
-    r2c1.markdown("OD (mm)")
+    r2c1.markdown('<div class="param-row">OD (mm)</div>', unsafe_allow_html=True)
     bearing_od = float(r2c2.text_input("", "90", label_visibility="collapsed"))
 
     r3c1, r3c2 = st.columns([1,1])
-    r3c1.markdown("Width (mm)")
+    r3c1.markdown('<div class="param-row">Width (mm)</div>', unsafe_allow_html=True)
     bearing_width = float(r3c2.text_input("", "23", label_visibility="collapsed"))
 
     r4c1, r4c2 = st.columns([1,1])
-    r4c1.markdown("Ball Diameter (mm)")
+    r4c1.markdown('<div class="param-row">Ball Diameter (mm)</div>', unsafe_allow_html=True)
     ball_diameter = float(r4c2.text_input("", "15.88", label_visibility="collapsed"))
 
     r5c1, r5c2 = st.columns([1,1])
-    r5c1.markdown("Number of Balls")
+    r5c1.markdown('<div class="param-row">Number of Balls</div>', unsafe_allow_html=True)
     number_of_balls = int(r5c2.text_input("", "8", label_visibility="collapsed"))
 
     r6c1, r6c2 = st.columns([1,1])
-    r6c1.markdown("Dynamic Load Cr (N)")
+    r6c1.markdown('<div class="param-row">Dynamic Load Cr (N)</div>', unsafe_allow_html=True)
     dynamic_rating = float(r6c2.text_input("", "31500", label_visibility="collapsed"))
 
     r7c1, r7c2 = st.columns([1,1])
-    r7c1.markdown("Static Load Co (N)")
+    r7c1.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
     static_rating = float(r7c2.text_input("", "24000", label_visibility="collapsed"))
 
 
