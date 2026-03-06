@@ -49,3 +49,17 @@ st.subheader("Current Test Inputs")
 st.write("Radial Load:", radial_load)
 st.write("RPM:", rpm)
 st.write("Temperature:", temperature)
+
+# ----------------------------
+# Derived Bearing Geometry
+# ----------------------------
+
+pitch_diameter = (bearing_id + bearing_od) / 2
+
+angular_spacing = 360 / number_of_balls
+
+
+st.subheader("Derived Geometry")
+
+st.write("Pitch Diameter (mm):", round(pitch_diameter,3))
+st.write("Ball Angular Spacing (deg):", round(angular_spacing,3))
