@@ -48,49 +48,53 @@ with col1:
     static_rating = bearing_data["Static Co (N)"][0]
 
 # ----------------------------
-# Bearing Diagram
+# DGBB Front View Diagram
 # ----------------------------
 
 st.subheader("Bearing Visualization")
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
 
-    import matplotlib.pyplot as plt
-    import numpy as np
-
     fig, ax = plt.subplots(figsize=(2,2))
 
+    # Normalized radii for visualization
+    outer_r = 1.0
+    inner_r = 0.55
+    ball_r = 0.12
+    pitch_r = 0.78
+
     # Outer ring
-    outer = plt.Circle((0,0), bearing_od/2, fill=False, linewidth=2)
+    ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=2))
 
     # Inner ring
-    inner = plt.Circle((0,0), bearing_id/2, fill=False, linewidth=2)
-
-    ax.add_patch(outer)
-    ax.add_patch(inner)
+    ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=2))
 
     # Balls
-    pitch_diameter = (bearing_od + bearing_id)/2
     angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
 
     for a in angles:
-        x = (pitch_diameter/2)*np.cos(a)
-        y = (pitch_diameter/2)*np.sin(a)
+        x = pitch_r*np.cos(a)
+        y = pitch_r*np.sin(a)
 
-        ball = plt.Circle((x,y), ball_diameter/2, fill=False)
+        ball = plt.Circle((x,y), ball_r, fill=False)
         ax.add_patch(ball)
 
-    # Center lines
-    ax.axhline(0, linewidth=0.5)
-    ax.axvline(0, linewidth=0.5)
+    # Center cross
+    ax.axhline(0, linewidth=0.6)
+    ax.axvline(0, linewidth=0.6)
+
+    ax.set_xlim(-1.2,1.2)
+    ax.set_ylim(-1.2,1.2)
 
     ax.set_aspect('equal')
     ax.axis('off')
 
     st.pyplot(fig)
-
 # ----------------------------
 # Test Conditions
 # ----------------------------
