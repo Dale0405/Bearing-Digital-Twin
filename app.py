@@ -174,6 +174,93 @@ with right:
     st.pyplot(fig)
 
     st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
+
+# ----------------------------
+# CROSS-SECTIONAL VIEW
+# ----------------------------
+
+fig2, ax2 = plt.subplots(figsize=(6,6))
+
+fig2.patch.set_alpha(0)
+ax2.set_facecolor("none")
+
+# normalized geometry
+outer_r = 1.0
+inner_r = bearing_id / bearing_od
+width = bearing_width / bearing_od * 1.5
+ball_r = ball_diameter / bearing_od * 0.5
+
+# outer ring
+ax2.add_patch(plt.Rectangle(
+    (-width/2, -outer_r),
+    width,
+    outer_r-inner_r,
+    fill=False,
+    linewidth=3,
+    edgecolor="#6f6f6f"
+))
+
+ax2.add_patch(plt.Rectangle(
+    (-width/2, inner_r),
+    width,
+    outer_r-inner_r,
+    fill=False,
+    linewidth=3,
+    edgecolor="#6f6f6f"
+))
+
+# inner ring
+ax2.add_patch(plt.Rectangle(
+    (-width/2, -inner_r),
+    width,
+    inner_r*2,
+    fill=False,
+    linewidth=3,
+    edgecolor="#6f6f6f"
+))
+
+# rolling element
+ball_y = inner_r + (outer_r-inner_r)/2
+
+ball = plt.Circle(
+    (0, ball_y),
+    ball_r,
+    color="#cfd3d6",
+    ec="#2b2b2b",
+    linewidth=1
+)
+
+ax2.add_patch(ball)
+
+# ----------------------------
+# WIDTH LABEL (far right)
+# ----------------------------
+
+ax2.plot([width/2, 1.1], [-outer_r-0.2, -outer_r-0.2],
+         linestyle="--", color="red", linewidth=0.7)
+
+ax2.plot([width/2, width/2], [-outer_r, -outer_r-0.2],
+         linestyle="--", color="red", linewidth=0.7)
+
+ax2.text(1.15, -outer_r-0.22,
+         f"Width = {bearing_width} mm",
+         color="white",
+         fontsize=18,
+         ha="left")
+
+# axes
+ax2.set_xlim(-1.4,1.4)
+ax2.set_ylim(-1.4,1.4)
+
+ax2.set_aspect('equal')
+ax2.axis('off')
+
+st.pyplot(fig2)
+
+st.markdown(
+    "<div style='text-align:center;'>Cross-Sectional View</div>",
+    unsafe_allow_html=True
+)
     
 # ----------------------------
 # Derived Geometry
