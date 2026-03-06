@@ -166,11 +166,18 @@ with col2:
 
 st.subheader("Bearing Internal Clearance")
 
-# Default values
+# store defaults in session
+if "clearance_min" not in st.session_state:
+    st.session_state.clearance_min = 0.01000
+    st.session_state.clearance_max = 0.03000
+
+# compute mean
+clearance_mean = (st.session_state.clearance_min + st.session_state.clearance_max) / 2
+
 clearance_table = pd.DataFrame({
-    "Min Clearance (mm)": [0.01000],
-    "Mean Clearance (mm)": [0.02000],
-    "Max Clearance (mm)": [0.03000]
+    "Min Clearance (mm)": [st.session_state.clearance_min],
+    "Mean Clearance (mm)": [clearance_mean],
+    "Max Clearance (mm)": [st.session_state.clearance_max]
 })
 
 clearance_data = st.data_editor(
@@ -184,15 +191,9 @@ clearance_data = st.data_editor(
     }
 )
 
-# Read edited values
-clearance_min = float(clearance_data.iloc[0]["Min Clearance (mm)"])
-clearance_max = float(clearance_data.iloc[0]["Max Clearance (mm)"])
-
-# Compute mean
-clearance_mean = (clearance_min + clearance_max) / 2
-
-# Display computed mean
-st.write(f"Mean Clearance (mm): **{clearance_mean:.5f}**")
+# update session values
+st.session_state.clearance_min = float(clearance_data.iloc[0]["Min Clearance (mm)"])
+st.session_state.clearance_max = float(clearance_data.iloc[0]["Max Clearance (mm)"])
 
 st.subheader("Fit Conditions")
 
