@@ -409,17 +409,22 @@ st.markdown("---")
 st.subheader("Fit Results")
 
 fit_results = pd.DataFrame({
-    "Minimum Shaft Fit (mm)": [f"{min_shaft_fit:.5f}"],
-    "Maximum Shaft Fit (mm)": [f"{max_shaft_fit:.5f}"],
-    "Effective Shaft Interference (mm)": [f"{effective_shaft_interference:.5f}"],
-    "RIC Reduction due to Shaft Fit (mm)": [f"{ric_reduction:.5f}"],
-    "Effective Radial Clearance (mm)": [f"{effective_radial_clearance:.5f}"]
+    "Minimum Shaft Fit (mm)": [min_shaft_fit],
+    "Maximum Shaft Fit (mm)": [max_shaft_fit],
+    "Effective Shaft Interference (mm)": [effective_shaft_interference],
+    "RIC Reduction due to Shaft Fit (mm)": [ric_reduction],
+    "Effective Radial Clearance (mm)": [effective_radial_clearance]
 })
 
 st.dataframe(
     fit_results,
+    hide_index=True,
     use_container_width=True,
-    hide_index=True
+    column_config={
+        col: st.column_config.NumberColumn(format="%.5f")
+        for col in fit_results.columns
+    }
+)
 )
 # ----------------------------
 # Test Conditions
