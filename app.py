@@ -150,10 +150,6 @@ with col1:
 # Derived Geometry
 # ----------------------------
 
-# ----------------------------
-# Derived Geometry
-# ----------------------------
-
 st.subheader("Derived Geometry")
 
 pitch_diameter = (bearing_id + bearing_od) / 2
@@ -177,7 +173,7 @@ with col1:
 
     with img_col:
 
-        fig, ax = plt.subplots(figsize=(2.4,2.4))
+        fig, ax = plt.subplots(figsize=(3.5,3.5))
 
         # transparent background
         fig.patch.set_alpha(0)
@@ -190,7 +186,7 @@ with col1:
         # OD
         ax.add_patch(plt.Circle((0,0), outer_r,
                                 fill=False,
-                                linewidth=2,
+                                linewidth=3,
                                 color="white"))
 
         # Pitch Diameter
@@ -203,7 +199,7 @@ with col1:
         # ID
         ax.add_patch(plt.Circle((0,0), inner_r,
                                 fill=False,
-                                linewidth=2,
+                                linewidth=3,
                                 color="white"))
 
         ax.set_xlim(-1.2,1.2)
@@ -229,7 +225,7 @@ with col2:
 
     with img_col:
 
-        fig, ax = plt.subplots(figsize=(2.4,2.4))
+        fig, ax = plt.subplots(figsize=(3,3))
 
         fig.patch.set_alpha(0)
         ax.set_facecolor("none")
@@ -241,12 +237,12 @@ with col2:
         # rings
         ax.add_patch(plt.Circle((0,0), outer_r,
                                 fill=False,
-                                linewidth=2,
+                                linewidth=3,
                                 color="white"))
 
         ax.add_patch(plt.Circle((0,0), inner_r,
                                 fill=False,
-                                linewidth=2,
+                                linewidth=3,
                                 color="white"))
 
         # two balls showing spacing
