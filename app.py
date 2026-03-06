@@ -75,3 +75,20 @@ table_html = f"""
 """
 
 st.markdown(table_html, unsafe_allow_html=True)
+
+# ----------------------------
+# Derived Geometry
+# ----------------------------
+
+pitch_diameter = (bearing_id + bearing_od) / 2
+ball_spacing = 360 / number_of_balls
+
+st.subheader("Derived Geometry")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.metric("Pitch Diameter (mm)", round(pitch_diameter,3))
+
+with col2:
+    st.metric("Ball Angular Spacing (deg)", round(ball_spacing,3))
