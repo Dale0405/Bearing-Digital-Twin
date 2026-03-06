@@ -425,7 +425,6 @@ st.dataframe(
         for col in fit_results.columns
     }
 )
-)
 # ----------------------------
 # Test Conditions
 # ----------------------------
