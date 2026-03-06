@@ -290,22 +290,31 @@ with col2:
 
 st.subheader("Bearing Internal Clearance")
 
-clearance_table = pd.DataFrame({
-    "Min Clearance (mm)": [0.010],
-    "Mean Clearance (mm)": [0.020],
-    "Max Clearance (mm)": [0.030]
-})
+col1, col2, col3 = st.columns(3)
 
-clearance_data = st.data_editor(
-    clearance_table,
-    num_rows="fixed",
-    use_container_width=True
-)
+with col1:
+    clearance_min = st.number_input(
+        "Min Clearance (mm)",
+        value=0.01000,
+        format="%.5f"
+    )
 
-clearance_min = clearance_data["Min Clearance (mm)"][0]
-clearance_mean = clearance_data["Mean Clearance (mm)"][0]
-clearance_max = clearance_data["Max Clearance (mm)"][0]
+with col2:
+    clearance_max = st.number_input(
+        "Max Clearance (mm)",
+        value=0.03000,
+        format="%.5f"
+    )
 
+# automatic calculation
+clearance_mean = (clearance_min + clearance_max) / 2
+
+with col3:
+    st.text_input(
+        "Mean Clearance (mm)",
+        value=f"{clearance_mean:.5f}",
+        disabled=True
+    )
 st.subheader("Fit Conditions")
 
 fit_table = pd.DataFrame({
