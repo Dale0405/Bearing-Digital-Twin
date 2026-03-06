@@ -175,6 +175,111 @@ with right:
     st.pyplot(fig)
 
     st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
+
+# ----------------------------
+# Dynamic DGBB Side Cross Section
+# ----------------------------
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig2, ax2 = plt.subplots(figsize=(6,6))
+
+fig2.patch.set_alpha(0)
+ax2.set_facecolor("none")
+
+# normalized geometry
+outer_r = 1.0
+inner_r = bearing_id / bearing_od
+width = bearing_width / bearing_od * 1.5
+ball_r = ball_diameter / bearing_od * 0.5
+
+# outer ring
+ax2.add_patch(plt.Rectangle(
+    (-width/2, -outer_r),
+    width,
+    outer_r-inner_r+0.05,
+    fill=False,
+    linewidth=3,
+    edgecolor="#6f6f6f"
+))
+
+ax2.add_patch(plt.Rectangle(
+    (-width/2, inner_r-0.05),
+    width,
+    outer_r-inner_r+0.05,
+    fill=False,
+    linewidth=3,
+    edgecolor="#6f6f6f"
+))
+
+# inner ring
+ax2.add_patch(plt.Rectangle(
+    (-width/2, -inner_r),
+    width,
+    inner_r*2,
+    fill=False,
+    linewidth=3,
+    edgecolor="#6f6f6f"
+))
+
+# rolling element
+ball = plt.Circle(
+    (0, inner_r + (outer_r-inner_r)/2),
+    ball_r,
+    color="#cfd3d6",
+    ec="#2b2b2b",
+    linewidth=1
+)
+
+ax2.add_patch(ball)
+
+# ----------------------------
+# Labels
+# ----------------------------
+
+# Width label
+ax2.plot([-width/2, -width/2], [-outer_r-0.2, -outer_r-0.35],
+         linestyle="--", color="red", linewidth=0.7)
+
+ax2.plot([width/2, width/2], [-outer_r-0.2, -outer_r-0.35],
+         linestyle="--", color="red", linewidth=0.7)
+
+ax2.plot([-width/2, width/2], [-outer_r-0.35, -outer_r-0.35],
+         linestyle="--", color="red", linewidth=0.7)
+
+ax2.text(0, -outer_r-0.45,
+         f"Width = {bearing_width} mm",
+         color="white",
+         fontsize=18,
+         ha="center")
+
+# Ball label
+bx = 0
+by = inner_r + (outer_r-inner_r)/2
+
+ax2.plot([bx+ball_r, 1.2], [by, by],
+         linestyle="--", color="red", linewidth=0.7)
+
+ax2.scatter([bx+ball_r], [by], color="red", s=15)
+
+ax2.text(1.22, by,
+         f"Ball = {ball_diameter} mm",
+         color="white",
+         fontsize=18,
+         va="center")
+
+# axes
+ax2.set_xlim(-1.4,1.4)
+ax2.set_ylim(-1.4,1.4)
+
+ax2.set_aspect('equal')
+ax2.axis('off')
+
+st.pyplot(fig2)
+
+st.markdown("<div style='text-align:center;'>Side Cross Section</div>",
+            unsafe_allow_html=True)
     
 # ----------------------------
 # Derived Geometry
