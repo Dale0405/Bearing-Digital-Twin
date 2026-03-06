@@ -117,6 +117,18 @@ with right:
 # FRONT VIEW
 # ----------------------------
 
+with right:
+
+    # FRONT VIEW
+    fig, ax = plt.subplots(figsize=(6,6))
+    ...
+    st.pyplot(fig)
+
+    st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
+
+
+    # SIDE CROSS SECTION
+    fig2, ax2 = plt.subplots(figsize=(6,6))
 fig, ax = plt.subplots(figsize=(6,6))
 
 fig.patch.set_alpha(0)
