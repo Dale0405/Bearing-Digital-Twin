@@ -179,7 +179,7 @@ with row1_col1:
 
 with row1_col2:
 
-    fig, ax = plt.subplots(figsize=(1.8,1.8))
+    fig, ax = plt.subplots(figsize=(0.3,0.3))
 
     fig.patch.set_alpha(0)
     ax.set_facecolor("none")
