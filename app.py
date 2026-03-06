@@ -1,8 +1,42 @@
+import streamlit as st
+import numpy as np
+import pandas as pd
+
+st.title("Bearing Digital Twin")
+
+# ----------------------------
+# Bearing Parameters
+# ----------------------------
+st.sidebar.header("Bearing Parameters")
+
+bearing_id = float(st.sidebar.text_input("Bearing ID (mm)", "40"))
+bearing_od = float(st.sidebar.text_input("Bearing OD (mm)", "90"))
+bearing_width = float(st.sidebar.text_input("Bearing Width (mm)", "23"))
+
+ball_diameter = float(st.sidebar.text_input("Ball Diameter (mm)", "15.875"))
+number_of_balls = int(st.sidebar.text_input("Number of Balls", "8"))
+
+dynamic_rating = float(st.sidebar.text_input("Dynamic Load Rating C (N)", "31500"))
+static_rating = float(st.sidebar.text_input("Static Load Rating Co (N)", "24000"))
+
+# ----------------------------
+# Test Conditions
+# ----------------------------
+st.header("Test Conditions")
+
 radial_load = float(st.text_input("Radial Load (N)", "14000"))
 axial_load = float(st.text_input("Axial Load (N)", "0"))
 rpm = float(st.text_input("RPM", "3000"))
 ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
-lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
+
+lubrication = st.selectbox(
+    "Lubrication Type",
+    ["Grease", "Oil"]
+)
+
+# ----------------------------
+# Bearing Parameter Table
+# ----------------------------
 st.subheader("Bearing Parameters")
 
 table_html = f"""
