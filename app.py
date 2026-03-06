@@ -60,7 +60,11 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
 
-    fig, ax = plt.subplots(figsize=(2,2))
+    fig, ax = plt.subplots(figsize=(2.2,2.2))
+
+    # Transparent background
+    fig.patch.set_alpha(0)
+    ax.set_facecolor("none")
 
     # Normalize geometry
     outer_r = 1.0
@@ -68,15 +72,18 @@ with col1:
     pitch_r = (outer_r + inner_r)/2
     ball_r = ball_diameter / bearing_od * 0.5
 
-    # Outer ring
-    ax.add_patch(plt.Circle((0,0), outer_r, color="#6f6f6f", fill=False, linewidth=3))
-    ax.add_patch(plt.Circle((0,0), outer_r-0.08, color="#6f6f6f", fill=False, linewidth=2))
+    # ------------------------
+    # Rings
+    # ------------------------
+    ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#6f6f6f"))
+    ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#6f6f6f"))
 
-    # Inner ring
-    ax.add_patch(plt.Circle((0,0), inner_r, color="#6f6f6f", fill=False, linewidth=3))
-    ax.add_patch(plt.Circle((0,0), inner_r+0.08, color="#6f6f6f", fill=False, linewidth=2))
+    ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#6f6f6f"))
+    ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#6f6f6f"))
 
+    # ------------------------
     # Balls
+    # ------------------------
     angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
 
     for a in angles:
@@ -84,27 +91,56 @@ with col1:
         x = pitch_r*np.cos(a)
         y = pitch_r*np.sin(a)
 
-        ball = plt.Circle(
-            (x,y),
-            ball_r,
-            color="#bfc3c6",
-            ec="#2c2c2c",
-            linewidth=1
-        )
+        ball = plt.Circle((x,y), ball_r,
+                          color="#cfd3d6",
+                          ec="#2b2b2b",
+                          linewidth=1)
 
         ax.add_patch(ball)
 
-    # Center lines
-    ax.axhline(0, linewidth=0.4, color="gray")
-    ax.axvline(0, linewidth=0.4, color="gray")
+    # ------------------------
+    # Dimension ticks
+    # ------------------------
 
-    ax.set_xlim(-1.2,1.2)
-    ax.set_ylim(-1.2,1.2)
+    # OD dimension
+    ax.plot([-outer_r, outer_r], [1.15,1.15], color="white", linewidth=1)
+    ax.plot([-outer_r,-outer_r],[1.10,1.20], color="white", linewidth=1)
+    ax.plot([outer_r,outer_r],[1.10,1.20], color="white", linewidth=1)
+
+    ax.text(0,1.22,f"OD = {bearing_od} mm",
+            color="white", ha="center", fontsize=7)
+
+    # ID dimension
+    ax.plot([-inner_r, inner_r], [-1.15,-1.15], color="white", linewidth=1)
+    ax.plot([-inner_r,-inner_r],[-1.10,-1.20], color="white", linewidth=1)
+    ax.plot([inner_r,inner_r],[-1.10,-1.20], color="white", linewidth=1)
+
+    ax.text(0,-1.28,f"ID = {bearing_id} mm",
+            color="white", ha="center", fontsize=7)
+
+    # Ball diameter label
+    bx = pitch_r
+    by = 0
+
+    ax.plot([bx, bx+0.35],[by,by], color="white", linewidth=1)
+    ax.text(bx+0.38,by,
+            f"Ball = {ball_diameter} mm",
+            color="white",
+            fontsize=7,
+            va="center")
+
+    # ------------------------
+    # Frame settings
+    # ------------------------
+    ax.set_xlim(-1.3,1.3)
+    ax.set_ylim(-1.35,1.35)
 
     ax.set_aspect('equal')
     ax.axis('off')
 
     st.pyplot(fig)
+
+    st.caption("Front View")
     
 # ----------------------------
 # Test Conditions
