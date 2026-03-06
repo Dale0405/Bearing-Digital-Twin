@@ -5,20 +5,21 @@ import pandas as pd
 st.title("Bearing Digital Twin")
 
 # ----------------------------
-# Bearing Parameters
+# Bearing Parameters Table (Horizontal)
 # ----------------------------
-st.sidebar.header("Bearing Parameters")
 
-bearing_id = st.sidebar.number_input("Bearing ID (mm)", value=40.0)
-bearing_od = st.sidebar.number_input("Bearing OD (mm)", value=90.0)
-bearing_width = st.sidebar.number_input("Bearing Width (mm)", value=23.0)
+bearing_table = pd.DataFrame({
+    "Bearing ID (mm)": [bearing_id],
+    "Bearing OD (mm)": [bearing_od],
+    "Width (mm)": [bearing_width],
+    "Ball Diameter (mm)": [ball_diameter],
+    "No. of Balls": [number_of_balls],
+    "Dynamic Rating C (N)": [dynamic_rating],
+    "Static Rating Co (N)": [static_rating]
+})
 
-ball_diameter = st.sidebar.number_input("Ball Diameter (mm)", value=15.875)
-number_of_balls = st.sidebar.number_input("Number of Balls", value=8)
-
-dynamic_rating = st.sidebar.number_input("Dynamic Load Rating C (N)", value=31500)
-static_rating = st.sidebar.number_input("Static Load Rating Co (N)", value=24000)
-
+st.subheader("Bearing Parameters")
+st.dataframe(bearing_table)
 
 # ----------------------------
 # Test Conditions
