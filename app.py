@@ -16,11 +16,45 @@ bearing_table = pd.DataFrame({
     "Static Co (N)": [24000]
 })
 
-bearing_data = st.data_editor(
-    bearing_table,
-    num_rows="fixed",
-    use_container_width=True
-)
+col1, col2 = st.columns([3,2])
+
+with col1:
+
+    bearing_data = st.data_editor(
+        bearing_table,
+        hide_index=True,
+        use_container_width=True,
+        column_config={
+            "ID (mm)": st.column_config.NumberColumn(),
+            "OD (mm)": st.column_config.NumberColumn(),
+            "Width (mm)": st.column_config.NumberColumn(),
+            "Ball Dia (mm)": st.column_config.NumberColumn(),
+            "Balls": st.column_config.NumberColumn(),
+            "Dynamic C (N)": st.column_config.NumberColumn(),
+            "Static Co (N)": st.column_config.NumberColumn()
+        }
+    )
+
+with col2:
+
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots()
+
+    outer = plt.Circle((0,0), bearing_od/2, fill=False, linewidth=2)
+    inner = plt.Circle((0,0), bearing_id/2, fill=False, linewidth=2)
+
+    ax.add_patch(outer)
+    ax.add_patch(inner)
+
+    ax.text(0, bearing_od/2 + 5, f"OD = {bearing_od} mm", ha='center')
+    ax.text(0, bearing_id/2 + 2, f"ID = {bearing_id} mm", ha='center')
+    ax.text(0, -bearing_od/2 - 5, f"Width = {bearing_width} mm", ha='center')
+
+    ax.set_aspect('equal')
+    ax.axis('off')
+
+    st.pyplot(fig)
 
 bearing_id = bearing_data["ID (mm)"][0]
 bearing_od = bearing_data["OD (mm)"][0]
