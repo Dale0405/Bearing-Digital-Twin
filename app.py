@@ -47,29 +47,49 @@ with col1:
     dynamic_rating = bearing_data["Dynamic C (N)"][0]
     static_rating = bearing_data["Static Co (N)"][0]
 
+# ----------------------------
+# Bearing Diagram
+# ----------------------------
 
-with col2:
+st.subheader("Bearing Visualization")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
 
     import matplotlib.pyplot as plt
+    import numpy as np
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(2,2))
 
+    # Outer ring
     outer = plt.Circle((0,0), bearing_od/2, fill=False, linewidth=2)
+
+    # Inner ring
     inner = plt.Circle((0,0), bearing_id/2, fill=False, linewidth=2)
 
     ax.add_patch(outer)
     ax.add_patch(inner)
 
-    ax.text(0, bearing_od/2 + 5, f"OD = {bearing_od} mm", ha='center')
-    ax.text(0, bearing_id/2 + 2, f"ID = {bearing_id} mm", ha='center')
-    ax.text(0, -bearing_od/2 - 5, f"Width = {bearing_width} mm", ha='center')
+    # Balls
+    pitch_diameter = (bearing_od + bearing_id)/2
+    angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
+
+    for a in angles:
+        x = (pitch_diameter/2)*np.cos(a)
+        y = (pitch_diameter/2)*np.sin(a)
+
+        ball = plt.Circle((x,y), ball_diameter/2, fill=False)
+        ax.add_patch(ball)
+
+    # Center lines
+    ax.axhline(0, linewidth=0.5)
+    ax.axvline(0, linewidth=0.5)
 
     ax.set_aspect('equal')
     ax.axis('off')
 
     st.pyplot(fig)
-
-
 
 # ----------------------------
 # Test Conditions
