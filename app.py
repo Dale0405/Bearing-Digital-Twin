@@ -408,23 +408,25 @@ effective_radial_clearance = clearance_mean - ric_reduction
 st.markdown("---")
 st.subheader("Fit Results")
 
-fit_results = pd.DataFrame({
-    "Minimum Shaft Fit (mm)": [min_shaft_fit],
-    "Maximum Shaft Fit (mm)": [max_shaft_fit],
-    "Effective Shaft Interference (mm)": [effective_shaft_interference],
-    "RIC Reduction due to Shaft Fit (mm)": [ric_reduction],
-    "Effective Radial Clearance (mm)": [effective_radial_clearance]
-})
+st.markdown(f"""
+<table style="width:100%; border-collapse:collapse; text-align:center;">
+<tr>
+<th style="border:1px solid gray; padding:8px; width:20%;">Minimum<br>Shaft Fit<br>(mm)</th>
+<th style="border:1px solid gray; padding:8px; width:20%;">Maximum<br>Shaft Fit<br>(mm)</th>
+<th style="border:1px solid gray; padding:8px; width:20%;">Effective Shaft<br>Interference<br>(mm)</th>
+<th style="border:1px solid gray; padding:8px; width:20%;">RIC Reduction<br>due to Shaft Fit<br>(mm)</th>
+<th style="border:1px solid gray; padding:8px; width:20%;">Effective Radial<br>Clearance<br>(mm)</th>
+</tr>
+<tr>
+<td style="border:1px solid gray; padding:8px;">{min_shaft_fit:.5f}</td>
+<td style="border:1px solid gray; padding:8px;">{max_shaft_fit:.5f}</td>
+<td style="border:1px solid gray; padding:8px;">{effective_shaft_interference:.5f}</td>
+<td style="border:1px solid gray; padding:8px;">{ric_reduction:.5f}</td>
+<td style="border:1px solid gray; padding:8px;">{effective_radial_clearance:.5f}</td>
+</tr>
+</table>
+""", unsafe_allow_html=True)
 
-st.dataframe(
-    fit_results,
-    hide_index=True,
-    use_container_width=True,
-    column_config={
-        col: st.column_config.NumberColumn(format="%.5f")
-        for col in fit_results.columns
-    }
-)
 # ----------------------------
 # Test Conditions
 # ----------------------------
