@@ -60,31 +60,30 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
 
-    fig, ax = plt.subplots(figsize=(4,4))  # 1.4x bigger
+    fig, ax = plt.subplots(figsize=(3,3))
 
-    # Transparent background
+    # transparent background
     fig.patch.set_alpha(0)
     ax.set_facecolor("none")
 
-    # Normalize geometry
+    # normalized geometry
     outer_r = 1.0
     inner_r = bearing_id / bearing_od
     pitch_r = (outer_r + inner_r)/2
     ball_r = ball_diameter / bearing_od * 0.5
 
-    # Outer ring
+    # outer ring
     ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#6f6f6f"))
     ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#6f6f6f"))
 
-    # Inner ring
+    # inner ring
     ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#6f6f6f"))
     ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#6f6f6f"))
 
-    # Balls
+    # balls
     angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
 
     for a in angles:
-
         x = pitch_r*np.cos(a)
         y = pitch_r*np.sin(a)
 
@@ -94,27 +93,69 @@ with col1:
                           linewidth=1)
 
         ax.add_patch(ball)
-# ------------------------
-# Broken Line Labels
-# ------------------------
 
-# OD (Upper Left)
-ax.plot([-0.7, -1.2], [0.7, 1.05], linestyle="--", color="red", linewidth=1)
-ax.scatter([-0.7], [0.7], color="red", s=10)
-ax.text(-1.25, 1.08, f"OD = {bearing_od} mm", color="red", fontsize=8, ha="right")
+    # ----------------------------
+    # Red broken line labels
+    # ----------------------------
 
-# ID (Lower Left)
-ax.plot([-0.4, -1.2], [-0.4, -1.0], linestyle="--", color="red", linewidth=1)
-ax.scatter([-0.4], [-0.4], color="red", s=10)
-ax.text(-1.25, -1.03, f"ID = {bearing_id} mm", color="red", fontsize=8, ha="right")
+    # OD reference point
+    od_x = -outer_r * 0.7
+    od_y = outer_r * 0.7
 
-# Ball (Middle Right)
-bx = pitch_r*np.cos(angles[0])
-by = pitch_r*np.sin(angles[0])
+    ax.plot([od_x, -1.2], [od_y, 1.1],
+            linestyle="--", color="red", linewidth=1)
 
-ax.plot([bx+ball_r, 1.15], [by, by], linestyle="--", color="red", linewidth=1)
-ax.scatter([bx+ball_r], [by], color="red", s=10)
-ax.text(1.18, by, f"Ball = {ball_diameter} mm", color="red", fontsize=8, va="center")
+    ax.scatter([od_x], [od_y], color="red", s=15)
+
+    ax.text(-1.22, 1.12,
+            f"OD = {bearing_od} mm",
+            color="red",
+            fontsize=8,
+            ha="right")
+
+
+    # ID reference point
+    id_x = -inner_r * 0.7
+    id_y = -inner_r * 0.7
+
+    ax.plot([id_x, -1.2], [id_y, -1.1],
+            linestyle="--", color="red", linewidth=1)
+
+    ax.scatter([id_x], [id_y], color="red", s=15)
+
+    ax.text(-1.22, -1.13,
+            f"ID = {bearing_id} mm",
+            color="red",
+            fontsize=8,
+            ha="right")
+
+
+    # Ball reference point
+    bx = pitch_r*np.cos(angles[0])
+    by = pitch_r*np.sin(angles[0])
+
+    ax.plot([bx+ball_r, 1.15], [by, by],
+            linestyle="--", color="red", linewidth=1)
+
+    ax.scatter([bx+ball_r], [by], color="red", s=15)
+
+    ax.text(1.18, by,
+            f"Ball = {ball_diameter} mm",
+            color="red",
+            fontsize=8,
+            va="center")
+
+
+    ax.set_xlim(-1.4,1.4)
+    ax.set_ylim(-1.4,1.4)
+
+    ax.set_aspect('equal')
+    ax.axis('off')
+
+    st.pyplot(fig)
+
+    st.markdown("<div style='text-align:center;'>Front View</div>",
+                unsafe_allow_html=True)
     
 # ----------------------------
 # Test Conditions
