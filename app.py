@@ -131,39 +131,43 @@ with right:
     angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
 
 for a in angles:
+
     x = pitch_r * np.cos(a)
     y = pitch_r * np.sin(a)
 
-    # base sphere
-    base = plt.Circle(
-        (x, y),
-        ball_r,
-        color="#cfd3d6",
-        ec="#2b2b2b",
-        linewidth=1.2,
-        zorder=3
+    # shadow layer
+    ax.add_patch(
+        plt.Circle(
+            (x - ball_r*0.15, y - ball_r*0.15),
+            ball_r,
+            color="#9aa1a6",
+            alpha=0.5,
+            zorder=2
+        )
     )
-    ax.add_patch(base)
 
-    # shadow
-    shadow = plt.Circle(
-        (x - ball_r*0.25, y - ball_r*0.25),
-        ball_r*0.85,
-        color="#9aa1a6",
-        alpha=0.45,
-        zorder=2
+    # base ball
+    ax.add_patch(
+        plt.Circle(
+            (x, y),
+            ball_r,
+            color="#cfd3d6",
+            ec="#2b2b2b",
+            linewidth=1.2,
+            zorder=3
+        )
     )
-    ax.add_patch(shadow)
 
     # highlight
-    highlight = plt.Circle(
-        (x + ball_r*0.25, y + ball_r*0.25),
-        ball_r*0.35,
-        color="white",
-        alpha=0.55,
-        zorder=4
+    ax.add_patch(
+        plt.Circle(
+            (x + ball_r*0.25, y + ball_r*0.25),
+            ball_r*0.35,
+            color="white",
+            alpha=0.6,
+            zorder=4
+        )
     )
-    ax.add_patch(highlight)
 
     # OD label
     od_x = -outer_r * 0.7
