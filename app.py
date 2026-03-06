@@ -174,13 +174,21 @@ clearance_table = pd.DataFrame({
 
 clearance_data = st.data_editor(
     clearance_table,
-    num_rows="fixed",
-    use_container_width=True
+    hide_index=True,
+    use_container_width=True,
+    column_config={
+        "Mean Clearance (mm)": st.column_config.NumberColumn(disabled=True)
+    }
 )
 
-clearance_min = clearance_data["Min Clearance (mm)"][0]
-clearance_mean = clearance_data["Mean Clearance (mm)"][0]
-clearance_max = clearance_data["Max Clearance (mm)"][0]
+clearance_min = float(clearance_data.iloc[0]["Min Clearance (mm)"])
+clearance_max = float(clearance_data.iloc[0]["Max Clearance (mm)"])
+
+# Mean calculated automatically
+clearance_mean = (clearance_min + clearance_max) / 2
+
+# Update dataframe display
+clearance_data.at[0, "Mean Clearance (mm)"] = clearance_mean
 
 st.subheader("Fit Conditions")
 
