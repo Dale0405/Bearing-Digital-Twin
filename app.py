@@ -60,7 +60,7 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
 
-    fig, ax = plt.subplots(figsize=(3,3))  # 1.4x bigger
+    fig, ax = plt.subplots(figsize=(4,4))  # 1.4x bigger
 
     # Transparent background
     fig.patch.set_alpha(0)
@@ -95,52 +95,6 @@ with col1:
 
         ax.add_patch(ball)
 
-    # ------------------------
-    # Arrow Labels
-    # ------------------------
-
-    # OD arrow
-    ax.annotate(
-        f"OD = {bearing_od} mm",
-        xy=(outer_r,0),
-        xytext=(1.25,0.4),
-        color="white",
-        fontsize=8,
-        arrowprops=dict(arrowstyle="->", color="white")
-    )
-
-    # ID arrow
-    ax.annotate(
-        f"ID = {bearing_id} mm",
-        xy=(inner_r,0),
-        xytext=(1.25,-0.4),
-        color="white",
-        fontsize=8,
-        arrowprops=dict(arrowstyle="->", color="white")
-    )
-
-    # Ball arrow
-    bx = pitch_r*np.cos(angles[0])
-    by = pitch_r*np.sin(angles[0])
-
-    ax.annotate(
-        f"Ball = {ball_diameter} mm",
-        xy=(bx,by),
-        xytext=(-1.25,0.8),
-        color="white",
-        fontsize=8,
-        arrowprops=dict(arrowstyle="->", color="white")
-    )
-
-    ax.set_xlim(-1.4,1.4)
-    ax.set_ylim(-1.4,1.4)
-
-    ax.set_aspect('equal')
-    ax.axis('off')
-
-    st.pyplot(fig)
-
-    st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
     
 # ----------------------------
 # Test Conditions
