@@ -4,7 +4,7 @@ import pandas as pd
 
 st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
-st.markdown("<h1 style='text-align: center;'>Bearing Parameters</h1>", unsafe_allow_html=True)
+st.header("Bearing Parameters")
 
 col1,col2,col3,col4 = st.columns(4)
 
