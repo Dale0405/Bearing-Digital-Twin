@@ -99,7 +99,7 @@ with col1:
     ax.text(-1.22, 1.12,
             f"OD = {bearing_od} mm",
             color="white",
-            fontsize=12,
+            fontsize=50,
             ha="right")
 
 
