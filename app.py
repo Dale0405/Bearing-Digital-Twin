@@ -4,7 +4,12 @@ import pandas as pd
 
 st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
-# Create table first
+# ----------------------------
+# Bearing Parameters
+# ----------------------------
+
+st.subheader("Bearing Parameters")
+
 bearing_table = pd.DataFrame({
     "ID (mm)": [40.0],
     "OD (mm)": [90.0],
@@ -15,20 +20,20 @@ bearing_table = pd.DataFrame({
     "Static Co (N)": [24000]
 })
 
-# Then call data editor
 bearing_data = st.data_editor(
     bearing_table,
     hide_index=True,
-    use_container_width=True,
-    column_config={
-        "ID (mm)": st.column_config.NumberColumn(width="medium"),
-        "OD (mm)": st.column_config.NumberColumn(width="medium"),
-        "Width (mm)": st.column_config.NumberColumn(width="medium"),
-        "Ball Dia (mm)": st.column_config.NumberColumn(width="medium"),
-        "Balls": st.column_config.NumberColumn(width="medium"),
-        "Dynamic C (N)": st.column_config.NumberColumn(width="medium"),
-        "Static Co (N)": st.column_config.NumberColumn(width="medium")
-    }
+    use_container_width=True
+)
+
+# Extract values AFTER the table
+bearing_id = float(bearing_data.iloc[0]["ID (mm)"])
+bearing_od = float(bearing_data.iloc[0]["OD (mm)"])
+bearing_width = float(bearing_data.iloc[0]["Width (mm)"])
+ball_diameter = float(bearing_data.iloc[0]["Ball Dia (mm)"])
+number_of_balls = int(bearing_data.iloc[0]["Balls"])
+dynamic_rating = float(bearing_data.iloc[0]["Dynamic C (N)"])
+static_rating = float(bearing_data.iloc[0]["Static Co (N)"])
 )
 
 # ----------------------------
