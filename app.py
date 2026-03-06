@@ -158,26 +158,28 @@ ball_spacing = 360 / number_of_balls
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Create two rows instead of one row
-row1_col1, row1_col2 = st.columns([1.2,1])
-row2_col1, row2_col2 = st.columns([1.2,1])
-
+row1_col1, row1_col2 = st.columns([1,1])
+row2_col1, row2_col2 = st.columns([1,1])
 
 # ----------------------------
-# Pitch Diameter
+# Pitch Diameter Row
 # ----------------------------
 
 with row1_col1:
 
-    st.markdown("**Pitch Diameter (mm)**")
     st.markdown(
-        f"<span style='font-size:18px'>{pitch_diameter:.3f}</span>",
+        f"""
+        <div style="text-align:center">
+        <b>Pitch Diameter (mm)</b><br>
+        <span style="font-size:16px">{pitch_diameter:.3f}</span>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
 with row1_col2:
 
-    fig, ax = plt.subplots(figsize=(2.4,2.4))
+    fig, ax = plt.subplots(figsize=(1.8,1.8))
 
     fig.patch.set_alpha(0)
     ax.set_facecolor("none")
@@ -199,21 +201,26 @@ with row1_col2:
     st.pyplot(fig)
 
 
+
 # ----------------------------
-# Ball Angular Spacing
+# Ball Angular Spacing Row
 # ----------------------------
 
 with row2_col1:
 
-    st.markdown("**Ball Angular Spacing (deg)**")
     st.markdown(
-        f"<span style='font-size:18px'>{ball_spacing:.3f}</span>",
+        f"""
+        <div style="text-align:center">
+        <b>Ball Angular Spacing (deg)</b><br>
+        <span style="font-size:16px">{ball_spacing:.3f}</span>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
 with row2_col2:
 
-    fig, ax = plt.subplots(figsize=(2.4,2.4))
+    fig, ax = plt.subplots(figsize=(1.8,1.8))
 
     fig.patch.set_alpha(0)
     ax.set_facecolor("none")
@@ -251,7 +258,7 @@ with row2_col2:
         pitch_r*0.7*np.sin(np.deg2rad(ball_spacing/2)),
         f"{ball_spacing:.1f}°",
         color="red",
-        fontsize=8,
+        fontsize=7,
         ha="center"
     )
 
@@ -262,7 +269,6 @@ with row2_col2:
     ax.axis("off")
 
     st.pyplot(fig)
-
 # ----------------------------
 # Test Conditions
 # ----------------------------
