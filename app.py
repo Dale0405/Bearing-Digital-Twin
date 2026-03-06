@@ -60,7 +60,7 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
 
-    fig, ax = plt.subplots(figsize=(3.5,3.5))
+    fig, ax = plt.subplots(figsize=(4.5,4.5))
 
     # transparent background
     fig.patch.set_alpha(0)
@@ -110,7 +110,7 @@ with col1:
     ax.text(-1.22, 1.12,
             f"OD = {bearing_od} mm",
             color="white",
-            fontsize=8,
+            fontsize=11,
             ha="right")
 
 
@@ -126,7 +126,7 @@ with col1:
     ax.text(-1.22, -1.13,
             f"ID = {bearing_id} mm",
             color="white",
-            fontsize=8,
+            fontsize=11,
             ha="right")
 
 
@@ -142,7 +142,7 @@ with col1:
     ax.text(1.18, by,
             f"Ball = {ball_diameter} mm",
             color="white",
-            fontsize=8,
+            fontsize=11,
             va="center")
 
 
