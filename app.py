@@ -147,7 +147,7 @@ with right:
 
     ax.add_patch(base)
 
-    # shadow (bottom side)
+    # shadow
     shadow = plt.Circle(
         (x - ball_r*0.25, y - ball_r*0.25),
         ball_r*0.85,
@@ -158,7 +158,7 @@ with right:
 
     ax.add_patch(shadow)
 
-    # highlight reflection
+    # highlight
     highlight = plt.Circle(
         (x + ball_r*0.25, y + ball_r*0.25),
         ball_r*0.35,
