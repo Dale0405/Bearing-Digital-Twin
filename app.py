@@ -4,12 +4,7 @@ import pandas as pd
 
 st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
-# ----------------------------
-# Bearing Parameters
-# ----------------------------
-
-st.subheader("Bearing Parameters")
-
+# Create table first
 bearing_table = pd.DataFrame({
     "ID (mm)": [40.0],
     "OD (mm)": [90.0],
@@ -20,28 +15,21 @@ bearing_table = pd.DataFrame({
     "Static Co (N)": [24000]
 })
 
+# Then call data editor
 bearing_data = st.data_editor(
     bearing_table,
     hide_index=True,
     use_container_width=True,
     column_config={
-        "ID (mm)": st.column_config.NumberColumn(width="large"),
-        "OD (mm)": st.column_config.NumberColumn(width="large"),
-        "Width (mm)": st.column_config.NumberColumn(width="large"),
-        "Ball Dia (mm)": st.column_config.NumberColumn(width="large"),
-        "Balls": st.column_config.NumberColumn(width="large"),
-        "Dynamic C (N)": st.column_config.NumberColumn(width="large"),
-        "Static Co (N)": st.column_config.NumberColumn(width="large")
+        "ID (mm)": st.column_config.NumberColumn(width="medium"),
+        "OD (mm)": st.column_config.NumberColumn(width="medium"),
+        "Width (mm)": st.column_config.NumberColumn(width="medium"),
+        "Ball Dia (mm)": st.column_config.NumberColumn(width="medium"),
+        "Balls": st.column_config.NumberColumn(width="medium"),
+        "Dynamic C (N)": st.column_config.NumberColumn(width="medium"),
+        "Static Co (N)": st.column_config.NumberColumn(width="medium")
     }
 )
-
-bearing_id = bearing_data["ID (mm)"][0]
-bearing_od = bearing_data["OD (mm)"][0]
-bearing_width = bearing_data["Width (mm)"][0]
-ball_diameter = bearing_data["Ball Dia (mm)"][0]
-number_of_balls = int(bearing_data["Balls"][0])
-dynamic_rating = bearing_data["Dynamic C (N)"][0]
-static_rating = bearing_data["Static Co (N)"][0]
 
 # ----------------------------
 # Dynamic DGBB Visualization
