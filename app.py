@@ -602,8 +602,6 @@ elif page == "Test Data":
 
         test_info = {}
 
-        test_info["Total Data Points"] = len(data_table)
-
         if "Test Time (hr)" in data_table:
             test_info["Test Duration (hr)"] = data_table["Test Time (hr)"].max()
 
