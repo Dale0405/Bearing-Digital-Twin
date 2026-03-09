@@ -500,7 +500,6 @@ if uploaded_file is not None:
     file_columns = [c.lower() for c in df.columns]
 
     # Keyword recognition dictionary
-    column_map = {
         column_map = {
     "Test Time": ["Time", "Time (hr)", "Test Time", "Duration"],
     "Speed (RPM)": ["RPM", "Speed"],
