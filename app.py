@@ -482,7 +482,7 @@ elif page == "Test Data":
     # ----------------------------
 
     standard_columns = [
-        "Test Time (hr)",
+        "Test Time",
         "Speed (RPM)",
         "Radial Load (N)",
         "Axial Load (N)",
@@ -521,7 +521,7 @@ elif page == "Test Data":
         # ----------------------------
 
         column_map = {
-            "Test Time (hr)": ["Time", "Time (hr)", "Test Time (hr)", "Duration"],
+            "Test Time": ["Time", "Time (hr)", "Test Time", "Duration"],
             "Speed (RPM)": ["RPM", "Speed"],
             "Radial Load (N)": ["Radial Load", "Fr"],
             "Axial Load (N)": ["Axial Load", "Fa"],
@@ -592,76 +592,8 @@ elif page == "Test Data":
 
     if st.session_state.twin_data_table is not None:
 
-        data_table = st.session_state.twin_data_table
-        test_info = {}
-        test_info["Total Data Points"] = len(data_table)
-
-        # ----------------------------
-        # Test Information Panel
-        # ----------------------------
-        
-        st.subheader("Test Information")
-        
-        test_info = {}
-        
-        # Total data points
-        test_info["Total Data Points"] = len(data_table)
-        
-        # Test duration
-        if "Test Time (hr)" in data_table:
-            test_info["Test Duration (hr)"] = data_table["Test Time (hr)"].max()
-        
-        # Sampling interval
-        if "Test Time (hr)" in data_table:
-            time_diff = data_table["Test Time (hr)"].diff().dropna()
-            if not time_diff.empty:
-                test_info["Sampling Interval (hr)"] = round(time_diff.mean(), 3)
-        
-        # Speed statistics
-        if "Speed (RPM)" in data_table:
-            test_info["Avg Speed (RPM)"] = round(data_table["Speed (RPM)"].mean(), 0)
-            test_info["Min Speed (RPM)"] = round(data_table["Speed (RPM)"].min(), 0)
-            test_info["Max Speed (RPM)"] = round(data_table["Speed (RPM)"].max(), 0)
-        
-        # Radial load statistics
-        if "Radial Load (N)" in data_table:
-            test_info["Avg Radial Load (N)"] = round(data_table["Radial Load (N)"].mean(), 0)
-            test_info["Min Radial Load (N)"] = round(data_table["Radial Load (N)"].min(), 0)
-            test_info["Max Radial Load (N)"] = round(data_table["Radial Load (N)"].max(), 0)
-        
-        # Temperature statistics
-        temps = ["Temp 1# (°C)", "Temp 2# (°C)", "Temp 3# (°C)", "Temp 4# (°C)"]
-        
-        temp_values = []
-        for t in temps:
-            if t in data_table:
-                temp_values.append(data_table[t])
-        
-        if temp_values:
-            temp_df = pd.concat(temp_values, axis=1)
-            test_info["Max Temperature (°C)"] = round(temp_df.max().max(), 1)
-            test_info["Avg Temperature (°C)"] = round(temp_df.mean().mean(), 1)
-        
-        # Vibration statistics
-        if "Vibration (g)" in data_table:
-            test_info["Avg Vibration (g)"] = round(data_table["Vibration (g)"].mean(), 2)
-            test_info["Max Vibration (g)"] = round(data_table["Vibration (g)"].max(), 2)
-        
-        # Convert to table
-        test_info_df = pd.DataFrame(
-            list(test_info.items()),
-            columns=["Parameter", "Value"]
-        )
-        test_info_df["Value"] = test_info_df["Value"].round(2)
-        
-       # Limit decimals
-        test_info_df["Value"] = test_info_df["Value"].apply(lambda x: round(x, 2) if isinstance(x, (int, float)) else x)
-
-        st.dataframe(
-            test_info_df,
-            use_container_width=True,
-            hide_index=True
-        )
+        st.subheader("Test Data Table")
+        st.dataframe(st.session_state.twin_data_table, use_container_width=True)
 
     else:
 
