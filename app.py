@@ -543,8 +543,8 @@ if uploaded_file is not None:
     errors="coerce"
 ).round(0)
 
-   for temp_col in ["Temp 1# (°C)","Temp 2# (°C)","Temp 3# (°C)","Temp 4# (°C)"]:
-    
+   # Temperatures
+for temp_col in ["Temp 1# (°C)", "Temp 2# (°C)", "Temp 3# (°C)", "Temp 4# (°C)"]:
     if temp_col in data_table:
         data_table[temp_col] = pd.to_numeric(
             data_table[temp_col],
