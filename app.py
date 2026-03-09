@@ -640,7 +640,7 @@ elif page == "Test Data":
         # Metric Font Settings
         # ----------------------------
         
-        metric_label_size = 230   # header size (%)  e.g. 130 = 30% bigger
+        metric_label_size = 320   # header size (%)  e.g. 130 = 30% bigger
         metric_value_size = 150    # value size (%)   e.g. 70 = 30% smaller
         
         st.markdown(f"""
