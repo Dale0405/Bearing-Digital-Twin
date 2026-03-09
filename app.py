@@ -467,9 +467,21 @@ if page == "Test Setup":
 
 st.title("Test Data")
 
-uploaded_file = st.file_uploader(
-    "Upload Test Machine Data",
-    type=["xlsx","xls","csv"]
+uploaded_file = st.file_uploader("Upload Test Machine Data")
+
+if uploaded_file is not None:
+
+    if uploaded_file.name.endswith(".csv"):
+        df = pd.read_csv(uploaded_file)
+    else:
+        df = pd.read_excel(uploaded_file)
+
+    data_table = pd.DataFrame(index=df.index)
+
+    st.dataframe(data_table)
+
+else:
+    st.info("Upload a test data file to display the table.")
 )
 
 # Standard Digital Twin columns
