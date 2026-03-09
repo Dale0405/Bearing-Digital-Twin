@@ -39,7 +39,13 @@ st.markdown("""
 
 st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
-# ----------------------------
+page = st.sidebar.radio(
+    "Navigation",
+    ["Test Setup", "Test Data", "Test Results"]
+)
+if page == "Test Setup":
+    st.title("Test Setup")
+ # ----------------------------
 # Bearing Parameters
 # ----------------------------
 
@@ -549,3 +555,13 @@ lubrication = st.selectbox(
     "Lubrication Type",
     ["Grease", "Oil"]
 )
+
+
+elif page == "Test Data":
+    st.title("Test Data")
+    # paste the Excel upload code here
+
+elif page == "Test Results":
+    st.title("Test Results")
+    # your results code
+
