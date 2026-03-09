@@ -33,12 +33,17 @@ st.markdown("""
     white-space: normal !important;
 }
 
+/* DATAFRAME ALIGNMENT */
+[data-testid="stDataFrame"] th {
+    text-align: center !important;
+}
+
+[data-testid="stDataFrame"] td {
+    text-align: center !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
-
-
-st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
-
 
 # ----------------------------------------------------
 # SIDEBAR NAVIGATION
