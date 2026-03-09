@@ -485,6 +485,66 @@ if page == "Test Data":
         st.subheader("Detected Machine Data")
 
         st.dataframe(df)
+        st.title("Test Data")
+
+uploaded_file = st.file_uploader(
+    "Upload Test Machine Data",
+    type=["xlsx","xls","csv"]
+)
+
+# Standard Digital Twin table structure
+standard_columns = [
+    "Test Time",
+    "Speed (RPM)",
+    "Radial Load (N)",
+    "Axial Load (N)",
+    "Vibration (g)"
+]
+
+# Create empty table first
+data_table = pd.DataFrame(columns=standard_columns)
+
+if uploaded_file is not None:
+
+    # Read file
+    if uploaded_file.name.endswith(".csv"):
+        df = pd.read_csv(uploaded_file)
+    else:
+        df = pd.read_excel(uploaded_file, engine="openpyxl")
+
+    # Normalize column names
+    file_columns = [c.lower() for c in df.columns]
+
+    # Dictionary for matching machine column names
+    column_map = {
+        "Test Time": ["time","test time","duration"],
+        "Speed (RPM)": ["rpm","speed","rotational speed"],
+        "Radial Load (N)": ["radial load","fr","load radial"],
+        "Axial Load (N)": ["axial load","fa","load axial"],
+        "Vibration (g)": ["vibration","vib","acceleration"]
+    }
+
+    # Create output table with same number of rows
+    data_table = pd.DataFrame(index=df.index)
+
+    for standard_col, keywords in column_map.items():
+
+        found = None
+
+        for i, col in enumerate(file_columns):
+            for key in keywords:
+                if key in col:
+                    found = df.iloc[:, i]
+                    break
+            if found is not None:
+                break
+
+        data_table[standard_col] = found
+
+# Show the table
+st.subheader("Test Machine Data Table")
+
+st.dataframe(data_table, use_container_width=True)
 
 
 
