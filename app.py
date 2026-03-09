@@ -56,7 +56,7 @@ if module == "Test Setup":
 
     st.header("Test Setup")
 
-    # ----------------------------
+# ----------------------------
 # Bearing Parameters
 # ----------------------------
 
