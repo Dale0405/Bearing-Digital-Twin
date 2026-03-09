@@ -5,3 +5,4 @@ streamlit
 numpy
 pandas
 matplotlib
+openpyxl
