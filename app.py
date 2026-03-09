@@ -705,11 +705,11 @@ elif page == "Test Data":
             selected_temp = st.radio(
                 "",
                 [
-                    "Temp 1#",
-                    "Temp 2#",
-                    "Temp 3#",
-                    "Temp 4#",
-                    "All"
+                    "Temp 1# (°C)",
+                    "Temp 2# (°C)",
+                    "Temp 3# (°C)",
+                    "Temp 4# (°C)",
+                    "All Temperatures"
                 ],
                 label_visibility="collapsed"
             )
@@ -726,13 +726,13 @@ elif page == "Test Data":
         
                 time = data_table["Test Time (hr)"]
         
-                if selected_temp == "All":
+                if selected_temp == "All Temperatures":
         
                     temps = [
-                        "Temp 1#",
-                        "Temp 2#",
-                        "Temp 3#",
-                        "Temp 4#"
+                        "Temp 1# (°C)",
+                        "Temp 2# (°C)",
+                        "Temp 3# (°C)",
+                        "Temp 4# (°C)"
                     ]
         
                     for t in temps:
@@ -782,7 +782,7 @@ elif page == "Test Data":
                 ax.legend(fontsize=legend_size)
         
                 st.pyplot(fig)
-
+        
         # ----------------------------
         # Vibration Trend Plot
         # ----------------------------
