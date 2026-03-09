@@ -469,21 +469,10 @@ st.title("Test Data")
 
 uploaded_file = st.file_uploader("Upload Test Machine Data")
 
-if uploaded_file is not None:
-
-    if uploaded_file.name.endswith(".csv"):
-        df = pd.read_csv(uploaded_file)
-    else:
-        df = pd.read_excel(uploaded_file)
-
-    data_table = pd.DataFrame(index=df.index)
-
-    st.dataframe(data_table)
-
-else:
-    st.info("Upload a test data file to display the table.")
-
+# ----------------------------
 # Standard Digital Twin columns
+# ----------------------------
+
 standard_columns = [
     "Test Time",
     "Speed (RPM)",
@@ -495,8 +484,6 @@ standard_columns = [
     "Temp 4# (°C)",
     "Vibration (g)"
 ]
-
-data_table = pd.DataFrame(columns=standard_columns)
 
 # ----------------------------
 # Upload Test Machine Data
@@ -513,27 +500,17 @@ if uploaded_file is None:
 
 else:
 
-    # ----------------------------
     # Read uploaded file
-    # ----------------------------
-
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
     else:
         df = pd.read_excel(uploaded_file)
 
-    # ----------------------------
-    # Create base data table
-    # ----------------------------
+    # Create digital twin table with same number of rows
+    data_table = pd.DataFrame(index=df.index, columns=standard_columns)
 
-    data_table = pd.DataFrame(index=df.index)
-
-    # ----------------------------
     # Display table
-    # ----------------------------
-
     st.subheader("Test Data Table")
-
     st.dataframe(data_table, use_container_width=True)
 
     # Normalize column names
