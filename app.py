@@ -471,6 +471,15 @@ elif page == "Test Data":
     st.title("Test Data")
 
     # ----------------------------
+    # Initialize session storage
+    # ----------------------------
+    if "raw_test_data" not in st.session_state:
+        st.session_state.raw_test_data = None
+
+    if "twin_data_table" not in st.session_state:
+        st.session_state.twin_data_table = None
+
+    # ----------------------------
     # Standard Digital Twin columns
     # ----------------------------
 
@@ -495,11 +504,7 @@ elif page == "Test Data":
         type=["xlsx", "xls", "csv"]
     )
 
-    if uploaded_file is None:
-
-        st.info("Upload a test data file to display the table.")
-
-    else:
+    if uploaded_file is not None:
 
         # ----------------------------
         # Read uploaded file
@@ -509,6 +514,9 @@ elif page == "Test Data":
             df = pd.read_csv(uploaded_file)
         else:
             df = pd.read_excel(uploaded_file)
+
+        # Store raw data in session
+        st.session_state.raw_test_data = df
 
         # ----------------------------
         # Keyword recognition dictionary
@@ -577,12 +585,21 @@ elif page == "Test Data":
                 data_table["Vibration (g)"], errors="coerce"
             ).round(2)
 
-        # ----------------------------
-        # Display table
-        # ----------------------------
+        # Store processed twin table
+        st.session_state.twin_data_table = data_table
+
+    # ----------------------------
+    # Display stored table
+    # ----------------------------
+
+    if st.session_state.twin_data_table is not None:
 
         st.subheader("Test Data Table")
-        st.dataframe(data_table, use_container_width=True)
+        st.dataframe(st.session_state.twin_data_table, use_container_width=True)
+
+    else:
+
+        st.info("Upload a test data file to display the table.")
 
 
 
