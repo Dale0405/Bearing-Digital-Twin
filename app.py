@@ -3,22 +3,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-st.markdown("""
-<style>
-
-/* Center dataframe headers */
-[data-testid="stDataFrame"] th {
-    text-align: center !important;
-}
-
-/* Center dataframe cell values */
-[data-testid="stDataFrame"] td {
-    text-align: center !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
 # ----------------------------------------------------
 # GLOBAL STYLE
 # ----------------------------------------------------
