@@ -170,16 +170,20 @@ if page == "Test Setup":
         # ----------------------------
         # Derived Geometry
         # ----------------------------
-    
+        
+        st.markdown("---")
         st.subheader("Derived Geometry")
         
         pitch_diameter = (bearing_id + bearing_od) / 2
         ball_spacing = 360 / number_of_balls
-    
-        import matplotlib.pyplot as plt
-        import numpy as np
-    
+        
         col1, col2 = st.columns(2)
+        
+        with col1:
+            st.metric("Pitch Diameter (mm)", f"{pitch_diameter:.3f}")
+        
+        with col2:
+            st.metric("Ball Angular Spacing (deg)", f"{ball_spacing:.3f}")
     
         # ----------------------------
         # Pitch Diameter
