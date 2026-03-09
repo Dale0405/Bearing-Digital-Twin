@@ -470,23 +470,6 @@ if page == "Test Data":
 
     st.title("Test Data")
 
-    uploaded_file = st.file_uploader(
-        "Upload Test Machine Excel File",
-        type=["xlsx","xls","csv"]
-    )
-
-    if uploaded_file is not None:
-
-        if uploaded_file.name.endswith(".csv"):
-            df = pd.read_csv(uploaded_file)
-        else:
-            df = pd.read_excel(uploaded_file)
-
-        st.subheader("Detected Machine Data")
-
-        st.dataframe(df)
-        st.title("Test Data")
-
 uploaded_file = st.file_uploader(
     "Upload Test Machine Data",
     type=["xlsx","xls","csv"]
