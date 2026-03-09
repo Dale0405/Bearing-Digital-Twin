@@ -531,28 +531,36 @@ if uploaded_file is not None:
 
     # Apply formatting rules
 
-    if "Speed (RPM)" in data_table:
-        data_table["Speed (RPM)"] = data_table["Speed (RPM)"].round(0)
+    # Speed
+if "Speed (RPM)" in data_table:
+    data_table["Speed (RPM)"] = pd.to_numeric(
+        data_table["Speed (RPM)"], errors="coerce"
+    ).round(0)
 
-    if "Radial Load (N)" in data_table:
-        data_table["Radial Load (N)"] = data_table["Radial Load (N)"].round(0)
+# Radial Load
+if "Radial Load (N)" in data_table:
+    data_table["Radial Load (N)"] = pd.to_numeric(
+        data_table["Radial Load (N)"], errors="coerce"
+    ).round(0)
 
-    if "Axial Load (N)" in data_table:
-       data_table["Axial Load (N)"] = pd.to_numeric(
-    data_table["Axial Load (N)"],
-    errors="coerce"
-).round(0)
+# Axial Load
+if "Axial Load (N)" in data_table:
+    data_table["Axial Load (N)"] = pd.to_numeric(
+        data_table["Axial Load (N)"], errors="coerce"
+    ).round(0)
 
-   # Temperatures
+# Temperatures
 for temp_col in ["Temp 1# (°C)", "Temp 2# (°C)", "Temp 3# (°C)", "Temp 4# (°C)"]:
     if temp_col in data_table:
         data_table[temp_col] = pd.to_numeric(
-            data_table[temp_col],
-            errors="coerce"
+            data_table[temp_col], errors="coerce"
         ).round(1)
 
-    if "Vibration (g)" in data_table:
-        data_table["Vibration (g)"] = data_table["Vibration (g)"].round(2)
+# Vibration
+if "Vibration (g)" in data_table:
+    data_table["Vibration (g)"] = pd.to_numeric(
+        data_table["Vibration (g)"], errors="coerce"
+    ).round(2)
 
 # Display table
 st.subheader("Test Data Table")
