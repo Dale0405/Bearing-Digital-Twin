@@ -638,22 +638,16 @@ elif page == "Test Data":
             test_info["Avg Vibration (g)"] = round(data_table["Vibration (g)"].mean(), 2)
             test_info["Max Vibration (g)"] = round(data_table["Vibration (g)"].max(), 2)
 
-        # ----------------------------
-        # Display as metric cards
-        # ----------------------------
-        
-        items = list(test_info.items())
-        
-        cols = st.columns(3)
-        
-        for i, (label, value) in enumerate(items):
-        
-            col = cols[i % 3]
-        
-            if isinstance(value, float):
-                value = round(value, 2)
-        
-            col.metric(label=label, value=value)
+        # Format numbers to remove long decimals
+test_info_df["Value"] = test_info_df["Value"].apply(
+    lambda x: f"{x:.2f}".rstrip("0").rstrip(".") if isinstance(x, (int, float)) else x
+)
+
+# Center table using HTML
+st.markdown(
+    test_info_df.to_html(index=False, justify="center"),
+    unsafe_allow_html=True
+)
         
         # ----------------------------
         # Test Data Table
