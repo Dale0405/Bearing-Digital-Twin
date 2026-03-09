@@ -482,7 +482,7 @@ elif page == "Test Data":
     # ----------------------------
 
     standard_columns = [
-        "Test Time",
+        "Test Time (hr)",
         "Speed (RPM)",
         "Radial Load (N)",
         "Axial Load (N)",
@@ -521,7 +521,7 @@ elif page == "Test Data":
         # ----------------------------
 
         column_map = {
-            "Test Time": ["Time", "Time (hr)", "Test Time", "Duration"],
+            "Test Time (hr)": ["Time", "Time (hr)", "Test Time (hr)", "Duration"],
             "Speed (RPM)": ["RPM", "Speed"],
             "Radial Load (N)": ["Radial Load", "Fr"],
             "Axial Load (N)": ["Axial Load", "Fa"],
