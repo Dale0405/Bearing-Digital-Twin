@@ -734,10 +734,15 @@ elif page == "Test Data":
                         "Temp 3# (°C)",
                         "Temp 4# (°C)"
                     ]
-        
+                    
                     for t in temps:
-                        if t in data_table:
-                            ax.plot(time, data_table[t], linewidth=2, label=t)
+                        if t in data_table and data_table[t].notna().any():
+                            ax.plot(
+                                time,
+                                data_table[t],
+                                linewidth=2,
+                                label=t
+                            )
         
                 else:
         
