@@ -709,7 +709,7 @@ elif page == "Test Data":
                     "Temp 2# (°C)",
                     "Temp 3# (°C)",
                     "Temp 4# (°C)",
-                    "All Temperatures"
+                    "ALL"
                 ],
                 label_visibility="collapsed"
             )
@@ -726,7 +726,7 @@ elif page == "Test Data":
         
                 time = data_table["Test Time (hr)"]
         
-                if selected_temp == "All Temperatures":
+                if selected_temp == "ALL":
         
                     temps = [
                         "Temp 1# (°C)",
