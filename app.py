@@ -709,7 +709,7 @@ elif page == "Test Data":
                     "Temp 2#",
                     "Temp 3#",
                     "Temp 4#",
-                    "All Temps"
+                    "All"
                 ],
                 label_visibility="collapsed"
             )
