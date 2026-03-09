@@ -462,13 +462,11 @@ rpm = float(st.text_input("RPM", "3000"))
 ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
 lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
 
-
-
 # ====================================================
 # TEST DATA PAGE
 # ====================================================
 
-if page == "Test Data":
+elif page == "Test Data":
 
     st.title("Test Data")
 
@@ -499,3 +497,7 @@ elif page == "Test Results":
     st.title("Test Results")
 
     st.write("Engineering results will appear here.")
+
+
+
+
