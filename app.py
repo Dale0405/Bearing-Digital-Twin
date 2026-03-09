@@ -498,13 +498,23 @@ standard_columns = [
 
 data_table = pd.DataFrame(columns=standard_columns)
 
+iuploaded_file = st.file_uploader(
+    "Upload Test Machine Data",
+    type=["xlsx","xls","csv"]
+)
+
 if uploaded_file is not None:
 
-    # Read uploaded file
+    # Read file
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
     else:
-        df = pd.read_excel(uploaded_file, engine="openpyxl")
+        df = pd.read_excel(uploaded_file)
+
+    # Create table
+    data_table = pd.DataFrame(index=df.index)
+
+    # continue processing...
 
     # Normalize column names
     file_columns = [c.lower() for c in df.columns]
