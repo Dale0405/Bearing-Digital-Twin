@@ -125,46 +125,106 @@ if page == "Test Setup":
         static_rating = float(r7c2.text_input("", "24000", label_visibility="collapsed"))
 
 
+# ----------------------------
+# BEARING VISUALIZATION
+# ----------------------------
+
+with right:
+
+    fig, ax = plt.subplots(figsize=(6,6))
+
+    fig.patch.set_alpha(0)
+    ax.set_facecolor("none")
+
+    outer_r = 1.0
+    inner_r = bearing_id / bearing_od
+    pitch_r = (outer_r + inner_r) / 2
+    ball_r = ball_diameter / bearing_od * 0.5
+
+    # Bearing rings
+    ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#8c8f94"))
+    ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#8c8f94"))
+
+    ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#8c8f94"))
+    ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#8c8f94"))
+
+    angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
+
+    # Ball drawing
+    for a in angles:
+
+        x = pitch_r * np.cos(a)
+        y = pitch_r * np.sin(a)
+
+        ax.add_patch(plt.Circle((x,y), ball_r, color="#cfd3d6", ec="#2b2b2b", linewidth=1.2))
+
     # ----------------------------
-    # BEARING VISUALIZATION
+    # OD Label
     # ----------------------------
 
-    with right:
+    od_x = -outer_r * 0.7
+    od_y = outer_r * 0.7
 
-        fig, ax = plt.subplots(figsize=(6,6))
+    ax.plot([od_x, -1.2], [od_y, 1.1], linestyle="--", color="red", linewidth=0.5)
+    ax.scatter([od_x], [od_y], color="red", s=15)
 
-        fig.patch.set_alpha(0)
-        ax.set_facecolor("none")
+    ax.text(
+        -1.22,
+        1.12,
+        f"OD = {bearing_od} mm",
+        color="white",
+        fontsize=18,
+        ha="right"
+    )
 
-        outer_r = 1.0
-        inner_r = bearing_id / bearing_od
-        pitch_r = (outer_r + inner_r) / 2
-        ball_r = ball_diameter / bearing_od * 0.5
+    # ----------------------------
+    # ID Label
+    # ----------------------------
 
-        ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#8c8f94"))
-        ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#8c8f94"))
+    id_x = -inner_r * 0.7
+    id_y = -inner_r * 0.7
 
-        ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#8c8f94"))
-        ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#8c8f94"))
+    ax.plot([id_x, -1.2], [id_y, -1.1], linestyle="--", color="red", linewidth=0.5)
+    ax.scatter([id_x], [id_y], color="red", s=15)
 
-        angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
+    ax.text(
+        -1.22,
+        -1.13,
+        f"ID = {bearing_id} mm",
+        color="white",
+        fontsize=18,
+        ha="right"
+    )
 
-        for a in angles:
+    # ----------------------------
+    # Ball Label
+    # ----------------------------
 
-            x = pitch_r * np.cos(a)
-            y = pitch_r * np.sin(a)
+    bx = pitch_r * np.cos(angles[0])
+    by = pitch_r * np.sin(angles[0])
 
-            ax.add_patch(plt.Circle((x,y), ball_r, color="#cfd3d6", ec="#2b2b2b", linewidth=1.2))
+    ax.plot([bx + ball_r, 1.15], [by, by], linestyle="--", color="red", linewidth=0.5)
+    ax.scatter([bx + ball_r], [by], color="red", s=15)
 
-        ax.set_xlim(-1.4,1.4)
-        ax.set_ylim(-1.4,1.4)
+    ax.text(
+        1.18,
+        by,
+        f"Ball = {ball_diameter} mm",
+        color="white",
+        fontsize=18,
+        va="center"
+    )
 
-        ax.set_aspect("equal")
-        ax.axis("off")
+    # Axis settings
+    ax.set_xlim(-1.4,1.4)
+    ax.set_ylim(-1.4,1.4)
 
-        st.pyplot(fig)
+    ax.set_aspect("equal")
+    ax.axis("off")
 
-        st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
+    st.pyplot(fig)
+
+    st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
 
 
 
