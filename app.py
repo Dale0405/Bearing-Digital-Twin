@@ -580,11 +580,7 @@ if "Vibration (g)" in data_table:
 # Display table
 st.subheader("Test Data Table")
 
-styled_table = data_table.style.set_properties(**{
-    'text-align': 'center'
-})
-
-st.dataframe(styled_table, use_container_width=True)
+st.dataframe(data_table, use_container_width=True)
 
 
 
