@@ -125,108 +125,46 @@ if page == "Test Setup":
         static_rating = float(r7c2.text_input("", "24000", label_visibility="collapsed"))
 
 
-    # ----------------------------
-# BEARING VISUALIZATION
-# ----------------------------
-
-with right:
-
-    fig, ax = plt.subplots(figsize=(6,6))
-
-    fig.patch.set_alpha(0)
-    ax.set_facecolor("none")
-
-    outer_r = 1.0
-    inner_r = bearing_id / bearing_od
-    pitch_r = (outer_r + inner_r) / 2
-    ball_r = ball_diameter / bearing_od * 0.5
-
-    # Outer Ring
-    ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#8c8f94"))
-    ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#8c8f94"))
-
-    # Inner Ring
-    ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#8c8f94"))
-    ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#8c8f94"))
-
-    angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
-
-    # Balls
-    for a in angles:
-
-        x = pitch_r * np.cos(a)
-        y = pitch_r * np.sin(a)
-
-        ax.add_patch(
-            plt.Circle(
-                (x,y),
-                ball_r,
-                color="#cfd3d6",
-                ec="#2b2b2b",
-                linewidth=1.2
-            )
-        )
-
-    # ----------------------------
-    # OUTER RING LABEL
+ # ----------------------------
+    # BEARING VISUALIZATION
     # ----------------------------
 
-    ax.plot([-0.7, -1.15], [0.9, 1.1], color="red", linewidth=0.7)
-    ax.scatter([-0.7], [0.9], color="red", s=15)
+    with right:
 
-    ax.text(
-        -1.17,
-        1.12,
-        "Outer Ring",
-        color="white",
-        fontsize=12,
-        ha="right"
-    )
+        fig, ax = plt.subplots(figsize=(6,6))
 
-    # ----------------------------
-    # INNER RING LABEL
-    # ----------------------------
+        fig.patch.set_alpha(0)
+        ax.set_facecolor("none")
 
-    ax.plot([-0.45, -1.15], [-0.45, -1.1], color="red", linewidth=0.7)
-    ax.scatter([-0.45], [-0.45], color="red", s=15)
+        outer_r = 1.0
+        inner_r = bearing_id / bearing_od
+        pitch_r = (outer_r + inner_r) / 2
+        ball_r = ball_diameter / bearing_od * 0.5
 
-    ax.text(
-        -1.17,
-        -1.12,
-        "Inner Ring",
-        color="white",
-        fontsize=12,
-        ha="right"
-    )
+        ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#8c8f94"))
+        ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#8c8f94"))
 
-    # ----------------------------
-    # BALL LABEL
-    # ----------------------------
+        ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#8c8f94"))
+        ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#8c8f94"))
 
-    bx = pitch_r * np.cos(angles[0])
-    by = pitch_r * np.sin(angles[0])
+        angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
 
-    ax.plot([bx + ball_r, 1.05], [by, by], color="red", linewidth=0.7)
-    ax.scatter([bx + ball_r], [by], color="red", s=15)
+        for a in angles:
 
-    ax.text(
-        1.07,
-        by,
-        "Rolling Element (Ball)",
-        color="white",
-        fontsize=12,
-        va="center"
-    )
+            x = pitch_r * np.cos(a)
+            y = pitch_r * np.sin(a)
 
-    ax.set_xlim(-1.4,1.4)
-    ax.set_ylim(-1.4,1.4)
+            ax.add_patch(plt.Circle((x,y), ball_r, color="#cfd3d6", ec="#2b2b2b", linewidth=1.2))
 
-    ax.set_aspect("equal")
-    ax.axis("off")
+        ax.set_xlim(-1.4,1.4)
+        ax.set_ylim(-1.4,1.4)
 
-    st.pyplot(fig)
+        ax.set_aspect("equal")
+        ax.axis("off")
 
-    st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
+        st.pyplot(fig)
+
+        st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
 
     # ----------------------------
     # Derived Geometry
