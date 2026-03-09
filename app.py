@@ -466,30 +466,31 @@ if page == "Test Setup":
 # TEST DATA PAGE
 # ====================================================
 
-if page == "Test Data":
-
-    st.title("Test Data")
+st.title("Test Data")
 
 uploaded_file = st.file_uploader(
     "Upload Test Machine Data",
     type=["xlsx","xls","csv"]
 )
 
-# Standard Digital Twin table structure
+# Standard Digital Twin columns
 standard_columns = [
     "Test Time",
     "Speed (RPM)",
     "Radial Load (N)",
     "Axial Load (N)",
+    "Temp 1# (°C)",
+    "Temp 2# (°C)",
+    "Temp 3# (°C)",
+    "Temp 4# (°C)",
     "Vibration (g)"
 ]
 
-# Create empty table first
 data_table = pd.DataFrame(columns=standard_columns)
 
 if uploaded_file is not None:
 
-    # Read file
+    # Read uploaded file
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
     else:
@@ -498,36 +499,61 @@ if uploaded_file is not None:
     # Normalize column names
     file_columns = [c.lower() for c in df.columns]
 
-    # Dictionary for matching machine column names
+    # Keyword recognition dictionary
     column_map = {
         "Test Time": ["time","test time","duration"],
-        "Speed (RPM)": ["rpm","speed","rotational speed"],
-        "Radial Load (N)": ["radial load","fr","load radial"],
-        "Axial Load (N)": ["axial load","fa","load axial"],
-        "Vibration (g)": ["vibration","vib","acceleration"]
+        "Speed (RPM)": ["rpm","speed"],
+        "Radial Load (N)": ["radial load","fr"],
+        "Axial Load (N)": ["axial load","fa"],
+        "Temp 1# (°C)": ["temp1","temperature1","t1"],
+        "Temp 2# (°C)": ["temp2","temperature2","t2"],
+        "Temp 3# (°C)": ["temp3","temperature3","t3"],
+        "Temp 4# (°C)": ["temp4","temperature4","t4"],
+        "Vibration (g)": ["vibration","vib"]
     }
 
-    # Create output table with same number of rows
+    # Create table with same number of rows as uploaded file
     data_table = pd.DataFrame(index=df.index)
 
     for standard_col, keywords in column_map.items():
 
-        found = None
+        found_series = None
 
         for i, col in enumerate(file_columns):
             for key in keywords:
                 if key in col:
-                    found = df.iloc[:, i]
+                    found_series = df.iloc[:, i]
                     break
-            if found is not None:
+            if found_series is not None:
                 break
 
-        data_table[standard_col] = found
+        data_table[standard_col] = found_series
 
-# Show the table
-st.subheader("Test Machine Data Table")
+    # Apply formatting rules
 
-st.dataframe(data_table, use_container_width=True)
+    if "Speed (RPM)" in data_table:
+        data_table["Speed (RPM)"] = data_table["Speed (RPM)"].round(0)
+
+    if "Radial Load (N)" in data_table:
+        data_table["Radial Load (N)"] = data_table["Radial Load (N)"].round(0)
+
+    if "Axial Load (N)" in data_table:
+        data_table["Axial Load (N)"] = data_table["Axial Load (N)"].round(0)
+
+    for temp_col in ["Temp 1# (°C)","Temp 2# (°C)","Temp 3# (°C)","Temp 4# (°C)"]:
+        if temp_col in data_table:
+            data_table[temp_col] = data_table[temp_col].round(1)
+
+    if "Vibration (g)" in data_table:
+        data_table["Vibration (g)"] = data_table["Vibration (g)"].round(2)
+
+# Display table
+st.subheader("Test Data Table")
+
+st.dataframe(
+    data_table,
+    use_container_width=True
+)
 
 
 
