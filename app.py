@@ -466,8 +466,8 @@ if page == "Test Setup":
 # ====================================================
 # TEST DATA PAGE
 # ====================================================
-    elif page == "Test Data":
-    st.title("Test Data")
+    if page == "Test Data":
+st.title("Test Data")
 
 # ----------------------------
 # Standard Digital Twin columns
