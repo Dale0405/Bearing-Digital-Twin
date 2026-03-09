@@ -501,16 +501,30 @@ if uploaded_file is not None:
 
     # Keyword recognition dictionary
     column_map = {
-        "Test Time": ["time","test time","duration"],
-        "Speed (RPM)": ["rpm","speed"],
-        "Radial Load (N)": ["radial load","fr"],
-        "Axial Load (N)": ["axial load","fa"],
-        "Temp 1# (°C)": ["temp1","temperature1","t1"],
-        "Temp 2# (°C)": ["temp2","temperature2","t2"],
-        "Temp 3# (°C)": ["temp3","temperature3","t3"],
-        "Temp 4# (°C)": ["temp4","temperature4","t4"],
-        "Vibration (g)": ["vibration","vib"]
-    }
+        column_map = {
+    "Test Time": ["Time", "Time (hr)", "Test Time", "Duration"],
+    "Speed (RPM)": ["RPM", "Speed"],
+    "Radial Load (N)": ["Radial Load", "Fr"],
+    "Axial Load (N)": ["Axial Load", "Fa"],
+
+    "Temp 1# (°C)": [
+        "Temp 1# (°C)", "Temp 1#", "Temp 1", "Temperature 1", "Temp1"
+    ],
+
+    "Temp 2# (°C)": [
+        "Temp 2# (°C)", "Temp 2#", "Temp 2", "Temperature 2", "Temp2"
+    ],
+
+    "Temp 3# (°C)": [
+        "Temp 3# (°C)", "Temp 3#", "Temp 3", "Temperature 3", "Temp3"
+    ],
+
+    "Temp 4# (°C)": [
+        "Temp 4# (°C)", "Temp 4#", "Temp 4", "Temperature 4", "Temp4"
+    ],
+
+    "Vibration (g)": ["Vibration", "Vib"]
+}
 
     # Create table with same number of rows as uploaded file
     data_table = pd.DataFrame(index=df.index)
