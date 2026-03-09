@@ -645,7 +645,7 @@ elif page == "Test Data":
         cols = st.columns(4)
         
         for i, (label, value) in enumerate(items):
-            col = cols[i % 3]
+            col = cols[i % 4]
         
             if isinstance(value, float):
                 value = round(value, 2)
