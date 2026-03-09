@@ -530,17 +530,19 @@ if uploaded_file is not None:
 
     for standard_col, keywords in column_map.items():
 
-        found_series = None
+    found_series = None
 
-        for i, col in enumerate(file_columns):
-            for key in keywords:
-                if key in col:
-                    found_series = df.iloc[:, i]
-                    break
-            if found_series is not None:
+    for col in df.columns:
+        for key in keywords:
+
+            if key in col:   # <-- IMPORTANT
+                found_series = df[col]
                 break
 
-        data_table[standard_col] = found_series
+        if found_series is not None:
+            break
+
+    data_table[standard_col] = found_series
 
     # Apply formatting rules
 
