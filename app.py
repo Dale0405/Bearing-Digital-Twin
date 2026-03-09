@@ -182,11 +182,11 @@ if page == "Test Setup":
 
     col1, col2 = st.columns(2)
 
-# ----------------------------
-# Pitch Diameter
-# ----------------------------
+    # ----------------------------
+    # Pitch Diameter
+    # ----------------------------
 
-with col1:
+    with col1:
 
     metric_col, img_col = st.columns([1,1])
 
@@ -234,13 +234,13 @@ with col1:
 
 
 
-# ----------------------------
-# Ball Angular Spacing
-# ----------------------------
+    # ----------------------------
+    # Ball Angular Spacing
+    # ----------------------------
 
-with col2:
+    with col2:
 
-    metric_col, img_col = st.columns([1,1])
+        metric_col, img_col = st.columns([1,1])
 
     with metric_col:
         st.metric("Ball Angular Spacing (deg)", f"{ball_spacing:.3f}")
