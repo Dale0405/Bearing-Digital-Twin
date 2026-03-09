@@ -40,6 +40,23 @@ st.markdown("""
 st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
 # ----------------------------
+# SIDEBAR NAVIGATION
+# ----------------------------
+
+module = st.sidebar.radio(
+    "Digital Twin Navigation",
+    ["Test Setup", "Test Data", "Test Results"]
+)
+
+# ----------------------------
+# TEST SETUP
+# ----------------------------
+
+if module == "Test Setup":
+
+    st.header("Test Setup")
+
+    # ----------------------------
 # Bearing Parameters
 # ----------------------------
 
@@ -548,4 +565,43 @@ ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
 lubrication = st.selectbox(
     "Lubrication Type",
     ["Grease", "Oil"]
-)
+)# Put all your existing setup code here
+    # Example:
+    # - Bearing Parameters
+    # - Internal Clearance
+    # - Fit Conditions
+    # - Derived Geometry
+    # - Bearing Visualization
+
+
+# ----------------------------
+# TEST DATA
+# ----------------------------
+
+elif module == "Test Data":
+
+    st.header("Test Data")
+
+    radial_load = st.number_input("Radial Load (N)", value=1000)
+    axial_load = st.number_input("Axial Load (N)", value=0)
+    rpm = st.number_input("Speed (RPM)", value=1000)
+    temperature = st.number_input("Temperature (°C)", value=25)
+    vibration = st.number_input("Vibration (mm/s)", value=0.0)
+
+
+# ----------------------------
+# TEST RESULTS
+# ----------------------------
+
+elif module == "Test Results":
+
+    st.header("Test Results")
+
+    st.write("Results will be calculated here.")
+
+    # Future results:
+    # - Load Distribution
+    # - Contact Stress
+    # - Bearing Life
+
+
