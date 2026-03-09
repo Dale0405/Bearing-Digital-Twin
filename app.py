@@ -527,15 +527,15 @@ if uploaded_file is not None:
 
     # Create table with same number of rows as uploaded file
     data_table = pd.DataFrame(index=df.index)
-
     for standard_col, keywords in column_map.items():
 
     found_series = None
 
     for col in df.columns:
+
         for key in keywords:
 
-            if key in col:   # <-- IMPORTANT
+            if key in col:
                 found_series = df[col]
                 break
 
