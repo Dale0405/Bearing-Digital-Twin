@@ -39,6 +39,23 @@ st.markdown("""
 
 st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
+/* Center dataframe values */
+[data-testid="stDataFrame"] th {
+    text-align: center !important;
+}
+
+[data-testid="stDataFrame"] td {
+    text-align: center !important;
+}
+
+/* Center dataframe values */
+[data-testid="stDataFrame"] th {
+    text-align: center !important;
+}
+
+[data-testid="stDataFrame"] td {
+    text-align: center !important;
+}
 
 # ----------------------------------------------------
 # SIDEBAR NAVIGATION
@@ -656,16 +673,14 @@ elif page == "Test Data":
         )
         test_info_df["Value"] = test_info_df["Value"].round(2)
         
+       # Limit decimals
+        test_info_df["Value"] = test_info_df["Value"].apply(lambda x: round(x, 2) if isinstance(x, (int, float)) else x)
+
         st.dataframe(
-            test_info_df.style.set_properties(**{"text-align": "center"}).set_table_styles(
-                [{"selector": "th", "props": [("text-align", "center")]}]
-            ),
+            test_info_df,
             use_container_width=True,
             hide_index=True
         )
-
-        st.subheader("Test Data Table")
-        st.dataframe(st.session_state.twin_data_table, use_container_width=True)
 
     else:
 
