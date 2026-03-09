@@ -538,7 +538,10 @@ if uploaded_file is not None:
         data_table["Radial Load (N)"] = data_table["Radial Load (N)"].round(0)
 
     if "Axial Load (N)" in data_table:
-        data_table["Axial Load (N)"] = data_table["Axial Load (N)"].round(0)
+       data_table["Axial Load (N)"] = pd.to_numeric(
+    data_table["Axial Load (N)"],
+    errors="coerce"
+).round(0)
 
     for temp_col in ["Temp 1# (°C)","Temp 2# (°C)","Temp 3# (°C)","Temp 4# (°C)"]:
         if temp_col in data_table:
