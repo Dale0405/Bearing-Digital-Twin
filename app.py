@@ -639,26 +639,25 @@ elif page == "Test Data":
         st.markdown("""
         <style>
         
-        /* Metric card container */
+        /* Metric card box */
         div[data-testid="metric-container"] {
-            background-color: #111827;
-            border: 1px solid #3b3b3b;
-            padding: 16px;
-            border-radius: 10px;
+            background-color: #0b1220;
+            border: 1px solid #374151;
+            padding: 18px;
+            border-radius: 12px;
             text-align: center;
         }
         
-        /* Parameter label (header) */
+        /* Metric label (parameter name) */
         div[data-testid="metric-container"] label {
-            font-size: 18px;
-            font-weight: 700;
-            color: #cbd5e1;
+            font-size: 18px !important;
+            font-weight: 700 !important;
         }
         
         /* Metric value */
-        div[data-testid="metric-container"] div[data-testid="stMetricValue"] {
-            font-size: 22px;
-            font-weight: 600;
+        div[data-testid="metric-container"] [data-testid="stMetricValue"] {
+            font-size: 28px !important;
+            font-weight: 600 !important;
         }
         
         </style>
