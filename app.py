@@ -642,7 +642,7 @@ elif page == "Test Data":
         
         items = list(test_info.items())
         
-        cols = st.columns(3)
+        cols = st.columns(4)
         
         for i, (label, value) in enumerate(items):
             col = cols[i % 3]
