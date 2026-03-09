@@ -186,7 +186,7 @@ if page == "Test Setup":
     # Pitch Diameter
     # ----------------------------
 
-with col1:
+    with col1:
 
     metric_col, img_col = st.columns([1,1])
 
