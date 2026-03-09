@@ -750,8 +750,8 @@ elif page == "Test Data":
         
             st.pyplot(fig)
         
-                st.subheader("Test Data Table")
-                st.dataframe(data_table, use_container_width=True)
+            st.subheader("Test Data Table")
+            st.dataframe(data_table, use_container_width=True)
         
             else:
         
