@@ -450,9 +450,9 @@ if page == "Test Setup":
     """, unsafe_allow_html=True)
     
     
-        # ----------------------------
-        # Test Conditions
-        # ----------------------------
+    # ----------------------------
+    # Test Conditions
+    # ----------------------------
     
     st.header("Test Conditions")
     
@@ -461,6 +461,7 @@ if page == "Test Setup":
     rpm = float(st.text_input("RPM", "3000"))
     ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
     lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
+    
 
 # ====================================================
 # TEST DATA PAGE
