@@ -175,13 +175,8 @@ with right:
     ax.plot([od_x, -1.05], [od_y, 1.05], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([od_x], [od_y], color="red", s=15)
 
-    ax.text(
-        -1.07,
-        1.07,
-        f"OD = {bearing_od} mm",
-        color="white",
-        fontsize=14,
-        ha="right"
+    ax.text(-1.07, 0.95, f"OD = {bearing_od} mm",
+        color="white", fontsize=14, ha="right")
     )
 
     # ----------------------------
@@ -194,13 +189,8 @@ with right:
     ax.plot([id_x, -1.05], [id_y, -1.05], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([id_x], [id_y], color="red", s=15)
 
-    ax.text(
-        -1.07,
-        -1.07,
-        f"ID = {bearing_id} mm",
-        color="white",
-        fontsize=14,
-        ha="right"
+    ax.text(-1.07, -0.95, f"ID = {bearing_id} mm",
+        color="white", fontsize=14, ha="right")
     )
 
     # ----------------------------
@@ -213,14 +203,11 @@ with right:
     ax.plot([bx + ball_r, 1.05], [by, by], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([bx + ball_r], [by], color="red", s=15)
 
-    ax.text(
-        1.07,
-        by,
+    ax.text(0.95, by,
         f"Ball = {ball_diameter} mm",
         color="white",
         fontsize=14,
-        va="center"
-    )
+        va="center")
 
     # ORIGINAL LIMITS (keeps bearing large)
     ax.set_xlim(-1.4, 1.4)
