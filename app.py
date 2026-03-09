@@ -150,59 +150,91 @@ with right:
 
     angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
 
+    # Balls
     for a in angles:
-
         x = pitch_r * np.cos(a)
         y = pitch_r * np.sin(a)
 
-        ax.add_patch(plt.Circle((x,y), ball_r, color="#cfd3d6", ec="#2b2b2b", linewidth=1.2))
+        ax.add_patch(
+            plt.Circle(
+                (x, y),
+                ball_r,
+                color="#cfd3d6",
+                ec="#2b2b2b",
+                linewidth=1.2
+            )
+        )
 
     # ----------------------------
-    # OD Label
+    # OD LABEL
     # ----------------------------
 
-    od_x = -outer_r * 0.7
-    od_y = outer_r * 0.7
+    od_x = -outer_r * 0.75
+    od_y = outer_r * 0.75
 
-    ax.plot([od_x, -1.25], [od_y, 1.15], linestyle="--", color="red", linewidth=0.5)
+    ax.plot([od_x, -1.05], [od_y, 1.05], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([od_x], [od_y], color="red", s=15)
 
-    ax.text(-1.28, 1.18, f"OD = {bearing_od} mm", color="white", fontsize=18, ha="right")
+    ax.text(
+        -1.07,
+        1.07,
+        f"OD = {bearing_od} mm",
+        color="white",
+        fontsize=14,
+        ha="right"
+    )
 
     # ----------------------------
-    # ID Label
+    # ID LABEL
     # ----------------------------
 
-    id_x = -inner_r * 0.7
-    id_y = -inner_r * 0.7
+    id_x = -inner_r * 0.75
+    id_y = -inner_r * 0.75
 
-    ax.plot([id_x, -1.25], [id_y, -1.15], linestyle="--", color="red", linewidth=0.5)
+    ax.plot([id_x, -1.05], [id_y, -1.05], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([id_x], [id_y], color="red", s=15)
 
-    ax.text(-1.28, -1.18, f"ID = {bearing_id} mm", color="white", fontsize=18, ha="right")
+    ax.text(
+        -1.07,
+        -1.07,
+        f"ID = {bearing_id} mm",
+        color="white",
+        fontsize=14,
+        ha="right"
+    )
 
     # ----------------------------
-    # Ball Label
+    # BALL LABEL
     # ----------------------------
 
     bx = pitch_r * np.cos(angles[0])
     by = pitch_r * np.sin(angles[0])
 
-    ax.plot([bx + ball_r, 1.2], [by, by], linestyle="--", color="red", linewidth=0.5)
+    ax.plot([bx + ball_r, 1.05], [by, by], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([bx + ball_r], [by], color="red", s=15)
 
-    ax.text(1.23, by, f"Ball = {ball_diameter} mm", color="white", fontsize=18, va="center")
+    ax.text(
+        1.07,
+        by,
+        f"Ball = {ball_diameter} mm",
+        color="white",
+        fontsize=14,
+        va="center"
+    )
 
-    # Axis limits expanded so labels don't shrink the bearing
-    ax.set_xlim(-1.5, 1.5)
-    ax.set_ylim(-1.5, 1.5)
+    # ORIGINAL LIMITS (keeps bearing large)
+    ax.set_xlim(-1.4, 1.4)
+    ax.set_ylim(-1.4, 1.4)
 
     ax.set_aspect("equal")
     ax.axis("off")
 
     st.pyplot(fig)
 
-    st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div style='text-align:center;'>Front View</div>",
+        unsafe_allow_html=True
+    )
 
 
 
