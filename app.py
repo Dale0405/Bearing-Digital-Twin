@@ -33,89 +33,11 @@ st.markdown("""
     white-space: normal !important;
 }
 
-/* DATAFRAME ALIGNMENT */
-[data-testid="stDataFrame"] th {
-    text-align: center !important;
-}
-
-[data-testid="stDataFrame"] td {
-    text-align: center !important;
-}
-
-</style>
-""", unsafe_allow_html=True)st.markdown("""
-<style>
-
-/* Wrap header text like Excel */
-[data-testid="stDataEditor"] th {
-    white-space: normal !important;
-    text-align: center !important;
-    line-height: 1.2em;
-    font-weight: 600;
-}
-
-/* Center editable values */
-[data-testid="stDataEditor"] td {
-    text-align: center !important;
-}
-
-/* Force columns to share space evenly */
-[data-testid="stDataEditor"] table {
-    table-layout: fixed !important;
-}
-
-/* Allow header line breaks */
-[data-testid="stDataEditor"] th div {
-    white-space: normal !important;
-}
-
-/* DATAFRAME ALIGNMENT */
-[data-testid="stDataFrame"] th {
-    text-align: center !important;
-}
-
-[data-testid="stDataFrame"] td {
-    text-align: center !important;
-}
-
-</style>
-""", unsafe_allow_html=True)st.markdown("""
-<style>
-
-/* Wrap header text like Excel */
-[data-testid="stDataEditor"] th {
-    white-space: normal !important;
-    text-align: center !important;
-    line-height: 1.2em;
-    font-weight: 600;
-}
-
-/* Center editable values */
-[data-testid="stDataEditor"] td {
-    text-align: center !important;
-}
-
-/* Force columns to share space evenly */
-[data-testid="stDataEditor"] table {
-    table-layout: fixed !important;
-}
-
-/* Allow header line breaks */
-[data-testid="stDataEditor"] th div {
-    white-space: normal !important;
-}
-
-/* DATAFRAME ALIGNMENT */
-[data-testid="stDataFrame"] th {
-    text-align: center !important;
-}
-
-[data-testid="stDataFrame"] td {
-    text-align: center !important;
-}
-
 </style>
 """, unsafe_allow_html=True)
+
+
+st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
 
 # ----------------------------------------------------
