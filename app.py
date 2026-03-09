@@ -636,19 +636,26 @@ elif page == "Test Data":
             test_info["Avg Vibration (g)"] = round(data_table["Vibration (g)"].mean(), 2)
             test_info["Max Vibration (g)"] = round(data_table["Vibration (g)"].max(), 2)
 
-        st.markdown("""
+        # ----------------------------
+        # Metric Font Settings
+        # ----------------------------
+        
+        metric_label_size = 130   # header size (%)  e.g. 130 = 30% bigger
+        metric_value_size = 70    # value size (%)   e.g. 70 = 30% smaller
+        
+        st.markdown(f"""
         <style>
         
-        /* Increase header (label) size by ~70% */
-        div[data-testid="stMetricLabel"] {
-            font-size: 130% !important;
+        /* Metric header (parameter name) */
+        div[data-testid="stMetricLabel"] {{
+            font-size: {metric_label_size}% !important;
             font-weight: 700 !important;
-        }
+        }}
         
-        /* Reduce value size by ~10% */
-        div[data-testid="stMetricValue"] {
-            font-size: 70% !important;
-        }
+        /* Metric value (number) */
+        div[data-testid="stMetricValue"] {{
+            font-size: {metric_value_size}% !important;
+        }}
         
         </style>
         """, unsafe_allow_html=True)
