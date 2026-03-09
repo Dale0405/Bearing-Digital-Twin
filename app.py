@@ -705,11 +705,11 @@ elif page == "Test Data":
             selected_temp = st.radio(
                 "",
                 [
-                    "Temp 1# (°C)",
-                    "Temp 2# (°C)",
-                    "Temp 3# (°C)",
-                    "Temp 4# (°C)",
-                    "All Temperatures"
+                    "Temp 1#",
+                    "Temp 2#",
+                    "Temp 3#",
+                    "Temp 4#",
+                    "All Temps"
                 ],
                 label_visibility="collapsed"
             )
