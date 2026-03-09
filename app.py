@@ -466,7 +466,7 @@ lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
 # TEST DATA PAGE
 # ====================================================
 
-elif page == "Test Data":
+if page == "Test Data":
 
     st.title("Test Data")
 
@@ -492,7 +492,7 @@ elif page == "Test Data":
 # TEST RESULTS PAGE
 # ====================================================
 
-elif page == "Test Results":
+if page == "Test Results":
 
     st.title("Test Results")
 
