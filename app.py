@@ -39,14 +39,6 @@ st.markdown("""
 
 st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
-st.title("Bearing Digital Twin")
-
-# Sidebar
-module = st.sidebar.radio(
-    "Digital Twin Navigation",
-    ["Test Setup", "Test Data", "Test Results"]
-)
-
 # ----------------------------
 # Bearing Parameters
 # ----------------------------
