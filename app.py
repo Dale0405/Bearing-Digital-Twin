@@ -548,10 +548,4 @@ ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
 lubrication = st.selectbox(
     "Lubrication Type",
     ["Grease", "Oil"]
-)# Put all your existing setup code here
-    # Example:
-    # - Bearing Parameters
-    # - Internal Clearance
-    # - Fit Conditions
-    # - Derived Geometry
-    # - Bearing Visualization
+)
