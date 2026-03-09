@@ -677,20 +677,6 @@ elif page == "Test Data":
             col.metric(label=label, value=value)
 
         # ----------------------------
-        # Plot Style Settings
-        # ----------------------------
-        
-        plot_title_size = 18
-        axis_label_size = 14
-        tick_label_size = 11
-        legend_size = 11
-        
-        title_color = "white"
-        axis_color = "white"
-        tick_color = "white"
-        grid_color = "#666666"
-
-        # ----------------------------
         # Temperature Trend Plot
         # ----------------------------
         
@@ -720,7 +706,7 @@ elif page == "Test Data":
         
                 fig, ax = plt.subplots(figsize=(8,4))
         
-                # Dark background
+                # Dark theme
                 fig.patch.set_alpha(0)
                 ax.set_facecolor("none")
         
@@ -744,18 +730,42 @@ elif page == "Test Data":
                     if selected_temp in data_table:
                         ax.plot(time, data_table[selected_temp], linewidth=2)
         
-                ax.set_xlabel("Test Time (hr)")
-                ax.set_ylabel("Temperature (°C)")
-                ax.set_title("Bearing Temperature vs Time")
+                # Title
+                ax.set_title(
+                    "Bearing Temperature vs Time",
+                    fontsize=plot_title_size,
+                    color=title_color
+                )
         
-                ax.tick_params(colors="white")
+                # Axis labels
+                ax.set_xlabel(
+                    "Test Time (hr)",
+                    fontsize=axis_label_size,
+                    color=axis_color
+                )
         
-                ax.spines["bottom"].set_color("white")
-                ax.spines["left"].set_color("white")
+                ax.set_ylabel(
+                    "Temperature (°C)",
+                    fontsize=axis_label_size,
+                    color=axis_color
+                )
         
-                ax.grid(True, alpha=0.3)
+                # Tick labels
+                ax.tick_params(
+                    axis="both",
+                    colors=tick_color,
+                    labelsize=tick_label_size
+                )
         
-                ax.legend()
+                # Axis lines
+                ax.spines["bottom"].set_color(axis_color)
+                ax.spines["left"].set_color(axis_color)
+        
+                # Grid
+                ax.grid(True, color=grid_color, alpha=0.3)
+        
+                # Legend
+                ax.legend(fontsize=legend_size)
         
                 st.pyplot(fig)
 
