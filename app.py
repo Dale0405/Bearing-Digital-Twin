@@ -177,7 +177,7 @@ with right:
 
     ax.text(-1.07, 0.95, f"OD = {bearing_od} mm",
         color="white", fontsize=14, ha="right")
-    )
+    
 
     # ----------------------------
     # ID LABEL
