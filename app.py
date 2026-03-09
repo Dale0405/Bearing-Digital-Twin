@@ -638,28 +638,37 @@ elif page == "Test Data":
             test_info["Avg Vibration (g)"] = round(data_table["Vibration (g)"].mean(), 2)
             test_info["Max Vibration (g)"] = round(data_table["Vibration (g)"].max(), 2)
 
-        test_info_df = pd.DataFrame(
-            list(test_info.items()),
-            columns=["Parameter", "Value"]
-        )
-
-        st.dataframe(
-            test_info_df.style
-                .set_properties(**{"text-align": "center"})
-                .set_table_styles([
-                    {"selector": "th", "props": [("text-align", "center")]},
-                    {"selector": "td", "props": [("text-align", "center")]}
-                ]),
-            use_container_width=True,
-            hide_index=True
-        )
-
+        # ----------------------------
+        # Display as metric cards
+        # ----------------------------
+        
+        items = list(test_info.items())
+        
+        cols = st.columns(3)
+        
+        for i, (label, value) in enumerate(items):
+        
+            col = cols[i % 3]
+        
+            if isinstance(value, float):
+                value = round(value, 2)
+        
+            col.metric(label=label, value=value)
+        
+        # ----------------------------
+        # Test Data Table
+        # ----------------------------
+        
         st.subheader("Test Data Table")
         st.dataframe(data_table, use_container_width=True)
-
-    else:
-
-        st.info("Upload a test data file to display the table.")
+        
+        else:
+        
+            st.info("Upload a test data file to display the table.")
+        
+            else:
+        
+                st.info("Upload a test data file to display the table.")
 
 
 # ====================================================
