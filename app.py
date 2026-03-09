@@ -636,6 +636,23 @@ elif page == "Test Data":
             test_info["Avg Vibration (g)"] = round(data_table["Vibration (g)"].mean(), 2)
             test_info["Max Vibration (g)"] = round(data_table["Vibration (g)"].max(), 2)
 
+        st.markdown("""
+        <style>
+        
+        /* Increase header (label) size by ~30% */
+        div[data-testid="stMetricLabel"] {
+            font-size: 130% !important;
+            font-weight: 700 !important;
+        }
+        
+        /* Reduce value size by ~30% */
+        div[data-testid="stMetricValue"] {
+            font-size: 70% !important;
+        }
+        
+        </style>
+        """, unsafe_allow_html=True)
+
         # ----------------------------
         # Display as metric cards
         # ----------------------------
