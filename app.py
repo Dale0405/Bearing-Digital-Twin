@@ -682,21 +682,22 @@ elif page == "Test Data":
         
         st.subheader("Temperature Trend")
         
-        temp_options = [
-            "Temp 1# (°C)",
-            "Temp 2# (°C)",
-            "Temp 3# (°C)",
-            "Temp 4# (°C)",
-            "All Temperatures"
-        ]
-        
         plot_col, control_col = st.columns([4,1])
         
         with control_col:
         
-            selected_temp = st.selectbox(
-                "Select Temperature",
-                temp_options
+            st.markdown("### Select Temperature")
+        
+            selected_temp = st.radio(
+                "",
+                [
+                    "Temp 1# (°C)",
+                    "Temp 2# (°C)",
+                    "Temp 3# (°C)",
+                    "Temp 4# (°C)",
+                    "All Temperatures"
+                ],
+                label_visibility="collapsed"
             )
         
         with plot_col:
@@ -705,25 +706,42 @@ elif page == "Test Data":
         
                 fig, ax = plt.subplots(figsize=(8,4))
         
+                # Dark background
+                fig.patch.set_alpha(0)
+                ax.set_facecolor("none")
+        
                 time = data_table["Test Time (hr)"]
         
                 if selected_temp == "All Temperatures":
         
-                    for temp in temp_options[:-1]:
-                        if temp in data_table:
-                            ax.plot(time, data_table[temp], label=temp)
+                    temps = [
+                        "Temp 1# (°C)",
+                        "Temp 2# (°C)",
+                        "Temp 3# (°C)",
+                        "Temp 4# (°C)"
+                    ]
+        
+                    for t in temps:
+                        if t in data_table:
+                            ax.plot(time, data_table[t], linewidth=2, label=t)
         
                 else:
         
                     if selected_temp in data_table:
-                        ax.plot(time, data_table[selected_temp], label=selected_temp)
+                        ax.plot(time, data_table[selected_temp], linewidth=2)
         
                 ax.set_xlabel("Test Time (hr)")
                 ax.set_ylabel("Temperature (°C)")
                 ax.set_title("Bearing Temperature vs Time")
         
-                ax.legend()
+                ax.tick_params(colors="white")
+        
+                ax.spines["bottom"].set_color("white")
+                ax.spines["left"].set_color("white")
+        
                 ax.grid(True, alpha=0.3)
+        
+                ax.legend()
         
                 st.pyplot(fig)
 
