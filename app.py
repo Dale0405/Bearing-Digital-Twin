@@ -594,6 +594,10 @@ elif page == "Test Data":
 
     if st.session_state.twin_data_table is not None:
 
+        data_table = st.session_state.twin_data_table
+        test_info = {}
+        test_info["Total Data Points"] = len(data_table)
+
         # ----------------------------
         # Test Information Panel
         # ----------------------------
