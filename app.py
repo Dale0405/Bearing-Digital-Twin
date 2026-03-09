@@ -150,7 +150,6 @@ with right:
 
     angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
 
-    # Ball drawing
     for a in angles:
 
         x = pitch_r * np.cos(a)
@@ -165,17 +164,10 @@ with right:
     od_x = -outer_r * 0.7
     od_y = outer_r * 0.7
 
-    ax.plot([od_x, -1.2], [od_y, 1.1], linestyle="--", color="red", linewidth=0.5)
+    ax.plot([od_x, -1.25], [od_y, 1.15], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([od_x], [od_y], color="red", s=15)
 
-    ax.text(
-        -1.22,
-        1.12,
-        f"OD = {bearing_od} mm",
-        color="white",
-        fontsize=18,
-        ha="right"
-    )
+    ax.text(-1.28, 1.18, f"OD = {bearing_od} mm", color="white", fontsize=18, ha="right")
 
     # ----------------------------
     # ID Label
@@ -184,17 +176,10 @@ with right:
     id_x = -inner_r * 0.7
     id_y = -inner_r * 0.7
 
-    ax.plot([id_x, -1.2], [id_y, -1.1], linestyle="--", color="red", linewidth=0.5)
+    ax.plot([id_x, -1.25], [id_y, -1.15], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([id_x], [id_y], color="red", s=15)
 
-    ax.text(
-        -1.22,
-        -1.13,
-        f"ID = {bearing_id} mm",
-        color="white",
-        fontsize=18,
-        ha="right"
-    )
+    ax.text(-1.28, -1.18, f"ID = {bearing_id} mm", color="white", fontsize=18, ha="right")
 
     # ----------------------------
     # Ball Label
@@ -203,21 +188,14 @@ with right:
     bx = pitch_r * np.cos(angles[0])
     by = pitch_r * np.sin(angles[0])
 
-    ax.plot([bx + ball_r, 1.15], [by, by], linestyle="--", color="red", linewidth=0.5)
+    ax.plot([bx + ball_r, 1.2], [by, by], linestyle="--", color="red", linewidth=0.5)
     ax.scatter([bx + ball_r], [by], color="red", s=15)
 
-    ax.text(
-        1.18,
-        by,
-        f"Ball = {ball_diameter} mm",
-        color="white",
-        fontsize=18,
-        va="center"
-    )
+    ax.text(1.23, by, f"Ball = {ball_diameter} mm", color="white", fontsize=18, va="center")
 
-    # Axis settings
-    ax.set_xlim(-1.4,1.4)
-    ax.set_ylim(-1.4,1.4)
+    # Axis limits expanded so labels don't shrink the bearing
+    ax.set_xlim(-1.5, 1.5)
+    ax.set_ylim(-1.5, 1.5)
 
     ax.set_aspect("equal")
     ax.axis("off")
