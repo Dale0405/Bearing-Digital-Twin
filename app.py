@@ -188,50 +188,50 @@ if page == "Test Setup":
     
         with col1:
     
-        metric_col, img_col = st.columns([1,1])
+            metric_col, img_col = st.columns([1,1])
     
-        with metric_col:
-            st.metric("Pitch Diameter (mm)", f"{pitch_diameter:.3f}")
+            with metric_col:
+                st.metric("Pitch Diameter (mm)", f"{pitch_diameter:.3f}")
     
-        with img_col:
+            with img_col:
     
-            fig, ax = plt.subplots(figsize=(2.4,2.4))
-    
-            # transparent background
-            fig.patch.set_alpha(0)
-            ax.set_facecolor("none")
-    
-            outer_r = 1.0
-            inner_r = bearing_id / bearing_od
-            pitch_r = (outer_r + inner_r)/2
-    
-            # OD
-            ax.add_patch(plt.Circle((0,0), outer_r,
-                                    fill=False,
-                                    linewidth=2,
-                                    color="white"))
-    
-            # Pitch Diameter
-            ax.add_patch(plt.Circle((0,0), pitch_r,
-                                    fill=False,
-                                    linestyle=":",
-                                    linewidth=2,
-                                    color="red"))
-    
-            # ID
-            ax.add_patch(plt.Circle((0,0), inner_r,
-                                    fill=False,
-                                    linewidth=2,
-                                    color="white"))
-    
-            ax.set_xlim(-1.2,1.2)
-            ax.set_ylim(-1.2,1.2)
-    
-            ax.set_aspect("equal")
-            ax.axis("off")
-    
-            st.pyplot(fig)
-    
+                fig, ax = plt.subplots(figsize=(2.4,2.4))
+        
+                # transparent background
+                fig.patch.set_alpha(0)
+                ax.set_facecolor("none")
+        
+                outer_r = 1.0
+                inner_r = bearing_id / bearing_od
+                pitch_r = (outer_r + inner_r)/2
+        
+                # OD
+                ax.add_patch(plt.Circle((0,0), outer_r,
+                                        fill=False,
+                                        linewidth=2,
+                                        color="white"))
+        
+                # Pitch Diameter
+                ax.add_patch(plt.Circle((0,0), pitch_r,
+                                        fill=False,
+                                        linestyle=":",
+                                        linewidth=2,
+                                        color="red"))
+        
+                # ID
+                ax.add_patch(plt.Circle((0,0), inner_r,
+                                        fill=False,
+                                        linewidth=2,
+                                        color="white"))
+        
+                ax.set_xlim(-1.2,1.2)
+                ax.set_ylim(-1.2,1.2)
+        
+                ax.set_aspect("equal")
+                ax.axis("off")
+        
+                st.pyplot(fig)
+        
     
     
         # ----------------------------
