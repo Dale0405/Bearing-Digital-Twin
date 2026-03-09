@@ -482,7 +482,6 @@ if uploaded_file is not None:
 
 else:
     st.info("Upload a test data file to display the table.")
-)
 
 # Standard Digital Twin columns
 standard_columns = [
