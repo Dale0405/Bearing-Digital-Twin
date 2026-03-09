@@ -484,7 +484,7 @@ elif page == "Test Data":
     # ----------------------------
 
     standard_columns = [
-        "Test Time",
+        "Test Time (hr)",
         "Speed (RPM)",
         "Radial Load (N)",
         "Axial Load (N)",
