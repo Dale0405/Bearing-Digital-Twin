@@ -726,13 +726,13 @@ elif page == "Test Data":
         
                 time = data_table["Test Time (hr)"]
         
-                if selected_temp == "All Temperatures":
+                if selected_temp == "All":
         
                     temps = [
-                        "Temp 1# (°C)",
-                        "Temp 2# (°C)",
-                        "Temp 3# (°C)",
-                        "Temp 4# (°C)"
+                        "Temp 1#",
+                        "Temp 2#",
+                        "Temp 3#",
+                        "Temp 4#"
                     ]
         
                     for t in temps:
