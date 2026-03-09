@@ -39,10 +39,9 @@ st.markdown("""
 
 st.markdown("<h1 style='text-align: center;'>BEARING TESTING DIGITAL TWIN</h1>", unsafe_allow_html=True)
 
-# ----------------------------
-# SIDEBAR NAVIGATION
-# ----------------------------
+st.title("Bearing Digital Twin")
 
+# Sidebar
 module = st.sidebar.radio(
     "Digital Twin Navigation",
     ["Test Setup", "Test Data", "Test Results"]
@@ -573,21 +572,17 @@ lubrication = st.selectbox(
     # - Derived Geometry
     # - Bearing Visualization
 
-
 # ----------------------------
 # TEST DATA
 # ----------------------------
 
-if module == "Test Data":
+elif module == "Test Data":
 
     st.header("Test Data")
 
     radial_load = st.number_input("Radial Load (N)", value=1000)
     axial_load = st.number_input("Axial Load (N)", value=0)
     rpm = st.number_input("Speed (RPM)", value=1000)
-    temperature = st.number_input("Temperature (°C)", value=25)
-    vibration = st.number_input("Vibration (mm/s)", value=0.0)
-
 
 # ----------------------------
 # TEST RESULTS
@@ -598,10 +593,4 @@ elif module == "Test Results":
     st.header("Test Results")
 
     st.write("Results will be calculated here.")
-
-    # Future results:
-    # - Load Distribution
-    # - Contact Stress
-    # - Bearing Life
-
 
