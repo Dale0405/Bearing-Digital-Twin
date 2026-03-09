@@ -677,6 +677,20 @@ elif page == "Test Data":
             col.metric(label=label, value=value)
 
         # ----------------------------
+        # Plot Style Settings
+        # ----------------------------
+        
+        plot_title_size = 18
+        axis_label_size = 14
+        tick_label_size = 11
+        legend_size = 11
+        
+        title_color = "white"
+        axis_color = "white"
+        tick_color = "white"
+        grid_color = "#666666"
+
+        # ----------------------------
         # Temperature Trend Plot
         # ----------------------------
         
