@@ -193,18 +193,143 @@ if page == "Test Setup":
 
     st.subheader("Bearing Internal Clearance")
 
-    col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns(3)
 
-    with col1:
-        clearance_min = st.number_input("Min Clearance (mm)", value=0.01000, format="%.5f")
+with col1:
+    clearance_min = st.number_input(
+        "Min Clearance (mm)",
+        value=0.01000,
+        format="%.5f"
+    )
 
-    with col2:
-        clearance_max = st.number_input("Max Clearance (mm)", value=0.03000, format="%.5f")
+with col2:
+    clearance_max = st.number_input(
+        "Max Clearance (mm)",
+        value=0.03000,
+        format="%.5f"
+    )
 
-    clearance_mean = (clearance_min + clearance_max) / 2
+# automatic calculation
+clearance_mean = (clearance_min + clearance_max) / 2
 
-    with col3:
-        st.text_input("Mean Clearance (mm)", value=f"{clearance_mean:.5f}", disabled=True)
+with col3:
+    st.text_input(
+        "Mean Clearance (mm)",
+        value=f"{clearance_mean:.5f}",
+        disabled=True
+    )
+# ----------------------------
+# Fit Conditions
+# ----------------------------
+
+st.subheader("Fit Conditions")
+
+# Row 1
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    bearing_id_min = st.number_input(
+        "Bearing ID Min (mm)",
+        value=40.00000,
+        format="%.5f"
+    )
+
+with col2:
+    bearing_id_max = st.number_input(
+        "Bearing ID Max (mm)",
+        value=40.02000,
+        format="%.5f"
+    )
+
+with col3:
+    shaft_min = st.number_input(
+        "Shaft Min (mm)",
+        value=40.01000,
+        format="%.5f"
+    )
+
+with col4:
+    shaft_max = st.number_input(
+        "Shaft Max (mm)",
+        value=40.03000,
+        format="%.5f"
+    )
+
+
+# Row 2
+col5, col6, col7, col8 = st.columns(4)
+
+with col5:
+    bearing_od_min = st.number_input(
+        "Bearing OD Min (mm)",
+        value=90.00000,
+        format="%.5f"
+    )
+
+with col6:
+    bearing_od_max = st.number_input(
+        "Bearing OD Max (mm)",
+        value=90.02000,
+        format="%.5f"
+    )
+
+with col7:
+    housing_min = st.number_input(
+        "Housing Min (mm)",
+        value=89.98000,
+        format="%.5f"
+    )
+
+with col8:
+    housing_max = st.number_input(
+        "Housing Max (mm)",
+        value=90.00000,
+        format="%.5f"
+    )
+
+
+# ----------------------------
+# Calculations
+# ----------------------------
+
+# Shaft interference
+min_shaft_fit = shaft_min - bearing_id_max
+max_shaft_fit = shaft_max - bearing_id_min
+
+effective_shaft_interference = (min_shaft_fit + max_shaft_fit) / 2
+
+# RIC reduction assumption
+ric_reduction = effective_shaft_interference * 0.8
+
+effective_radial_clearance = clearance_mean - ric_reduction
+
+
+# ----------------------------
+# Fit Results
+# ----------------------------
+
+st.markdown("---")
+st.subheader("Fit Results")
+
+st.markdown(f"""
+<table style="width:100%; border-collapse:collapse; text-align:center;">
+<tr>
+<th style="border:1px solid gray; padding:8px; width:20%;">Minimum<br>Shaft Fit<br>(mm)</th>
+<th style="border:1px solid gray; padding:8px; width:20%;">Maximum<br>Shaft Fit<br>(mm)</th>
+<th style="border:1px solid gray; padding:8px; width:20%;">Effective Shaft<br>Interference<br>(mm)</th>
+<th style="border:1px solid gray; padding:8px; width:20%;">RIC Reduction<br>due to Shaft Fit<br>(mm)</th>
+<th style="border:1px solid gray; padding:8px; width:20%;">Effective Radial<br>Clearance<br>(mm)</th>
+</tr>
+<tr>
+<td style="border:1px solid gray; padding:8px;">{min_shaft_fit:.5f}</td>
+<td style="border:1px solid gray; padding:8px;">{max_shaft_fit:.5f}</td>
+<td style="border:1px solid gray; padding:8px;">{effective_shaft_interference:.5f}</td>
+<td style="border:1px solid gray; padding:8px;">{ric_reduction:.5f}</td>
+<td style="border:1px solid gray; padding:8px;">{effective_radial_clearance:.5f}</td>
+</tr>
+</table>
+""", unsafe_allow_html=True)
+
 
 
 
