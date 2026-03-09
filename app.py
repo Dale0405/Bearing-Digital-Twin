@@ -523,7 +523,7 @@ elif page == "Test Data":
         # ----------------------------
 
         column_map = {
-            "Test Time": ["Time", "Time (hr)", "Test Time", "Duration"],
+            "Test Time": ["Time", "Time (hr)", "Test Time (hr)", "Duration"],
             "Speed (RPM)": ["RPM", "Speed"],
             "Radial Load (N)": ["Radial Load", "Fr"],
             "Axial Load (N)": ["Axial Load", "Fa"],
