@@ -651,8 +651,8 @@ elif page == "Test Data":
             
             st.dataframe(test_info_df, use_container_width=True)
             
-                st.subheader("Test Data Table")
-                st.dataframe(st.session_state.twin_data_table, use_container_width=True)
+            st.subheader("Test Data Table")
+            st.dataframe(st.session_state.twin_data_table, use_container_width=True)
         
             else:
         
