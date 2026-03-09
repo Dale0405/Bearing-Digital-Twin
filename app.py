@@ -676,6 +676,57 @@ elif page == "Test Data":
         
             col.metric(label=label, value=value)
 
+        # ----------------------------
+        # Temperature Trend Plot
+        # ----------------------------
+        
+        st.subheader("Temperature Trend")
+        
+        temp_options = [
+            "Temp 1# (°C)",
+            "Temp 2# (°C)",
+            "Temp 3# (°C)",
+            "Temp 4# (°C)",
+            "All Temperatures"
+        ]
+        
+        plot_col, control_col = st.columns([4,1])
+        
+        with control_col:
+        
+            selected_temp = st.selectbox(
+                "Select Temperature",
+                temp_options
+            )
+        
+        with plot_col:
+        
+            if "Test Time (hr)" in data_table:
+        
+                fig, ax = plt.subplots(figsize=(8,4))
+        
+                time = data_table["Test Time (hr)"]
+        
+                if selected_temp == "All Temperatures":
+        
+                    for temp in temp_options[:-1]:
+                        if temp in data_table:
+                            ax.plot(time, data_table[temp], label=temp)
+        
+                else:
+        
+                    if selected_temp in data_table:
+                        ax.plot(time, data_table[selected_temp], label=selected_temp)
+        
+                ax.set_xlabel("Test Time (hr)")
+                ax.set_ylabel("Temperature (°C)")
+                ax.set_title("Bearing Temperature vs Time")
+        
+                ax.legend()
+                ax.grid(True, alpha=0.3)
+        
+                st.pyplot(fig)
+
         st.subheader("Test Data Table")
         st.dataframe(data_table, use_container_width=True)
 
