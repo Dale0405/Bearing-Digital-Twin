@@ -544,8 +544,11 @@ if uploaded_file is not None:
 ).round(0)
 
     for temp_col in ["Temp 1# (°C)","Temp 2# (°C)","Temp 3# (°C)","Temp 4# (°C)"]:
-        if temp_col in data_table:
-            data_table[temp_col] = data_table[temp_col].round(1)
+    if temp_col in data_table:
+        data_table[temp_col] = pd.to_numeric(
+            data_table[temp_col],
+            errors="coerce"
+        ).round(1)
 
     if "Vibration (g)" in data_table:
         data_table["Vibration (g)"] = data_table["Vibration (g)"].round(2)
