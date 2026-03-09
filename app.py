@@ -467,8 +467,6 @@ if page == "Test Setup":
 
 st.title("Test Data")
 
-uploaded_file = st.file_uploader("Upload Test Machine Data")
-
 # ----------------------------
 # Standard Digital Twin columns
 # ----------------------------
@@ -500,104 +498,88 @@ if uploaded_file is None:
 
 else:
 
+    # ----------------------------
     # Read uploaded file
+    # ----------------------------
+
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
     else:
         df = pd.read_excel(uploaded_file)
 
-    # Create digital twin table with same number of rows
+    # ----------------------------
+    # Keyword recognition dictionary
+    # ----------------------------
+
+    column_map = {
+        "Test Time": ["Time", "Time (hr)", "Test Time", "Duration"],
+        "Speed (RPM)": ["RPM", "Speed"],
+        "Radial Load (N)": ["Radial Load", "Fr"],
+        "Axial Load (N)": ["Axial Load", "Fa"],
+        "Temp 1# (°C)": ["Temp 1# (°C)", "Temp 1#", "Temp 1", "Temperature 1", "Temp1"],
+        "Temp 2# (°C)": ["Temp 2# (°C)", "Temp 2#", "Temp 2", "Temperature 2", "Temp2"],
+        "Temp 3# (°C)": ["Temp 3# (°C)", "Temp 3#", "Temp 3", "Temperature 3", "Temp3"],
+        "Temp 4# (°C)": ["Temp 4# (°C)", "Temp 4#", "Temp 4", "Temperature 4", "Temp4"],
+        "Vibration (g)": ["Vibration", "Vib"]
+    }
+
+    # ----------------------------
+    # Create Digital Twin table
+    # ----------------------------
+
     data_table = pd.DataFrame(index=df.index, columns=standard_columns)
 
-    # Display table
-    st.subheader("Test Data Table")
-    st.dataframe(data_table, use_container_width=True)
+    for standard_col, keywords in column_map.items():
 
-    # Normalize column names
-    file_columns = [c.lower() for c in df.columns]
+        found_series = None
 
-    # Keyword recognition dictionary
-    column_map = {
-    "Test Time": ["Time", "Time (hr)", "Test Time", "Duration"],
-    "Speed (RPM)": ["RPM", "Speed"],
-    "Radial Load (N)": ["Radial Load", "Fr"],
-    "Axial Load (N)": ["Axial Load", "Fa"],
+        for col in df.columns:
+            for key in keywords:
+                if key in col:
+                    found_series = df[col]
+                    break
 
-    "Temp 1# (°C)": [
-        "Temp 1# (°C)", "Temp 1#", "Temp 1", "Temperature 1", "Temp1"
-    ],
-
-    "Temp 2# (°C)": [
-        "Temp 2# (°C)", "Temp 2#", "Temp 2", "Temperature 2", "Temp2"
-    ],
-
-    "Temp 3# (°C)": [
-        "Temp 3# (°C)", "Temp 3#", "Temp 3", "Temperature 3", "Temp3"
-    ],
-
-    "Temp 4# (°C)": [
-        "Temp 4# (°C)", "Temp 4#", "Temp 4", "Temperature 4", "Temp4"
-    ],
-
-    "Vibration (g)": ["Vibration", "Vib"]
-}
-
-# Create table with same number of rows as uploaded file
-data_table = pd.DataFrame(index=df.index)
-
-for standard_col, keywords in column_map.items():
-
-    found_series = None
-
-    for col in df.columns:
-
-        for key in keywords:
-
-            if key in col:
-                found_series = df[col]
+            if found_series is not None:
                 break
 
-        if found_series is not None:
-            break
+        data_table[standard_col] = found_series
 
-    data_table[standard_col] = found_series
+    # ----------------------------
     # Apply formatting rules
+    # ----------------------------
 
-    # Speed
-if "Speed (RPM)" in data_table:
-    data_table["Speed (RPM)"] = pd.to_numeric(
-        data_table["Speed (RPM)"], errors="coerce"
-    ).round(0)
+    if "Speed (RPM)" in data_table:
+        data_table["Speed (RPM)"] = pd.to_numeric(
+            data_table["Speed (RPM)"], errors="coerce"
+        ).round(0)
 
-# Radial Load
-if "Radial Load (N)" in data_table:
-    data_table["Radial Load (N)"] = pd.to_numeric(
-        data_table["Radial Load (N)"], errors="coerce"
-    ).round(0)
+    if "Radial Load (N)" in data_table:
+        data_table["Radial Load (N)"] = pd.to_numeric(
+            data_table["Radial Load (N)"], errors="coerce"
+        ).round(0)
 
-# Axial Load
-if "Axial Load (N)" in data_table:
-    data_table["Axial Load (N)"] = pd.to_numeric(
-        data_table["Axial Load (N)"], errors="coerce"
-    ).round(0)
+    if "Axial Load (N)" in data_table:
+        data_table["Axial Load (N)"] = pd.to_numeric(
+            data_table["Axial Load (N)"], errors="coerce"
+        ).round(0)
 
-# Temperatures
-for temp_col in ["Temp 1# (°C)", "Temp 2# (°C)", "Temp 3# (°C)", "Temp 4# (°C)"]:
-    if temp_col in data_table:
-        data_table[temp_col] = pd.to_numeric(
-            data_table[temp_col], errors="coerce"
-        ).round(1)
+    for temp_col in ["Temp 1# (°C)", "Temp 2# (°C)", "Temp 3# (°C)", "Temp 4# (°C)"]:
+        if temp_col in data_table:
+            data_table[temp_col] = pd.to_numeric(
+                data_table[temp_col], errors="coerce"
+            ).round(1)
 
-# Vibration
-if "Vibration (g)" in data_table:
-    data_table["Vibration (g)"] = pd.to_numeric(
-        data_table["Vibration (g)"], errors="coerce"
-    ).round(2)
+    if "Vibration (g)" in data_table:
+        data_table["Vibration (g)"] = pd.to_numeric(
+            data_table["Vibration (g)"], errors="coerce"
+        ).round(2)
 
-# Display table
-st.subheader("Test Data Table")
+    # ----------------------------
+    # Display table
+    # ----------------------------
 
-st.dataframe(data_table, use_container_width=True)
+    st.subheader("Test Data Table")
+    st.dataframe(data_table, use_container_width=True)
 
 
 
