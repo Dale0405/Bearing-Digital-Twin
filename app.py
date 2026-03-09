@@ -14,11 +14,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.dataframe(
-    test_info_df.round(2),
-    use_container_width=True,
-    hide_index=True
-)
+st.dataframe(test_info_df.round(2), use_container_width=True, hide_index=True)
 
 # ----------------------------------------------------
 # GLOBAL STYLE
