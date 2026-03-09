@@ -6,14 +6,19 @@ import matplotlib.pyplot as plt
 st.markdown("""
 <style>
 [data-testid="stDataFrame"] td {
-    text-align: center !important;
+    text-align: center;
 }
-
 [data-testid="stDataFrame"] th {
-    text-align: center !important;
+    text-align: center;
 }
 </style>
 """, unsafe_allow_html=True)
+
+st.dataframe(
+    test_info_df.round(2),
+    use_container_width=True,
+    hide_index=True
+)
 
 # ----------------------------------------------------
 # GLOBAL STYLE
