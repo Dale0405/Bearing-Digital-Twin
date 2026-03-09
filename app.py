@@ -525,9 +525,10 @@ if uploaded_file is not None:
     "Vibration (g)": ["Vibration", "Vib"]
 }
 
-    # Create table with same number of rows as uploaded file
-    data_table = pd.DataFrame(index=df.index)
-    for standard_col, keywords in column_map.items():
+# Create table with same number of rows as uploaded file
+data_table = pd.DataFrame(index=df.index)
+
+for standard_col, keywords in column_map.items():
 
     found_series = None
 
@@ -543,7 +544,6 @@ if uploaded_file is not None:
             break
 
     data_table[standard_col] = found_series
-
     # Apply formatting rules
 
     # Speed
