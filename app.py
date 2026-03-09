@@ -683,7 +683,7 @@ elif page == "Test Data":
         plot_title_size = 18
         axis_label_size = 14
         tick_label_size = 11
-        legend_size = 11
+        legend_size = 9
         
         title_color = "white"
         axis_color = "white"
