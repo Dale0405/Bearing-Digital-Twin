@@ -191,7 +191,7 @@ with right:
 
     ax.text(-1.07, -0.95, f"ID = {bearing_id} mm",
         color="white", fontsize=14, ha="right")
-    )
+    
 
     # ----------------------------
     # BALL LABEL
