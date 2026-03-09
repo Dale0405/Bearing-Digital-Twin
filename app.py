@@ -2,6 +2,17 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+st.markdown("""
+<style>
+[data-testid="stDataFrame"] td {
+    text-align: center !important;
+}
+
+[data-testid="stDataFrame"] th {
+    text-align: center !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ----------------------------------------------------
 # GLOBAL STYLE
@@ -651,7 +662,7 @@ elif page == "Test Data":
             columns=["Parameter", "Value"]
         )
         
-        st.dataframe(test_info_df, use_container_width=True)
+        st.dataframe(test_info_df, use_container_width=True, hide_index=True)
 
         st.subheader("Test Data Table")
         st.dataframe(st.session_state.twin_data_table, use_container_width=True)
