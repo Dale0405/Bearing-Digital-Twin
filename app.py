@@ -454,7 +454,7 @@ st.markdown(f"""
     # Test Conditions
     # ----------------------------
 
-    st.header("Test Conditions")
+st.header("Test Conditions")
 
     radial_load = float(st.text_input("Radial Load (N)", "14000"))
     axial_load = float(st.text_input("Axial Load (N)", "0"))
