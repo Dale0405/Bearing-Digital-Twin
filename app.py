@@ -654,6 +654,7 @@ elif page == "Test Data":
             list(test_info.items()),
             columns=["Parameter", "Value"]
         )
+        test_info_df["Value"] = test_info_df["Value"].round(2)
         
         st.dataframe(
             test_info_df.style.set_properties(**{"text-align": "center"}).set_table_styles(
