@@ -639,13 +639,13 @@ elif page == "Test Data":
         st.markdown("""
         <style>
         
-        /* Increase header (label) size by ~30% */
+        /* Increase header (label) size by ~70% */
         div[data-testid="stMetricLabel"] {
             font-size: 130% !important;
             font-weight: 700 !important;
         }
         
-        /* Reduce value size by ~30% */
+        /* Reduce value size by ~10% */
         div[data-testid="stMetricValue"] {
             font-size: 70% !important;
         }
