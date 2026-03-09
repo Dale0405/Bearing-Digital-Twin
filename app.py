@@ -125,7 +125,7 @@ if page == "Test Setup":
         static_rating = float(r7c2.text_input("", "24000", label_visibility="collapsed"))
 
 
- # ----------------------------
+    # ----------------------------
     # BEARING VISUALIZATION
     # ----------------------------
 
@@ -166,30 +166,151 @@ if page == "Test Setup":
 
         st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
 
-    # ----------------------------
-    # Derived Geometry
-    # ----------------------------
 
-    st.subheader("Derived Geometry")
 
-    pitch_diameter = (bearing_id + bearing_od) / 2
-    ball_spacing = 360 / number_of_balls
+   # ----------------------------
+# Derived Geometry
+# ----------------------------
 
-    col1, col2 = st.columns(2)
+st.subheader("Derived Geometry")
 
-    with col1:
+pitch_diameter = (bearing_id + bearing_od) / 2
+ball_spacing = 360 / number_of_balls
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+col1, col2 = st.columns(2)
+
+# ----------------------------
+# Pitch Diameter
+# ----------------------------
+
+with col1:
+
+    metric_col, img_col = st.columns([1,1])
+
+    with metric_col:
         st.metric("Pitch Diameter (mm)", f"{pitch_diameter:.3f}")
 
-    with col2:
+    with img_col:
+
+        fig, ax = plt.subplots(figsize=(2.4,2.4))
+
+        # transparent background
+        fig.patch.set_alpha(0)
+        ax.set_facecolor("none")
+
+        outer_r = 1.0
+        inner_r = bearing_id / bearing_od
+        pitch_r = (outer_r + inner_r)/2
+
+        # OD
+        ax.add_patch(plt.Circle((0,0), outer_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
+
+        # Pitch Diameter
+        ax.add_patch(plt.Circle((0,0), pitch_r,
+                                fill=False,
+                                linestyle=":",
+                                linewidth=2,
+                                color="red"))
+
+        # ID
+        ax.add_patch(plt.Circle((0,0), inner_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
+
+        ax.set_xlim(-1.2,1.2)
+        ax.set_ylim(-1.2,1.2)
+
+        ax.set_aspect("equal")
+        ax.axis("off")
+
+        st.pyplot(fig)
+
+
+
+# ----------------------------
+# Ball Angular Spacing
+# ----------------------------
+
+with col2:
+
+    metric_col, img_col = st.columns([1,1])
+
+    with metric_col:
         st.metric("Ball Angular Spacing (deg)", f"{ball_spacing:.3f}")
 
+    with img_col:
 
+        fig, ax = plt.subplots(figsize=(2.4,2.4))
 
-    # ----------------------------
-    # Internal Clearance
-    # ----------------------------
+        fig.patch.set_alpha(0)
+        ax.set_facecolor("none")
 
-    st.subheader("Bearing Internal Clearance")
+        outer_r = 1.0
+        inner_r = 0.6
+        pitch_r = (outer_r + inner_r)/2
+
+        # rings
+        ax.add_patch(plt.Circle((0,0), outer_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
+
+        ax.add_patch(plt.Circle((0,0), inner_r,
+                                fill=False,
+                                linewidth=2,
+                                color="white"))
+
+        # two balls showing spacing
+        angles = [0, np.deg2rad(ball_spacing)]
+
+        ball_r = 0.08
+
+        for a in angles:
+
+            x = pitch_r*np.cos(a)
+            y = pitch_r*np.sin(a)
+
+            ball = plt.Circle((x,y), ball_r,
+                              color="#cfd3d6",
+                              ec="#222222")
+
+            ax.add_patch(ball)
+
+        # angular arc
+        theta = np.linspace(0, np.deg2rad(ball_spacing), 100)
+
+        ax.plot(
+            pitch_r*np.cos(theta),
+            pitch_r*np.sin(theta),
+            color="red",
+            linewidth=2
+        )
+
+        ax.text(
+            pitch_r*0.7*np.cos(np.deg2rad(ball_spacing/2)),
+            pitch_r*0.7*np.sin(np.deg2rad(ball_spacing/2)),
+            f"{ball_spacing:.1f}°",
+            color="red",
+            fontsize=8,
+            ha="center"
+        )
+
+        ax.set_xlim(-1.2,1.2)
+        ax.set_ylim(-1.2,1.2)
+
+        ax.set_aspect("equal")
+        ax.axis("off")
+
+        st.pyplot(fig)
+
+st.subheader("Bearing Internal Clearance")
 
 col1, col2, col3 = st.columns(3)
 
@@ -329,20 +450,18 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
+    # ----------------------------
+    # Test Conditions
+    # ----------------------------
 
+    st.header("Test Conditions")
 
-# ----------------------------
-# Test Conditions
-# ----------------------------
+    radial_load = float(st.text_input("Radial Load (N)", "14000"))
+    axial_load = float(st.text_input("Axial Load (N)", "0"))
+    rpm = float(st.text_input("RPM", "3000"))
+    ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
 
-st.header("Test Conditions")
-
-radial_load = float(st.text_input("Radial Load (N)", "14000"))
-axial_load = float(st.text_input("Axial Load (N)", "0"))
-rpm = float(st.text_input("RPM", "3000"))
-ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
-
-lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
+    lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
 
 
 
@@ -350,7 +469,7 @@ lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
 # TEST DATA PAGE
 # ====================================================
 
-if page == "Test Data":
+elif page == "Test Data":
 
     st.title("Test Data")
 
