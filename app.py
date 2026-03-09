@@ -578,7 +578,7 @@ lubrication = st.selectbox(
 # TEST DATA
 # ----------------------------
 
-elif module == "Test Data":
+if module == "Test Data":
 
     st.header("Test Data")
 
