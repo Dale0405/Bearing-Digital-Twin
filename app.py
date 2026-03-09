@@ -638,31 +638,19 @@ elif page == "Test Data":
             test_info["Avg Vibration (g)"] = round(data_table["Vibration (g)"].mean(), 2)
             test_info["Max Vibration (g)"] = round(data_table["Vibration (g)"].max(), 2)
 
-        # Format numbers to remove long decimals
-test_info_df["Value"] = test_info_df["Value"].apply(
-    lambda x: f"{x:.2f}".rstrip("0").rstrip(".") if isinstance(x, (int, float)) else x
-)
+        test_info_df = pd.DataFrame(
+            list(test_info.items()),
+            columns=["Parameter", "Value"]
+        )
 
-# Center table using HTML
-st.markdown(
-    test_info_df.to_html(index=False, justify="center"),
-    unsafe_allow_html=True
-)
-        
-        # ----------------------------
-        # Test Data Table
-        # ----------------------------
-        
+        st.dataframe(test_info_df, use_container_width=True, hide_index=True)
+
         st.subheader("Test Data Table")
         st.dataframe(data_table, use_container_width=True)
-        
-        else:
-        
-            st.info("Upload a test data file to display the table.")
-        
-            else:
-        
-                st.info("Upload a test data file to display the table.")
+
+    else:
+
+        st.info("Upload a test data file to display the table.")
 
 
 # ====================================================
