@@ -636,56 +636,58 @@ elif page == "Test Data":
             test_info["Avg Vibration (g)"] = round(data_table["Vibration (g)"].mean(), 2)
             test_info["Max Vibration (g)"] = round(data_table["Vibration (g)"].max(), 2)
 
+        # ----------------------------
+        # Metric Card Style
+        # ----------------------------
+        
         st.markdown("""
         <style>
         
-        /* Metric card box */
-        div[data-testid="metric-container"] {
-            background-color: #0b1220;
-            border: 1px solid #374151;
-            padding: 18px;
-            border-radius: 12px;
-            text-align: center;
+        .metric-card{
+            background-color:#0b1220;
+            border:1px solid #374151;
+            padding:18px;
+            border-radius:12px;
+            text-align:center;
+            margin-bottom:15px;
         }
         
-        /* Metric label (parameter name) */
-        div[data-testid="metric-container"] label {
-            font-size: 18px !important;
-            font-weight: 700 !important;
+        .metric-title{
+            font-size:18px;
+            font-weight:700;
+            color:#cbd5e1;
         }
         
-        /* Metric value */
-        div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-            font-size: 28px !important;
-            font-weight: 600 !important;
+        .metric-value{
+            font-size:28px;
+            font-weight:600;
+            margin-top:5px;
         }
         
         </style>
         """, unsafe_allow_html=True)
-
+        
+        
         # ----------------------------
-        # Display as metric cards
+        # Display metric cards
         # ----------------------------
         
         items = list(test_info.items())
-        
         cols = st.columns(3)
         
         for i, (label, value) in enumerate(items):
+        
             col = cols[i % 3]
         
             if isinstance(value, float):
-                value = round(value, 2)
+                value = round(value,2)
         
-            col.metric(label=label, value=value)
-
-        st.subheader("Test Data Table")
-        st.dataframe(data_table, use_container_width=True)
-
-    else:
-
-        st.info("Upload a test data file to display the table.")
-
+            col.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">{label}</div>
+                <div class="metric-value">{value}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
 # ====================================================
 # TEST RESULTS PAGE
