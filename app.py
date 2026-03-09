@@ -344,7 +344,7 @@ axial_load = float(st.text_input("Axial Load (N)", "0"))
 rpm = float(st.text_input("RPM", "3000"))
 ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
 
- lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
+lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
 
 
 
