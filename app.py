@@ -795,7 +795,7 @@ elif page == "Test Data":
         
                 st.pyplot(fig)
 
-       elif page == "Test Data":
+elif page == "Test Data":
 
     data_table = st.session_state.twin_data_table
 
