@@ -794,8 +794,8 @@ elif page == "Test Data":
         
         vib_line_color = "orange"
         
-        vib_title_size = 18
-        vib_axis_label_size = 14
+        vib_title_size = 15
+        vib_axis_label_size = 12
         vib_tick_size = 11
         
         vib_title_color = "white"
