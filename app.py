@@ -795,47 +795,54 @@ elif page == "Test Data":
         
                 st.pyplot(fig)
 
+        elif page == "Test Data":
+
+    data_table = st.session_state.twin_data_table
+
+    if data_table is None:
+
+        st.info("Upload a test data file to display the table.")
+
+    else:
+
         # ----------------------------
         # Vibration Trend Plot
         # ----------------------------
-        
+
         st.subheader("Vibration Trend")
-        
-        if "Test Time (hr)" in data_table and "Vibration (g)" in data_table:
-        
+
+        if "Test Time (hr)" in data_table.columns and "Vibration (g)" in data_table.columns:
+
             fig, ax = plt.subplots(figsize=(8,4))
-        
-            # Make background transparent
+
+            # Transparent background
             fig.patch.set_alpha(0)
             ax.set_facecolor("none")
-        
+
             time = data_table["Test Time (hr)"]
             vibration = data_table["Vibration (g)"]
-        
+
             ax.plot(time, vibration, color="orange", linewidth=2)
-        
+
             ax.set_xlabel("Test Time (hr)", color="white")
             ax.set_ylabel("Vibration (g)", color="white")
             ax.set_title("Vibration vs Time", color="white")
-        
+
             ax.tick_params(colors="white")
-        
+
             ax.spines["bottom"].set_color("white")
             ax.spines["left"].set_color("white")
-        
+
             ax.grid(True, alpha=0.3)
-        
+
             st.pyplot(fig)
-        
+
+        # ----------------------------
+        # Test Data Table
+        # ----------------------------
+
         st.subheader("Test Data Table")
         st.dataframe(data_table, use_container_width=True)
-        
-        else:
-            st.info("Upload a test data file to display the table.")
-
-
-
-
 
 
 # ====================================================
