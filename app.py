@@ -700,7 +700,13 @@ elif page == "Test Data":
         
         with control_col:
         
-            st.markdown("### Select Temperature")
+            selector_font_size = 18
+            selector_font_color = "white"
+            
+            st.markdown(
+                f"<div style='font-size:{selector_font_size}px; color:{selector_font_color}; font-weight:600;'>Select Temperature</div>",
+                unsafe_allow_html=True
+            )
         
             selected_temp = st.radio(
                 "",
