@@ -805,14 +805,23 @@ elif page == "Test Data":
         
             fig, ax = plt.subplots(figsize=(8,4))
         
+            # Make background transparent
+            fig.patch.set_alpha(0)
+            ax.set_facecolor("none")
+        
             time = data_table["Test Time (hr)"]
             vibration = data_table["Vibration (g)"]
         
             ax.plot(time, vibration, color="orange", linewidth=2)
         
-            ax.set_xlabel("Test Time (hr)")
-            ax.set_ylabel("Vibration (g)")
-            ax.set_title("Vibration vs Time")
+            ax.set_xlabel("Test Time (hr)", color="white")
+            ax.set_ylabel("Vibration (g)", color="white")
+            ax.set_title("Vibration vs Time", color="white")
+        
+            ax.tick_params(colors="white")
+        
+            ax.spines["bottom"].set_color("white")
+            ax.spines["left"].set_color("white")
         
             ax.grid(True, alpha=0.3)
         
@@ -821,8 +830,7 @@ elif page == "Test Data":
         st.subheader("Test Data Table")
         st.dataframe(data_table, use_container_width=True)
         
-    else:
-                
+        else:
             st.info("Upload a test data file to display the table.")
 
 
