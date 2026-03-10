@@ -738,9 +738,10 @@ elif page == "Test Data":
                 "Temp 4# (°C)"
             ]
             
-            # Default state = show all
+            # Default = show all
             if "selected_temp" not in st.session_state:
-                st.session_state.selected_temp = "ALL"
+                st.session_state.selected_temp = None
+            
             
             # ----------------------------
             # Plot
@@ -755,8 +756,7 @@ elif page == "Test Data":
             
             selected = st.session_state.selected_temp
             
-            # Show all or single temp
-            if selected == "ALL":
+            if selected is None:
             
                 for t in temps:
                     if t in data_table:
@@ -764,42 +764,24 @@ elif page == "Test Data":
             
             else:
             
-                if selected in data_table:
-                    ax.plot(time, data_table[selected], linewidth=2, label=selected)
+                ax.plot(time, data_table[selected], linewidth=2, label=selected)
             
             
-            ax.set_title(
-                "Bearing Temperature vs Time",
-                fontsize=plot_title_size,
-                color=title_color
-            )
+            ax.set_title("Bearing Temperature vs Time", color="white")
+            ax.set_xlabel("Test Time (hr)", color="white")
+            ax.set_ylabel("Temperature (°C)", color="white")
             
-            ax.set_xlabel(
-                "Test Time (hr)",
-                fontsize=axis_label_size,
-                color=axis_color
-            )
+            ax.tick_params(axis="both", colors="white")
             
-            ax.set_ylabel(
-                "Temperature (°C)",
-                fontsize=axis_label_size,
-                color=axis_color
-            )
+            ax.grid(True, alpha=0.3)
             
-            ax.tick_params(axis="both", colors=tick_color)
-            
-            ax.spines["bottom"].set_color(axis_color)
-            ax.spines["left"].set_color(axis_color)
-            
-            ax.grid(True, color=grid_color, alpha=0.3)
-            
-            ax.legend(fontsize=legend_size)
+            ax.legend()
             
             st.pyplot(fig)
             
             
             # ----------------------------
-            # Temperature Selector Buttons
+            # Temperature Buttons
             # ----------------------------
             
             st.markdown(
@@ -809,95 +791,24 @@ elif page == "Test Data":
             
             cols = st.columns(4)
             
-            for i, t in enumerate(temps):
+            for i,t in enumerate(temps):
             
                 active = st.session_state.selected_temp == t
-                button_color = "#ffd43b" if active else "#2b2b2b"
             
-                if cols[i].button(t):
-                    st.session_state.selected_temp = t
-                    
-        
-            # ----------------------------
-            # Speed Trend Plot
-            # ----------------------------
+                style = (
+                    "background-color:#ffd43b;color:black;font-weight:600"
+                    if active else ""
+                )
             
-            st.subheader("Speed Trend")
+                if cols[i].button(t, key=f"btn_{t}"):
             
-            if "Test Time (hr)" in data_table.columns and "Speed (RPM)" in data_table.columns:
-        
-                fig, ax = plt.subplots(figsize=(6,3))
-        
-                fig.patch.set_alpha(0)
-                ax.set_facecolor("none")
-        
-                time = data_table["Test Time (hr)"]
-                speed = data_table["Speed (RPM)"]
-        
-                ax.plot(time, speed, color="#00d4ff", linewidth=2)
-        
-                ax.set_title("Speed vs Time", fontsize=plot_title_size, color=title_color)
-        
-                ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
-        
-                ax.set_ylabel("Speed (RPM)", fontsize=axis_label_size, color=axis_color)
-        
-                ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
-        
-                ax.spines["bottom"].set_color(axis_color)
-                ax.spines["left"].set_color(axis_color)
-        
-                ax.grid(True, color=grid_color, alpha=0.3)
-        
-                st.pyplot(fig)
-        
-        
-            # ----------------------------
-            # Vibration Trend Plot
-            # ----------------------------
+                    # Toggle behavior
+                    if st.session_state.selected_temp == t:
+                        st.session_state.selected_temp = None
+                    else:
+                        st.session_state.selected_temp = t
             
-            st.subheader("Vibration Trend")
-            
-            if "Test Time (hr)" in data_table and "Vibration (g)" in data_table:
-        
-                fig, ax = plt.subplots(figsize=(6,3))
-        
-                fig.patch.set_alpha(0)
-                ax.set_facecolor("none")
-        
-                time = data_table["Test Time (hr)"]
-                vibration = data_table["Vibration (g)"]
-        
-                ax.plot(time, vibration, color="orange", linewidth=2)
-        
-                ax.set_title("Vibration vs Time", fontsize=plot_title_size, color=title_color)
-        
-                ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
-        
-                ax.set_ylabel("Vibration (g)", fontsize=axis_label_size, color=axis_color)
-        
-                ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
-        
-                ax.spines["bottom"].set_color(axis_color)
-                ax.spines["left"].set_color(axis_color)
-        
-                ax.grid(True, color=grid_color, alpha=0.3)
-        
-                st.pyplot(fig)
-        
-        
-        # =========================
-        # LEFT SIDE → DATA TABLE
-        # =========================
-        
-        with left_col:
-        
-            st.subheader("Test Data Table")
-        
-            st.dataframe(
-                data_table,
-                use_container_width=True
-            )
+                    st.rerun()
 
 
 # ====================================================
