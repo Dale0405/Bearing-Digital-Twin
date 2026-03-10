@@ -726,7 +726,7 @@ elif page == "Test Data":
         with right_col:
         
             # ----------------------------
-            # Temperature Trend
+            # Temperature Trend Plot
             # ----------------------------
             
             st.subheader("Temperature Trend")
@@ -738,17 +738,9 @@ elif page == "Test Data":
                 "Temp 4# (°C)"
             ]
             
-            # Initialize toggle states
-            if "temp_filter" not in st.session_state:
-                st.session_state.temp_filter = {t: False for t in temps}
-            
-            # Determine which temps to show
-            active = [t for t,v in st.session_state.temp_filter.items() if v]
-            
-            # If nothing selected → show ALL
-            if len(active) == 0:
-                active = temps
-            
+            # Default state = show all
+            if "selected_temp" not in st.session_state:
+                st.session_state.selected_temp = "ALL"
             
             # ----------------------------
             # Plot
@@ -761,9 +753,20 @@ elif page == "Test Data":
             
             time = data_table["Test Time (hr)"]
             
-            for t in active:
-                if t in data_table:
-                    ax.plot(time, data_table[t], linewidth=2, label=t)
+            selected = st.session_state.selected_temp
+            
+            # Show all or single temp
+            if selected == "ALL":
+            
+                for t in temps:
+                    if t in data_table:
+                        ax.plot(time, data_table[t], linewidth=2, label=t)
+            
+            else:
+            
+                if selected in data_table:
+                    ax.plot(time, data_table[selected], linewidth=2, label=selected)
+            
             
             ax.set_title(
                 "Bearing Temperature vs Time",
@@ -796,30 +799,23 @@ elif page == "Test Data":
             
             
             # ----------------------------
-            # Temperature Selector
+            # Temperature Selector Buttons
             # ----------------------------
             
             st.markdown(
-            "<div style='text-align:center;font-size:18px;font-weight:600'>Select Temperature</div>",
+            "<div style='text-align:center;font-weight:600;font-size:18px'>Select Temperature</div>",
             unsafe_allow_html=True
             )
             
             cols = st.columns(4)
             
-            for i,t in enumerate(temps):
+            for i, t in enumerate(temps):
             
-                active = st.session_state.temp_filter[t]
+                active = st.session_state.selected_temp == t
+                button_color = "#ffd43b" if active else "#2b2b2b"
             
-                css_class = "temp-on temp-button" if active else "temp-button"
-            
-                with cols[i]:
-                    st.markdown(f"<div class='{css_class}'>", unsafe_allow_html=True)
-            
-                    if st.button(t, key=t):
-            
-                        st.session_state.temp_filter[t] = not st.session_state.temp_filter[t]
-            
-                    st.markdown("</div>", unsafe_allow_html=True)
+                if cols[i].button(t):
+                    st.session_state.selected_temp = t
                     
         
             # ----------------------------
