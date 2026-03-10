@@ -813,9 +813,9 @@ elif page == "Test Data":
                 # ----------------------------
                 # Speed Trend Plot
                 # ----------------------------
-            
+                
                 st.subheader("Speed Trend")
-            
+                
                 if "Test Time (hr)" in data_table.columns and "Speed (RPM)" in data_table.columns:
             
                     fig, ax = plt.subplots(figsize=(6,3))
@@ -828,13 +828,18 @@ elif page == "Test Data":
             
                     ax.plot(time, speed, color="#00d4ff", linewidth=2)
             
-                    ax.set_title("Speed vs Time", color="white")
-                    ax.set_xlabel("Test Time (hr)", color="white")
-                    ax.set_ylabel("Speed (RPM)", color="white")
+                    ax.set_title("Speed vs Time", fontsize=plot_title_size, color=title_color)
             
-                    ax.tick_params(axis="both", colors="white")
+                    ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
             
-                    ax.grid(True, alpha=0.3)
+                    ax.set_ylabel("Speed (RPM)", fontsize=axis_label_size, color=axis_color)
+            
+                    ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
+            
+                    ax.spines["bottom"].set_color(axis_color)
+                    ax.spines["left"].set_color(axis_color)
+            
+                    ax.grid(True, color=grid_color, alpha=0.3)
             
                     st.pyplot(fig)
             
@@ -842,9 +847,9 @@ elif page == "Test Data":
                 # ----------------------------
                 # Vibration Trend Plot
                 # ----------------------------
-            
+                
                 st.subheader("Vibration Trend")
-            
+                
                 if "Test Time (hr)" in data_table and "Vibration (g)" in data_table:
             
                     fig, ax = plt.subplots(figsize=(6,3))
@@ -857,13 +862,18 @@ elif page == "Test Data":
             
                     ax.plot(time, vibration, color="orange", linewidth=2)
             
-                    ax.set_title("Vibration vs Time", color="white")
-                    ax.set_xlabel("Test Time (hr)", color="white")
-                    ax.set_ylabel("Vibration (g)", color="white")
+                    ax.set_title("Vibration vs Time", fontsize=plot_title_size, color=title_color)
             
-                    ax.tick_params(axis="both", colors="white")
+                    ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
             
-                    ax.grid(True, alpha=0.3)
+                    ax.set_ylabel("Vibration (g)", fontsize=axis_label_size, color=axis_color)
+            
+                    ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
+            
+                    ax.spines["bottom"].set_color(axis_color)
+                    ax.spines["left"].set_color(axis_color)
+            
+                    ax.grid(True, color=grid_color, alpha=0.3)
             
                     st.pyplot(fig)
             
@@ -880,7 +890,6 @@ elif page == "Test Data":
                     data_table,
                     use_container_width=True
                 )
-
 
 # ====================================================
 # TEST RESULTS PAGE
