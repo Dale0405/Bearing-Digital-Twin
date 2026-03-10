@@ -827,7 +827,7 @@ elif page == "Test Data":
                 time = data_table["Test Time (hr)"]
                 speed = data_table["Speed (RPM)"]
         
-                ax.plot(time, speed, color="#00d4ff", linewidth=2)
+                ax.plot(time, speed, color="#003C5F", linewidth=2)
         
                 ax.set_title("Speed vs Time", fontsize=plot_title_size, color=title_color)
         
