@@ -861,7 +861,7 @@ elif page == "Test Data":
                 time = data_table["Test Time (hr)"]
                 vibration = data_table["Vibration (g)"]
         
-                ax.plot(time, vibration, color="orange", linewidth=2)
+                ax.plot(time, vibration, color="#800000", linewidth=2)
         
                 ax.set_title("Vibration vs Time", fontsize=plot_title_size, color=title_color)
         
