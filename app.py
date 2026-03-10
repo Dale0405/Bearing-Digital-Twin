@@ -795,84 +795,88 @@ elif page == "Test Data":
         
                 st.pyplot(fig)
 
-       # ----------------------------
-        # Vibration Plot Style Settings
-        # ----------------------------
-        
-        vib_line_color = "orange"
-        
-        vib_title_size = 15
-        vib_axis_label_size = 12
-        vib_tick_size = 11
-        
-        vib_title_color = "white"
-        vib_axis_color = "white"
-        vib_tick_color = "white"
-        
-        vib_grid_color = "#666666"
-        
-        # ----------------------------
-        # Vibration Trend Plot
-        # ----------------------------
-        
-        st.subheader("Vibration Trend")
-        
-        if "Test Time (hr)" in data_table.columns and "Vibration (g)" in data_table.columns:
-        
-            fig, ax = plt.subplots(figsize=(8,4))
-        
-            # Dark background
-            fig.patch.set_alpha(0)
-            ax.set_facecolor("none")
-        
-            time = data_table["Test Time (hr)"]
-            vibration = data_table["Vibration (g)"]
-        
-            ax.plot(
-                time,
-                vibration,
-                color=vib_line_color,
-                linewidth=2
-            )
-        
-            ax.set_title(
-                "Vibration vs Time",
-                fontsize=vib_title_size,
-                color=vib_title_color
-            )
-        
-            ax.set_xlabel(
-                "Test Time (hr)",
-                fontsize=vib_axis_label_size,
-                color=vib_axis_color
-            )
-        
-            ax.set_ylabel(
-                "Vibration (g)",
-                fontsize=vib_axis_label_size,
-                color=vib_axis_color
-            )
-        
-            ax.tick_params(
-                axis="both",
-                colors=vib_tick_color,
-                labelsize=vib_tick_size
-            )
-        
-            ax.spines["bottom"].set_color(vib_axis_color)
-            ax.spines["left"].set_color(vib_axis_color)
-        
-            ax.grid(True, color=vib_grid_color, alpha=0.3)
-        
-            st.pyplot(fig)
-        
-        else:
-            st.warning("Vibration data not available.")
+       elif page == "Test Data":
 
+    data_table = st.session_state.twin_data_table
 
-# ----------------------------
-# Test Data Table (ALWAYS SHOW)
-# ----------------------------
+    if data_table is None:
+        st.info("Upload a test data file to display the table.")
+        st.stop()
+
+    # ----------------------------
+    # Vibration Plot Style Settings
+    # ----------------------------
+
+    vib_line_color = "orange"
+
+    vib_title_size = 15
+    vib_axis_label_size = 12
+    vib_tick_size = 11
+
+    vib_title_color = "white"
+    vib_axis_color = "white"
+    vib_tick_color = "white"
+
+    vib_grid_color = "#666666"
+
+    # ----------------------------
+    # Vibration Trend Plot
+    # ----------------------------
+
+    st.subheader("Vibration Trend")
+
+    if "Test Time (hr)" in data_table.columns and "Vibration (g)" in data_table.columns:
+
+        fig, ax = plt.subplots(figsize=(8,4))
+
+        fig.patch.set_alpha(0)
+        ax.set_facecolor("none")
+
+        time = data_table["Test Time (hr)"]
+        vibration = data_table["Vibration (g)"]
+
+        ax.plot(time, vibration, color=vib_line_color, linewidth=2)
+
+        ax.set_title(
+            "Vibration vs Time",
+            fontsize=vib_title_size,
+            color=vib_title_color
+        )
+
+        ax.set_xlabel(
+            "Test Time (hr)",
+            fontsize=vib_axis_label_size,
+            color=vib_axis_color
+        )
+
+        ax.set_ylabel(
+            "Vibration (g)",
+            fontsize=vib_axis_label_size,
+            color=vib_axis_color
+        )
+
+        ax.tick_params(
+            axis="both",
+            colors=vib_tick_color,
+            labelsize=vib_tick_size
+        )
+
+        ax.spines["bottom"].set_color(vib_axis_color)
+        ax.spines["left"].set_color(vib_axis_color)
+
+        ax.grid(True, color=vib_grid_color, alpha=0.3)
+
+        st.pyplot(fig)
+
+    else:
+        st.warning("Vibration data not available.")
+
+    # ----------------------------
+    # Test Data Table
+    # ----------------------------
+
+    st.subheader("Test Data Table")
+    st.dataframe(data_table, use_container_width=True)
 
 st.subheader("Test Data Table")
 st.dataframe(data_table, use_container_width=True)
