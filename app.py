@@ -796,6 +796,81 @@ elif page == "Test Data":
                 st.pyplot(fig)
 
         # ----------------------------
+        # Speed Plot Style Settings
+        # ----------------------------
+        
+        speed_line_color = "#00d4ff"
+        
+        speed_title_size = 15
+        speed_axis_label_size = 12
+        speed_tick_size = 11
+        
+        speed_title_color = "white"
+        speed_axis_color = "white"
+        speed_tick_color = "white"
+        
+        speed_grid_color = "#666666"
+        
+        
+        # ----------------------------
+        # Speed Trend Plot
+        # ----------------------------
+        
+        st.subheader("Speed Trend")
+        
+        if "Test Time (hr)" in data_table.columns and "Speed (RPM)" in data_table.columns:
+        
+            fig, ax = plt.subplots(figsize=(8,4))
+        
+            # transparent background
+            fig.patch.set_alpha(0)
+            ax.set_facecolor("none")
+        
+            time = data_table["Test Time (hr)"]
+            speed = data_table["Speed (RPM)"]
+        
+            ax.plot(
+                time,
+                speed,
+                color=speed_line_color,
+                linewidth=2
+            )
+        
+            ax.set_title(
+                "Speed vs Time",
+                fontsize=speed_title_size,
+                color=speed_title_color
+            )
+        
+            ax.set_xlabel(
+                "Test Time (hr)",
+                fontsize=speed_axis_label_size,
+                color=speed_axis_color
+            )
+        
+            ax.set_ylabel(
+                "Speed (RPM)",
+                fontsize=speed_axis_label_size,
+                color=speed_axis_color
+            )
+        
+            ax.tick_params(
+                axis="both",
+                colors=speed_tick_color,
+                labelsize=speed_tick_size
+            )
+        
+            ax.spines["bottom"].set_color(speed_axis_color)
+            ax.spines["left"].set_color(speed_axis_color)
+        
+            ax.grid(True, color=speed_grid_color, alpha=0.3)
+        
+            st.pyplot(fig)
+        
+        else:
+            st.warning("Speed data not available.")
+
+        # ----------------------------
         # Vibration Trend Plot
         # ----------------------------
         
