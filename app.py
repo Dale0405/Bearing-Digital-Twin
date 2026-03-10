@@ -684,20 +684,6 @@ elif page == "Test Data":
         
             col.metric(label=label, value=value)
 
-        # ----------------------------
-        # Plot Style Settings
-        # ----------------------------
-        
-        plot_title_size = 18
-        axis_label_size = 14
-        tick_label_size = 11
-        legend_size = 9
-        
-        title_color = "white"
-        axis_color = "white"
-        tick_color = "white"
-        grid_color = "#666666"
-
         # =========================
         # DASHBOARD LAYOUT
         # =========================
@@ -720,7 +706,7 @@ elif page == "Test Data":
             plot_col, control_col = st.columns([4,1])
             
             with control_col:
-            
+        
                 selector_font_size = 20
                 selector_font_color = "white"
                 
@@ -728,7 +714,7 @@ elif page == "Test Data":
                     f"<div style='font-size:{selector_font_size}px; color:{selector_font_color}; font-weight:600;'>Select Temperature</div>",
                     unsafe_allow_html=True
                 )
-            
+        
                 selected_temp = st.radio(
                     "",
                     [
@@ -740,20 +726,20 @@ elif page == "Test Data":
                     ],
                     label_visibility="collapsed"
                 )
-            
+        
             with plot_col:
-            
+        
                 if "Test Time (hr)" in data_table:
-            
+        
                     fig, ax = plt.subplots(figsize=(6,3))
-            
+        
                     fig.patch.set_alpha(0)
                     ax.set_facecolor("none")
-            
+        
                     time = data_table["Test Time (hr)"]
-            
+        
                     if selected_temp == "ALL":
-            
+        
                         temps = [
                             "Temp 1# (°C)",
                             "Temp 2# (°C)",
@@ -764,19 +750,51 @@ elif page == "Test Data":
                         for t in temps:
                             if t in data_table and data_table[t].notna().any():
                                 ax.plot(time, data_table[t], linewidth=2, label=t)
-            
+        
                     else:
-            
+        
                         if selected_temp in data_table:
                             ax.plot(time, data_table[selected_temp], linewidth=2)
-            
-                    ax.set_title("Bearing Temperature vs Time")
-                    ax.set_xlabel("Test Time (hr)")
-                    ax.set_ylabel("Temperature (°C)")
-            
-                    ax.grid(True, alpha=0.3)
-                    ax.legend()
-            
+        
+                    # ---- TITLE ----
+                    ax.set_title(
+                        "Bearing Temperature vs Time",
+                        fontsize=plot_title_size,
+                        color=title_color
+                    )
+        
+                    # ---- AXIS LABELS ----
+                    ax.set_xlabel(
+                        "Test Time (hr)",
+                        fontsize=axis_label_size,
+                        color=axis_color
+                    )
+        
+                    ax.set_ylabel(
+                        "Temperature (°C)",
+                        fontsize=axis_label_size,
+                        color=axis_color
+                    )
+        
+                    # ---- TICKS ----
+                    ax.tick_params(
+                        axis="both",
+                        colors=tick_color,
+                        labelsize=tick_label_size
+                    )
+        
+                    # ---- AXIS LINES ----
+                    ax.spines["bottom"].set_color(axis_color)
+                    ax.spines["left"].set_color(axis_color)
+        
+                    # ---- GRID ----
+                    ax.grid(True, color=grid_color, alpha=0.3)
+        
+                    # ---- LEGEND ----
+                    legend = ax.legend(fontsize=legend_size)
+                    for text in legend.get_texts():
+                        text.set_color("white")
+        
                     st.pyplot(fig)
         
         
@@ -787,23 +805,30 @@ elif page == "Test Data":
             st.subheader("Speed Trend")
             
             if "Test Time (hr)" in data_table.columns and "Speed (RPM)" in data_table.columns:
-            
+        
                 fig, ax = plt.subplots(figsize=(6,3))
-            
+        
                 fig.patch.set_alpha(0)
                 ax.set_facecolor("none")
-            
+        
                 time = data_table["Test Time (hr)"]
                 speed = data_table["Speed (RPM)"]
-            
+        
                 ax.plot(time, speed, color="#00d4ff", linewidth=2)
-            
-                ax.set_title("Speed vs Time")
-                ax.set_xlabel("Test Time (hr)")
-                ax.set_ylabel("Speed (RPM)")
-            
-                ax.grid(True, alpha=0.3)
-            
+        
+                ax.set_title("Speed vs Time", fontsize=plot_title_size, color=title_color)
+        
+                ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
+        
+                ax.set_ylabel("Speed (RPM)", fontsize=axis_label_size, color=axis_color)
+        
+                ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
+        
+                ax.spines["bottom"].set_color(axis_color)
+                ax.spines["left"].set_color(axis_color)
+        
+                ax.grid(True, color=grid_color, alpha=0.3)
+        
                 st.pyplot(fig)
         
         
@@ -814,23 +839,30 @@ elif page == "Test Data":
             st.subheader("Vibration Trend")
             
             if "Test Time (hr)" in data_table and "Vibration (g)" in data_table:
-            
+        
                 fig, ax = plt.subplots(figsize=(6,3))
-            
+        
                 fig.patch.set_alpha(0)
                 ax.set_facecolor("none")
-            
+        
                 time = data_table["Test Time (hr)"]
                 vibration = data_table["Vibration (g)"]
-            
+        
                 ax.plot(time, vibration, color="orange", linewidth=2)
-            
-                ax.set_xlabel("Test Time (hr)")
-                ax.set_ylabel("Vibration (g)")
-                ax.set_title("Vibration vs Time")
-            
-                ax.grid(True, alpha=0.3)
-            
+        
+                ax.set_title("Vibration vs Time", fontsize=plot_title_size, color=title_color)
+        
+                ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
+        
+                ax.set_ylabel("Vibration (g)", fontsize=axis_label_size, color=axis_color)
+        
+                ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
+        
+                ax.spines["bottom"].set_color(axis_color)
+                ax.spines["left"].set_color(axis_color)
+        
+                ax.grid(True, color=grid_color, alpha=0.3)
+        
                 st.pyplot(fig)
         
         
@@ -846,7 +878,6 @@ elif page == "Test Data":
                 data_table,
                 use_container_width=True
             )
-
 
 
 # ====================================================
