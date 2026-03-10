@@ -637,6 +637,8 @@ elif page == "Test Data":
             test_info["Avg Vibration (g)"] = round(data_table["Vibration (g)"].mean(), 2)
             test_info["Max Vibration (g)"] = round(data_table["Vibration (g)"].max(), 2)
 
+        left_col, right_col = st.columns([1.5, 1])
+
         # ----------------------------
         # Metric Font Settings
         # ----------------------------
@@ -691,214 +693,154 @@ elif page == "Test Data":
         tick_color = "white"
         grid_color = "#666666"
 
-        # ----------------------------
-        # Temperature Trend Plot
-        # ----------------------------
+        # =========================
+        # DASHBOARD LAYOUT
+        # =========================
         
-        st.subheader("Temperature Trend")
+        left_col, right_col = st.columns([1.5,1])
         
-        plot_col, control_col = st.columns([4,1])
         
-        with control_col:
+        # =========================
+        # RIGHT SIDE → ALL PLOTS
+        # =========================
         
-            selector_font_size = 20
-            selector_font_color = "white"
+        with right_col:
+        
+            # ----------------------------
+            # Temperature Trend Plot
+            # ----------------------------
             
-            st.markdown(
-                f"<div style='font-size:{selector_font_size}px; color:{selector_font_color}; font-weight:600;'>Select Temperature</div>",
-                unsafe_allow_html=True
-            )
-        
-            selected_temp = st.radio(
-                "",
-                [
-                    "Temp 1# (°C)",
-                    "Temp 2# (°C)",
-                    "Temp 3# (°C)",
-                    "Temp 4# (°C)",
-                    "ALL"
-                ],
-                label_visibility="collapsed"
-            )
-        
-        with plot_col:
-        
-            if "Test Time (hr)" in data_table:
-        
-                fig, ax = plt.subplots(figsize=(8,4))
-        
-                # Dark theme
-                fig.patch.set_alpha(0)
-                ax.set_facecolor("none")
-        
-                time = data_table["Test Time (hr)"]
-        
-                if selected_temp == "ALL":
-        
-                    temps = [
+            st.subheader("Temperature Trend")
+            
+            plot_col, control_col = st.columns([4,1])
+            
+            with control_col:
+            
+                selector_font_size = 20
+                selector_font_color = "white"
+                
+                st.markdown(
+                    f"<div style='font-size:{selector_font_size}px; color:{selector_font_color}; font-weight:600;'>Select Temperature</div>",
+                    unsafe_allow_html=True
+                )
+            
+                selected_temp = st.radio(
+                    "",
+                    [
                         "Temp 1# (°C)",
                         "Temp 2# (°C)",
                         "Temp 3# (°C)",
-                        "Temp 4# (°C)"
-                    ]
-                    
-                    for t in temps:
-                        if t in data_table and data_table[t].notna().any():
-                            ax.plot(
-                                time,
-                                data_table[t],
-                                linewidth=2,
-                                label=t
-                            )
-        
-                else:
-        
-                    if selected_temp in data_table:
-                        ax.plot(time, data_table[selected_temp], linewidth=2)
-        
-                # Title
-                ax.set_title(
-                    "Bearing Temperature vs Time",
-                    fontsize=plot_title_size,
-                    color=title_color
+                        "Temp 4# (°C)",
+                        "ALL"
+                    ],
+                    label_visibility="collapsed"
                 )
+            
+            with plot_col:
+            
+                if "Test Time (hr)" in data_table:
+            
+                    fig, ax = plt.subplots(figsize=(6,3))
+            
+                    fig.patch.set_alpha(0)
+                    ax.set_facecolor("none")
+            
+                    time = data_table["Test Time (hr)"]
+            
+                    if selected_temp == "ALL":
+            
+                        temps = [
+                            "Temp 1# (°C)",
+                            "Temp 2# (°C)",
+                            "Temp 3# (°C)",
+                            "Temp 4# (°C)"
+                        ]
+                        
+                        for t in temps:
+                            if t in data_table and data_table[t].notna().any():
+                                ax.plot(time, data_table[t], linewidth=2, label=t)
+            
+                    else:
+            
+                        if selected_temp in data_table:
+                            ax.plot(time, data_table[selected_temp], linewidth=2)
+            
+                    ax.set_title("Bearing Temperature vs Time")
+                    ax.set_xlabel("Test Time (hr)")
+                    ax.set_ylabel("Temperature (°C)")
+            
+                    ax.grid(True, alpha=0.3)
+                    ax.legend()
+            
+                    st.pyplot(fig)
         
-                # Axis labels
-                ax.set_xlabel(
-                    "Test Time (hr)",
-                    fontsize=axis_label_size,
-                    color=axis_color
-                )
         
-                ax.set_ylabel(
-                    "Temperature (°C)",
-                    fontsize=axis_label_size,
-                    color=axis_color
-                )
-        
-                # Tick labels
-                ax.tick_params(
-                    axis="both",
-                    colors=tick_color,
-                    labelsize=tick_label_size
-                )
-        
-                # Axis lines
-                ax.spines["bottom"].set_color(axis_color)
-                ax.spines["left"].set_color(axis_color)
-        
-                # Grid
-                ax.grid(True, color=grid_color, alpha=0.3)
-        
-                # Legend
-                ax.legend(fontsize=legend_size)
-        
+            # ----------------------------
+            # Speed Trend Plot
+            # ----------------------------
+            
+            st.subheader("Speed Trend")
+            
+            if "Test Time (hr)" in data_table.columns and "Speed (RPM)" in data_table.columns:
+            
+                fig, ax = plt.subplots(figsize=(6,3))
+            
+                fig.patch.set_alpha(0)
+                ax.set_facecolor("none")
+            
+                time = data_table["Test Time (hr)"]
+                speed = data_table["Speed (RPM)"]
+            
+                ax.plot(time, speed, color="#00d4ff", linewidth=2)
+            
+                ax.set_title("Speed vs Time")
+                ax.set_xlabel("Test Time (hr)")
+                ax.set_ylabel("Speed (RPM)")
+            
+                ax.grid(True, alpha=0.3)
+            
                 st.pyplot(fig)
-
-        # ----------------------------
-        # Speed Plot Style Settings
-        # ----------------------------
-        
-        speed_line_color = "#00d4ff"
-        
-        speed_title_size = 15
-        speed_axis_label_size = 12
-        speed_tick_size = 11
-        
-        speed_title_color = "white"
-        speed_axis_color = "white"
-        speed_tick_color = "white"
-        
-        speed_grid_color = "#666666"
         
         
-        # ----------------------------
-        # Speed Trend Plot
-        # ----------------------------
+            # ----------------------------
+            # Vibration Trend Plot
+            # ----------------------------
+            
+            st.subheader("Vibration Trend")
+            
+            if "Test Time (hr)" in data_table and "Vibration (g)" in data_table:
+            
+                fig, ax = plt.subplots(figsize=(6,3))
+            
+                fig.patch.set_alpha(0)
+                ax.set_facecolor("none")
+            
+                time = data_table["Test Time (hr)"]
+                vibration = data_table["Vibration (g)"]
+            
+                ax.plot(time, vibration, color="orange", linewidth=2)
+            
+                ax.set_xlabel("Test Time (hr)")
+                ax.set_ylabel("Vibration (g)")
+                ax.set_title("Vibration vs Time")
+            
+                ax.grid(True, alpha=0.3)
+            
+                st.pyplot(fig)
         
-        st.subheader("Speed Trend")
         
-        if "Test Time (hr)" in data_table.columns and "Speed (RPM)" in data_table.columns:
+        # =========================
+        # LEFT SIDE → DATA TABLE
+        # =========================
         
-            fig, ax = plt.subplots(figsize=(8,4))
+        with left_col:
         
-            # transparent background
-            fig.patch.set_alpha(0)
-            ax.set_facecolor("none")
+            st.subheader("Test Data Table")
         
-            time = data_table["Test Time (hr)"]
-            speed = data_table["Speed (RPM)"]
-        
-            ax.plot(
-                time,
-                speed,
-                color=speed_line_color,
-                linewidth=2
+            st.dataframe(
+                data_table,
+                use_container_width=True
             )
-        
-            ax.set_title(
-                "Speed vs Time",
-                fontsize=speed_title_size,
-                color=speed_title_color
-            )
-        
-            ax.set_xlabel(
-                "Test Time (hr)",
-                fontsize=speed_axis_label_size,
-                color=speed_axis_color
-            )
-        
-            ax.set_ylabel(
-                "Speed (RPM)",
-                fontsize=speed_axis_label_size,
-                color=speed_axis_color
-            )
-        
-            ax.tick_params(
-                axis="both",
-                colors=speed_tick_color,
-                labelsize=speed_tick_size
-            )
-        
-            ax.spines["bottom"].set_color(speed_axis_color)
-            ax.spines["left"].set_color(speed_axis_color)
-        
-            ax.grid(True, color=speed_grid_color, alpha=0.3)
-        
-            st.pyplot(fig)
-        
-        else:
-            st.warning("Speed data not available.")
-
-        # ----------------------------
-        # Vibration Trend Plot
-        # ----------------------------
-        
-        st.subheader("Vibration Trend")
-        
-        if "Test Time (hr)" in data_table and "Vibration (g)" in data_table:
-        
-            fig, ax = plt.subplots(figsize=(8,4))
-        
-            time = data_table["Test Time (hr)"]
-            vibration = data_table["Vibration (g)"]
-        
-            ax.plot(time, vibration, color="orange", linewidth=2)
-        
-            ax.set_xlabel("Test Time (hr)")
-            ax.set_ylabel("Vibration (g)")
-            ax.set_title("Vibration vs Time")
-        
-            ax.grid(True, alpha=0.3)
-        
-            st.pyplot(fig)
-        
-        st.subheader("Test Data Table")
-        st.dataframe(data_table, use_container_width=True)
-        
-    else:
-                
-            st.info("Upload a test data file to display the table.")
 
 
 
