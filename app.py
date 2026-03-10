@@ -801,7 +801,7 @@ elif page == "Test Data":
 
     if data_table is None:
         st.info("Upload a test data file to display the table.")
-    else:
+        else:
 
     # ----------------------------
     # Vibration Plot Style Settings
