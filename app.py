@@ -717,11 +717,22 @@ elif page == "Test Data":
             
             st.subheader("Temperature Trend")
             
-            if "Test Time (hr)" in data_table:
+            temps = [
+                "Temp 1# (°C)",
+                "Temp 2# (°C)",
+                "Temp 3# (°C)",
+                "Temp 4# (°C)"
+            ]
             
-                # ----------------------------
-                # Plot
-                # ----------------------------
+            # Initialize toggle states
+            if "temp_selection" not in st.session_state:
+                st.session_state.temp_selection = {t: True for t in temps}
+            
+            # ----------------------------
+            # Plot
+            # ----------------------------
+            
+            if "Test Time (hr)" in data_table:
             
                 fig, ax = plt.subplots(figsize=(8,4))
             
@@ -730,33 +741,10 @@ elif page == "Test Data":
             
                 time = data_table["Test Time (hr)"]
             
-                temps = [
-                    "Temp 1# (°C)",
-                    "Temp 2# (°C)",
-                    "Temp 3# (°C)",
-                    "Temp 4# (°C)"
-                ]
-            
-                # Store selected temperature in session
-                if "selected_temp" not in st.session_state:
-                    st.session_state.selected_temp = "ALL"
-            
-                selected_temp = st.session_state.selected_temp
-            
-                # ---- PLOT LOGIC ----
-            
-                if selected_temp == "ALL":
-            
-                    for t in temps:
-                        if t in data_table:
-                            ax.plot(time, data_table[t], linewidth=2, label=t)
-            
-                else:
-            
-                    if selected_temp in data_table:
-                        ax.plot(time, data_table[selected_temp], linewidth=2, label=selected_temp)
-            
-                # ---- STYLE ----
+                # Plot only selected temperatures
+                for t in temps:
+                    if st.session_state.temp_selection[t] and t in data_table:
+                        ax.plot(time, data_table[t], linewidth=2, label=t)
             
                 ax.set_title(
                     "Bearing Temperature vs Time",
@@ -787,28 +775,27 @@ elif page == "Test Data":
             
                 st.pyplot(fig)
             
-                # ----------------------------
-                # Selector (below plot)
-                # ----------------------------
             
-                st.markdown("### Select Temperature")
+            # ----------------------------
+            # Temperature Selector Buttons
+            # ----------------------------
             
-                b1, b2, b3, b4, b5 = st.columns(5)
+            st.markdown(
+                "<div style='text-align:center;font-weight:600;font-size:18px'>Select Temperature</div>",
+                unsafe_allow_html=True
+            )
             
-                if b1.button("ALL"):
-                    st.session_state.selected_temp = "ALL"
+            cols = st.columns(4)
             
-                if b2.button("Temp 1# (°C)"):
-                    st.session_state.selected_temp = "Temp 1# (°C)"
+            for i, t in enumerate(temps):
             
-                if b3.button("Temp 2# (°C)"):
-                    st.session_state.selected_temp = "Temp 2# (°C)"
+                selected = st.session_state.temp_selection[t]
             
-                if b4.button("Temp 3# (°C)"):
-                    st.session_state.selected_temp = "Temp 3# (°C)"
+                button_color = "#ff4b4b" if selected else "#1f2937"
             
-                if b5.button("Temp 4# (°C)"):
-                    st.session_state.selected_temp = "Temp 4# (°C)"
+                if cols[i].button(t):
+            
+                    st.session_state.temp_selection[t] = not selected
                     
         
             # ----------------------------
