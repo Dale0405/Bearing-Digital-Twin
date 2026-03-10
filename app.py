@@ -809,87 +809,88 @@ elif page == "Test Data":
                         st.session_state.selected_temp = t
             
                     st.rerun()
+            
 
-                # ----------------------------
-                # Speed Trend Plot
-                # ----------------------------
-                
-                st.subheader("Speed Trend")
-                
-                if "Test Time (hr)" in data_table.columns and "Speed (RPM)" in data_table.columns:
+            # ----------------------------
+            # Speed Trend Plot
+            # ----------------------------
             
-                    fig, ax = plt.subplots(figsize=(6,3))
+            st.subheader("Speed Trend")
             
-                    fig.patch.set_alpha(0)
-                    ax.set_facecolor("none")
+            if "Test Time (hr)" in data_table.columns and "Speed (RPM)" in data_table.columns:
+        
+                fig, ax = plt.subplots(figsize=(6,3))
+        
+                fig.patch.set_alpha(0)
+                ax.set_facecolor("none")
+        
+                time = data_table["Test Time (hr)"]
+                speed = data_table["Speed (RPM)"]
+        
+                ax.plot(time, speed, color="#00d4ff", linewidth=2)
+        
+                ax.set_title("Speed vs Time", fontsize=plot_title_size, color=title_color)
+        
+                ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
+        
+                ax.set_ylabel("Speed (RPM)", fontsize=axis_label_size, color=axis_color)
+        
+                ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
+        
+                ax.spines["bottom"].set_color(axis_color)
+                ax.spines["left"].set_color(axis_color)
+        
+                ax.grid(True, color=grid_color, alpha=0.3)
+        
+                st.pyplot(fig)
+        
+        
+            # ----------------------------
+            # Vibration Trend Plot
+            # ----------------------------
             
-                    time = data_table["Test Time (hr)"]
-                    speed = data_table["Speed (RPM)"]
+            st.subheader("Vibration Trend")
             
-                    ax.plot(time, speed, color="#00d4ff", linewidth=2)
-            
-                    ax.set_title("Speed vs Time", fontsize=plot_title_size, color=title_color)
-            
-                    ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
-            
-                    ax.set_ylabel("Speed (RPM)", fontsize=axis_label_size, color=axis_color)
-            
-                    ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
-            
-                    ax.spines["bottom"].set_color(axis_color)
-                    ax.spines["left"].set_color(axis_color)
-            
-                    ax.grid(True, color=grid_color, alpha=0.3)
-            
-                    st.pyplot(fig)
-            
-            
-                # ----------------------------
-                # Vibration Trend Plot
-                # ----------------------------
-                
-                st.subheader("Vibration Trend")
-                
-                if "Test Time (hr)" in data_table and "Vibration (g)" in data_table:
-            
-                    fig, ax = plt.subplots(figsize=(6,3))
-            
-                    fig.patch.set_alpha(0)
-                    ax.set_facecolor("none")
-            
-                    time = data_table["Test Time (hr)"]
-                    vibration = data_table["Vibration (g)"]
-            
-                    ax.plot(time, vibration, color="orange", linewidth=2)
-            
-                    ax.set_title("Vibration vs Time", fontsize=plot_title_size, color=title_color)
-            
-                    ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
-            
-                    ax.set_ylabel("Vibration (g)", fontsize=axis_label_size, color=axis_color)
-            
-                    ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
-            
-                    ax.spines["bottom"].set_color(axis_color)
-                    ax.spines["left"].set_color(axis_color)
-            
-                    ax.grid(True, color=grid_color, alpha=0.3)
-            
-                    st.pyplot(fig)
-            
-            
-            # =========================
-            # LEFT SIDE → DATA TABLE
-            # =========================
-            
-            with left_col:
-            
-                st.subheader("Test Data Table")
-            
-                st.dataframe(
-                    data_table,
-                    use_container_width=True
-                )
+            if "Test Time (hr)" in data_table and "Vibration (g)" in data_table:
+        
+                fig, ax = plt.subplots(figsize=(6,3))
+        
+                fig.patch.set_alpha(0)
+                ax.set_facecolor("none")
+        
+                time = data_table["Test Time (hr)"]
+                vibration = data_table["Vibration (g)"]
+        
+                ax.plot(time, vibration, color="orange", linewidth=2)
+        
+                ax.set_title("Vibration vs Time", fontsize=plot_title_size, color=title_color)
+        
+                ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
+        
+                ax.set_ylabel("Vibration (g)", fontsize=axis_label_size, color=axis_color)
+        
+                ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
+        
+                ax.spines["bottom"].set_color(axis_color)
+                ax.spines["left"].set_color(axis_color)
+        
+                ax.grid(True, color=grid_color, alpha=0.3)
+        
+                st.pyplot(fig)
+        
+        
+        # =========================
+        # LEFT SIDE → DATA TABLE
+        # =========================
+        
+        with left_col:
+        
+            st.subheader("Test Data Table")
+        
+            st.dataframe(
+                data_table,
+                use_container_width=True
+            )
 
 # ====================================================
 # TEST RESULTS PAGE
