@@ -717,100 +717,99 @@ elif page == "Test Data":
             
             st.subheader("Temperature Trend")
             
-            plot_col, control_col = st.columns([4,1])
+            if "Test Time (hr)" in data_table:
             
-            with control_col:
-        
-                selector_font_size = 20
-                selector_font_color = "white"
-                
-                st.markdown(
-                    f"<div style='font-size:{selector_font_size}px; color:{selector_font_color}; font-weight:600;'>Select Temperature</div>",
-                    unsafe_allow_html=True
+                # ----------------------------
+                # Plot
+                # ----------------------------
+            
+                fig, ax = plt.subplots(figsize=(8,4))
+            
+                fig.patch.set_alpha(0)
+                ax.set_facecolor("none")
+            
+                time = data_table["Test Time (hr)"]
+            
+                temps = [
+                    "Temp 1# (°C)",
+                    "Temp 2# (°C)",
+                    "Temp 3# (°C)",
+                    "Temp 4# (°C)"
+                ]
+            
+                # Store selected temperature in session
+                if "selected_temp" not in st.session_state:
+                    st.session_state.selected_temp = "ALL"
+            
+                selected_temp = st.session_state.selected_temp
+            
+                # ---- PLOT LOGIC ----
+            
+                if selected_temp == "ALL":
+            
+                    for t in temps:
+                        if t in data_table:
+                            ax.plot(time, data_table[t], linewidth=2, label=t)
+            
+                else:
+            
+                    if selected_temp in data_table:
+                        ax.plot(time, data_table[selected_temp], linewidth=2, label=selected_temp)
+            
+                # ---- STYLE ----
+            
+                ax.set_title(
+                    "Bearing Temperature vs Time",
+                    fontsize=plot_title_size,
+                    color=title_color
                 )
-        
-                selected_temp = st.radio(
-                    "",
-                    [
-                        "Temp 1# (°C)",
-                        "Temp 2# (°C)",
-                        "Temp 3# (°C)",
-                        "Temp 4# (°C)",
-                        "ALL"
-                    ],
-                    label_visibility="collapsed"
+            
+                ax.set_xlabel(
+                    "Test Time (hr)",
+                    fontsize=axis_label_size,
+                    color=axis_color
                 )
-        
-            with plot_col:
-        
-                if "Test Time (hr)" in data_table:
-        
-                    fig, ax = plt.subplots(figsize=(6,3))
-        
-                    fig.patch.set_alpha(0)
-                    ax.set_facecolor("none")
-        
-                    time = data_table["Test Time (hr)"]
-        
-                    if selected_temp == "ALL":
-        
-                        temps = [
-                            "Temp 1# (°C)",
-                            "Temp 2# (°C)",
-                            "Temp 3# (°C)",
-                            "Temp 4# (°C)"
-                        ]
-                        
-                        for t in temps:
-                            if t in data_table and data_table[t].notna().any():
-                                ax.plot(time, data_table[t], linewidth=2, label=t)
-        
-                    else:
-        
-                        if selected_temp in data_table:
-                            ax.plot(time, data_table[selected_temp], linewidth=2)
-        
-                    # ---- TITLE ----
-                    ax.set_title(
-                        "Bearing Temperature vs Time",
-                        fontsize=plot_title_size,
-                        color=title_color
-                    )
-        
-                    # ---- AXIS LABELS ----
-                    ax.set_xlabel(
-                        "Test Time (hr)",
-                        fontsize=axis_label_size,
-                        color=axis_color
-                    )
-        
-                    ax.set_ylabel(
-                        "Temperature (°C)",
-                        fontsize=axis_label_size,
-                        color=axis_color
-                    )
-        
-                    # ---- TICKS ----
-                    ax.tick_params(
-                        axis="both",
-                        colors=tick_color,
-                        labelsize=tick_label_size
-                    )
-        
-                    # ---- AXIS LINES ----
-                    ax.spines["bottom"].set_color(axis_color)
-                    ax.spines["left"].set_color(axis_color)
-        
-                    # ---- GRID ----
-                    ax.grid(True, color=grid_color, alpha=0.3)
-        
-                    # ---- LEGEND ----
-                    legend = ax.legend(fontsize=legend_size)
-                    for text in legend.get_texts():
-                        text.set_color("white")
-        
-                    st.pyplot(fig)
-        
+            
+                ax.set_ylabel(
+                    "Temperature (°C)",
+                    fontsize=axis_label_size,
+                    color=axis_color
+                )
+            
+                ax.tick_params(axis="both", colors=tick_color)
+            
+                ax.spines["bottom"].set_color(axis_color)
+                ax.spines["left"].set_color(axis_color)
+            
+                ax.grid(True, color=grid_color, alpha=0.3)
+            
+                ax.legend(fontsize=legend_size)
+            
+                st.pyplot(fig)
+            
+                # ----------------------------
+                # Selector (below plot)
+                # ----------------------------
+            
+                st.markdown("### Select Temperature")
+            
+                b1, b2, b3, b4, b5 = st.columns(5)
+            
+                if b1.button("ALL"):
+                    st.session_state.selected_temp = "ALL"
+            
+                if b2.button("Temp 1# (°C)"):
+                    st.session_state.selected_temp = "Temp 1# (°C)"
+            
+                if b3.button("Temp 2# (°C)"):
+                    st.session_state.selected_temp = "Temp 2# (°C)"
+            
+                if b4.button("Temp 3# (°C)"):
+                    st.session_state.selected_temp = "Temp 3# (°C)"
+            
+                if b5.button("Temp 4# (°C)"):
+                    st.session_state.selected_temp = "Temp 4# (°C)"
+                    
         
             # ----------------------------
             # Speed Trend Plot
