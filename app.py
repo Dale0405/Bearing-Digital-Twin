@@ -700,7 +700,7 @@ elif page == "Test Data":
         
         with control_col:
         
-            selector_font_size = 18
+            selector_font_size = 15
             selector_font_color = "white"
             
             st.markdown(
