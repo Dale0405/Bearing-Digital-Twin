@@ -908,12 +908,12 @@ if page == "Test Results":
     # ==================================
     
     stability_title_size = 26
-    stability_label_size = 26
-    stability_value_size = 18
+    stability_label_size = 23
+    stability_value_size = 20
     
     stability_title_color = "white"
     stability_label_color = "white"
-    stability_value_color = "#ffd43b"
+    stability_value_color = "white"
     
     
     # ==================================
