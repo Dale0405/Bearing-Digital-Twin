@@ -829,11 +829,11 @@ elif page == "Test Data":
         
                 ax.plot(time, speed, color="#003C5F", linewidth=2)
         
-                ax.set_title("Speed vs Time", fontsize=plot_title_size, color=title_color)
+                ax.set_title("Speed vs Time", fontsize=10, color=title_color)
         
-                ax.set_xlabel("Test Time (hr)", fontsize=8, color=axis_color)
+                ax.set_xlabel("Test Time (hr)", fontsize=10, color=axis_color)
         
-                ax.set_ylabel("Speed (RPM)", fontsize=8, color=axis_color)
+                ax.set_ylabel("Speed (RPM)", fontsize=10, color=axis_color)
         
                 ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
         
@@ -863,11 +863,11 @@ elif page == "Test Data":
         
                 ax.plot(time, vibration, color="#800000", linewidth=2)
         
-                ax.set_title("Vibration vs Time", fontsize=plot_title_size, color=title_color)
+                ax.set_title("Vibration vs Time", fontsize=10, color=title_color)
         
-                ax.set_xlabel("Test Time (hr)", fontsize=axis_label_size, color=axis_color)
+                ax.set_xlabel("Test Time (hr)", fontsize=10, color=axis_color)
         
-                ax.set_ylabel("Vibration (g)", fontsize=axis_label_size, color=axis_color)
+                ax.set_ylabel("Vibration (g)", fontsize=10, color=axis_color)
         
                 ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
         
