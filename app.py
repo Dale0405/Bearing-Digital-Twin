@@ -100,6 +100,8 @@ if page == "Test Setup":
 
     st.title("Test Setup")
 
+    left, right = st.columns([1,1])
+
     # ----------------------------
     # Bearing Parameters
     # ----------------------------
