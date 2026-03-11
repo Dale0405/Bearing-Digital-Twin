@@ -963,23 +963,25 @@ if page == "Test Results":
     # =========================
     
     def result_box(label, value):
-    
+
         st.markdown(f"""
         <div style="
-            width:{box_width}px;
-            border:1px solid {border_color};
+            width:250px;
+            border:1px solid white;
             padding:14px;
             margin-bottom:12px;
             text-align:center;
             border-radius:4px;
         ">
-            <div style="font-size:{label_size}px; color:{label_color};">
+    
+            <div style="font-size:18px; color:white;">
                 {label}
             </div>
     
-            <div style="font-size:{value_size}px; color:{value_color}; font-weight:600;">
+            <div style="font-size:22px; color:white; font-weight:600;">
                 {value}
             </div>
+    
         </div>
         """, unsafe_allow_html=True)
     
