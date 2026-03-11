@@ -944,18 +944,74 @@ if page == "Test Results":
                 unsafe_allow_html=True
             )
 
-
+    
     # ----------------------------
-    # LEFT SIDE RESULTS
+    # L10 LIFE CALCULATIONS
     # ----------------------------
     
-    left_col, right_col = st.columns([1,3])
+    rpm = 3000
+    dynamic_rating = 31500
     
-    with left_col:
+    mean_load = data["Radial Load (N)"].mean()
     
+    # Ideal life
+    P_ideal = mean_load
+    L10_rev_ideal = (dynamic_rating / P_ideal) ** 3 * 1e6
+    L10_hours_ideal = L10_rev_ideal / (60 * rpm)
+    
+    
+    # Actual life using fluctuating loads
+    loads = data["Radial Load (N)"]
+    
+    damage_sum = 0
+    
+    for load in loads:
+    
+        if load > 0:
+    
+            L10_rev = (dynamic_rating / load) ** 3 * 1e6
+            life_hours = L10_rev / (60 * rpm)
+    
+            damage_sum += 1 / life_hours
+    
+    
+    L10_hours_actual = len(loads) / damage_sum if damage_sum != 0 else 0
+    
+    
+    # Life consumption
+    test_duration = data["Test Time (hr)"].max()
+    life_consumption = (test_duration / L10_hours_actual) * 100
+    
+    
+    # ----------------------------
+    # RESULT GRID
+    # ----------------------------
+    
+    row1_col1, row1_col2 = st.columns(2)
+    row2_col1, row2_col2 = st.columns(2)
+    row3_col1, row3_col2 = st.columns(2)
+    
+    
+    # Row 1
+    with row1_col1:
         result_box("Speed Variation", f"{speed_var:.2f}%")
     
+    with row1_col2:
+        result_box("L10 Life (Ideal)", f"{L10_hours_ideal:,.0f} hr")
+    
+    
+    # Row 2
+    with row2_col1:
         result_box("Load Variation", f"{load_var:.2f}%")
     
+    with row2_col2:
+        result_box("L10 Life (Actual)", f"{L10_hours_actual:,.0f} hr")
+    
+    
+    # Row 3
+    with row3_col1:
         result_box("Temperature Stability", f"± {temp_std:.2f} °C")
+    
+    with row3_col2:
+        result_box("Life Consumption", f"{life_consumption:.2f}%")
     
