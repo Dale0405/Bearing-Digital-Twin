@@ -831,9 +831,9 @@ elif page == "Test Data":
         
                 ax.set_title("Speed vs Time", fontsize=plot_title_size, color=title_color)
         
-                ax.set_xlabel("Test Time (hr)", fontsize=14, color=axis_color)
+                ax.set_xlabel("Test Time (hr)", fontsize=8, color=axis_color)
         
-                ax.set_ylabel("Speed (RPM)", fontsize=14, color=axis_color)
+                ax.set_ylabel("Speed (RPM)", fontsize=8, color=axis_color)
         
                 ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
         
