@@ -902,10 +902,6 @@ if page == "Test Results":
     st.title("Test Results")
     st.caption("Engineering results will appear here.")
 
-
-    # ----------------------------
-    # Get data safely
-    # ----------------------------
     data = st.session_state.get("twin_data_table")
 
     if data is None:
@@ -914,41 +910,20 @@ if page == "Test Results":
 
 
     # ----------------------------
-    # STYLE SETTINGS
-    # ----------------------------
-    stability_label_size = 18
-    stability_value_size = 24
-
-    stability_label_color = "white"
-    stability_value_color = "white"
-
-
-    # ----------------------------
     # CALCULATIONS
     # ----------------------------
 
-    # Speed variation
     speed_avg = data["Speed (RPM)"].mean()
     speed_max = data["Speed (RPM)"].max()
     speed_min = data["Speed (RPM)"].min()
     speed_var = ((speed_max - speed_min) / speed_avg) * 100
 
-
-    # Load variation
     load_avg = data["Radial Load (N)"].mean()
     load_max = data["Radial Load (N)"].max()
     load_min = data["Radial Load (N)"].min()
     load_var = ((load_max - load_min) / load_avg) * 100
 
-
-    # Temperature stability
-    temp_cols = [
-        "Temp 1# (°C)",
-        "Temp 2# (°C)",
-        "Temp 3# (°C)",
-        "Temp 4# (°C)"
-    ]
-
+    temp_cols = ["Temp 1# (°C)", "Temp 2# (°C)", "Temp 3# (°C)", "Temp 4# (°C)"]
     temp_std = data[temp_cols].stack().std()
 
 
@@ -958,43 +933,23 @@ if page == "Test Results":
 
     def result_box(label, value):
 
-        html = f"""
-        <div style="
-            width:260px;
-            border:1px solid white;
-            padding:14px;
-            margin-bottom:14px;
-            text-align:center;
-            border-radius:6px;
-        ">
+        with st.container(border=True):
+            st.markdown(
+                f"<div style='text-align:center; font-size:18px'>{label}</div>",
+                unsafe_allow_html=True
+            )
 
-            <div style="
-                font-size:{stability_label_size}px;
-                color:{stability_label_color};
-            ">
-                {label}
-            </div>
-
-            <div style="
-                font-size:{stability_value_size}px;
-                color:{stability_value_color};
-                font-weight:600;
-            ">
-                {value}
-            </div>
-
-        </div>
-        """
-
-        st.markdown(html, unsafe_allow_html=True)
+            st.markdown(
+                f"<div style='text-align:center; font-size:26px; font-weight:600'>{value}</div>",
+                unsafe_allow_html=True
+            )
 
 
     # ----------------------------
-    # DISPLAY RESULTS
+    # DISPLAY
     # ----------------------------
 
     result_box("Speed Variation", f"{speed_var:.2f}%")
     result_box("Load Variation", f"{load_var:.2f}%")
     result_box("Temperature Stability", f"± {temp_std:.2f} °C")
-
 
