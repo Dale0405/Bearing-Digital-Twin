@@ -104,47 +104,27 @@ if page == "Test Setup":
     # Bearing Parameters
     # ----------------------------
 
-    bearing_id = r1c2.number_input(
-        "",
-        key="bearing_id",
-        label_visibility="collapsed"
-    )
-    
-    bearing_od = r2c2.number_input(
-        "",
-        key="bearing_od",
-        label_visibility="collapsed"
-    )
-    
-    bearing_width = r3c2.number_input(
-        "",
-        key="bearing_width",
-        label_visibility="collapsed"
-    )
-    
-    ball_diameter = r4c2.number_input(
-        "",
-        key="ball_diameter",
-        label_visibility="collapsed"
-    )
-    
-    number_of_balls = r5c2.number_input(
-        "",
-        key="number_of_balls",
-        label_visibility="collapsed"
-    )
-    
-    dynamic_rating = r6c2.number_input(
-        "",
-        key="dynamic_rating",
-        label_visibility="collapsed"
-    )
-    
-    static_rating = r7c2.number_input(
-        "",
-        key="static_rating",
-        label_visibility="collapsed"
-    )
+    st.markdown("<h3 style='text-align:center;'>Bearing Parameters</h3>", unsafe_allow_html=True)
+
+    st.markdown("""
+    <style>
+
+    .param-header{
+        text-align:center;
+        font-weight:bold;
+        margin-bottom:5px;
+    }
+
+    .param-row{
+        border:1px solid #555;
+        padding:6px;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+
+    left, right = st.columns([1,1])
 
 
     # ----------------------------
@@ -420,8 +400,7 @@ if page == "Test Setup":
             value=0.03000,
             format="%.5f"
         )
-
-        
+    
     # automatic calculation
     clearance_mean = (clearance_min + clearance_max) / 2
     
