@@ -893,102 +893,108 @@ elif page == "Test Data":
                 height=1200
             )
 
-# ====================================================
+# =========================
 # TEST RESULTS PAGE
-# ====================================================
+# =========================
 
 if page == "Test Results":
 
-    # ==================================
-    # OPERATING STABILITY STYLE SETTINGS
-    # ==================================
-    
-    stability_title_size = 26
-    stability_label_size = 23
-    stability_value_size = 20
-    
-    stability_title_color = "white"
+    st.title("Test Results")
+    st.caption("Engineering results will appear here.")
+
+
+    # ----------------------------
+    # Get data safely
+    # ----------------------------
+    data = st.session_state.get("twin_data_table")
+
+    if data is None:
+        st.info("Upload test data first.")
+        st.stop()
+
+
+    # ----------------------------
+    # STYLE SETTINGS
+    # ----------------------------
+    stability_label_size = 18
+    stability_value_size = 24
+
     stability_label_color = "white"
     stability_value_color = "white"
-    
-    
-    # =========================
-    # OPERATING STABILITY
-    # =========================
-    
-    st.subheader("Test Results")
-    st.caption("Engineering results will appear here.")
-    
-    
-    data = st.session_state.twin_data_table
-    
-    
+
+
     # ----------------------------
-    # Calculations
+    # CALCULATIONS
     # ----------------------------
-    
+
+    # Speed variation
     speed_avg = data["Speed (RPM)"].mean()
     speed_max = data["Speed (RPM)"].max()
     speed_min = data["Speed (RPM)"].min()
     speed_var = ((speed_max - speed_min) / speed_avg) * 100
-    
+
+
+    # Load variation
     load_avg = data["Radial Load (N)"].mean()
     load_max = data["Radial Load (N)"].max()
     load_min = data["Radial Load (N)"].min()
     load_var = ((load_max - load_min) / load_avg) * 100
-    
-    temp_cols = ["Temp 1# (°C)", "Temp 2# (°C)", "Temp 3# (°C)", "Temp 4# (°C)"]
+
+
+    # Temperature stability
+    temp_cols = [
+        "Temp 1# (°C)",
+        "Temp 2# (°C)",
+        "Temp 3# (°C)",
+        "Temp 4# (°C)"
+    ]
+
     temp_std = data[temp_cols].stack().std()
-    
-    
-    # =========================
-    # STYLE SETTINGS
-    # =========================
-    
-    box_width = 250
-    label_size = 18
-    value_size = 22
-    
-    border_color = "white"
-    label_color = "white"
-    value_color = "white"
-    
-    
-    # =========================
+
+
+    # ----------------------------
     # RESULT BOX FUNCTION
-    # =========================
-    
-def result_box(label, value):
+    # ----------------------------
 
-    html = f"""
-    <div style="
-        width:250px;
-        border:1px solid white;
-        padding:14px;
-        margin-bottom:12px;
-        text-align:center;
-        border-radius:4px;
-    ">
-        <p style="font-size:{stability_label_size}px; color:{stability_label_color}; margin:0;">
-            {label}
-        </p>
+    def result_box(label, value):
 
-        <p style="font-size:{stability_value_size}px; color:{stability_value_color}; font-weight:600; margin:4px 0 0 0;">
-            {value}
-        </p>
-    </div>
-    """
+        html = f"""
+        <div style="
+            width:260px;
+            border:1px solid white;
+            padding:14px;
+            margin-bottom:14px;
+            text-align:center;
+            border-radius:6px;
+        ">
 
-    st.markdown(html, unsafe_allow_html=True)
-    
-    
-    # =========================
-    # DISPLAY
-    # =========================
-    
+            <div style="
+                font-size:{stability_label_size}px;
+                color:{stability_label_color};
+            ">
+                {label}
+            </div>
+
+            <div style="
+                font-size:{stability_value_size}px;
+                color:{stability_value_color};
+                font-weight:600;
+            ">
+                {value}
+            </div>
+
+        </div>
+        """
+
+        st.markdown(html, unsafe_allow_html=True)
+
+
+    # ----------------------------
+    # DISPLAY RESULTS
+    # ----------------------------
+
     result_box("Speed Variation", f"{speed_var:.2f}%")
     result_box("Load Variation", f"{load_var:.2f}%")
     result_box("Temperature Stability", f"± {temp_std:.2f} °C")
-
 
 
