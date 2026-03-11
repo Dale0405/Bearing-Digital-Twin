@@ -958,7 +958,7 @@ if page == "Test Results":
     # RESULT BOX FUNCTION
     # =========================
     
-   def result_box(label, value):
+def result_box(label, value):
 
     html = f"""
     <div style="
