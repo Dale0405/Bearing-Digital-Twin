@@ -899,10 +899,6 @@ elif page == "Test Data":
 
 if page == "Test Results":
 
-    st.title("Test Results")
-
-    st.write("Engineering results will appear here.")
-
     # ==================================
     # OPERATING STABILITY STYLE SETTINGS
     # ==================================
@@ -962,28 +958,28 @@ if page == "Test Results":
     # RESULT BOX FUNCTION
     # =========================
     
-    def result_box(label, value):
+   def result_box(label, value):
 
-        st.markdown(f"""
-        <div style="
-            width:250px;
-            border:1px solid white;
-            padding:14px;
-            margin-bottom:12px;
-            text-align:center;
-            border-radius:4px;
-        ">
-    
-            <div style="font-size:18px; color:white;">
-                {label}
-            </div>
-    
-            <div style="font-size:22px; color:white; font-weight:600;">
-                {value}
-            </div>
-    
-        </div>
-        """, unsafe_allow_html=True)
+    html = f"""
+    <div style="
+        width:250px;
+        border:1px solid white;
+        padding:14px;
+        margin-bottom:12px;
+        text-align:center;
+        border-radius:4px;
+    ">
+        <p style="font-size:{stability_label_size}px; color:{stability_label_color}; margin:0;">
+            {label}
+        </p>
+
+        <p style="font-size:{stability_value_size}px; color:{stability_value_color}; font-weight:600; margin:4px 0 0 0;">
+            {value}
+        </p>
+    </div>
+    """
+
+    st.markdown(html, unsafe_allow_html=True)
     
     
     # =========================
