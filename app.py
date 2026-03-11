@@ -904,14 +904,32 @@ if page == "Test Results":
     st.write("Engineering results will appear here.")
 
     # ==================================
+    # OPERATING STABILITY STYLE SETTINGS
+    # ==================================
+    
+    stability_title_size = 26
+    stability_label_size = 16
+    stability_value_size = 28
+    
+    stability_title_color = "white"
+    stability_label_color = "white"
+    stability_value_color = "#ffd43b"
+    
+    
+    # ==================================
     # OPERATING STABILITY ANALYSIS
     # ==================================
     
-    st.subheader("Operating Stability")
+    st.markdown(
+        f"<h2 style='font-size:{stability_title_size}px; color:{stability_title_color};'>Operating Stability</h2>",
+        unsafe_allow_html=True
+    )
+    
     
     if st.session_state.twin_data_table is not None:
     
         data = st.session_state.twin_data_table
+    
     
         # ----------------------------
         # Speed Stability
@@ -923,6 +941,7 @@ if page == "Test Results":
     
         speed_var = ((speed_max - speed_min) / speed_avg) * 100
     
+    
         # ----------------------------
         # Load Stability
         # ----------------------------
@@ -932,6 +951,7 @@ if page == "Test Results":
         load_min = data["Radial Load (N)"].min()
     
         load_var = ((load_max - load_min) / load_avg) * 100
+    
     
         # ----------------------------
         # Temperature Stability
@@ -948,26 +968,52 @@ if page == "Test Results":
     
         temp_std = temps.stack().std()
     
+    
         # ----------------------------
         # Display Metrics
         # ----------------------------
     
         col1, col2, col3 = st.columns(3)
     
-        col1.metric(
-            "Speed Variation",
-            f"{speed_var:.2f} %",
-        )
     
-        col2.metric(
-            "Load Variation",
-            f"{load_var:.2f} %",
-        )
+        with col1:
     
-        col3.metric(
-            "Temperature Stability (σ)",
-            f"{temp_std:.2f} °C",
-        )
+            st.markdown(
+                f"<div style='font-size:{stability_label_size}px; color:{stability_label_color};'>Speed Variation</div>",
+                unsafe_allow_html=True
+            )
+    
+            st.markdown(
+                f"<div style='font-size:{stability_value_size}px; color:{stability_value_color};'>{speed_var:.2f} %</div>",
+                unsafe_allow_html=True
+            )
+    
+    
+        with col2:
+    
+            st.markdown(
+                f"<div style='font-size:{stability_label_size}px; color:{stability_label_color};'>Load Variation</div>",
+                unsafe_allow_html=True
+            )
+    
+            st.markdown(
+                f"<div style='font-size:{stability_value_size}px; color:{stability_value_color};'>{load_var:.2f} %</div>",
+                unsafe_allow_html=True
+            )
+    
+    
+        with col3:
+    
+            st.markdown(
+                f"<div style='font-size:{stability_label_size}px; color:{stability_label_color};'>Temperature Stability</div>",
+                unsafe_allow_html=True
+            )
+    
+            st.markdown(
+                f"<div style='font-size:{stability_value_size}px; color:{stability_value_color};'>{temp_std:.2f} °C</div>",
+                unsafe_allow_html=True
+            )
+    
     
     else:
     
