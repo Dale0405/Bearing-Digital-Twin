@@ -916,109 +916,81 @@ if page == "Test Results":
     stability_value_color = "white"
     
     
-    # ==================================
-    # OPERATING STABILITY ANALYSIS
-    # ==================================
+    # =========================
+    # OPERATING STABILITY
+    # =========================
     
-    st.markdown(
-        f"<h2 style='font-size:{stability_title_size}px; color:{stability_title_color};'>Operating Stability</h2>",
-        unsafe_allow_html=True
-    )
+    st.subheader("Test Results")
+    st.caption("Engineering results will appear here.")
     
     
-    if st.session_state.twin_data_table is not None:
-    
-        data = st.session_state.twin_data_table
+    data = st.session_state.twin_data_table
     
     
-        # ----------------------------
-        # Speed Stability
-        # ----------------------------
+    # ----------------------------
+    # Calculations
+    # ----------------------------
     
-        speed_avg = data["Speed (RPM)"].mean()
-        speed_max = data["Speed (RPM)"].max()
-        speed_min = data["Speed (RPM)"].min()
+    speed_avg = data["Speed (RPM)"].mean()
+    speed_max = data["Speed (RPM)"].max()
+    speed_min = data["Speed (RPM)"].min()
+    speed_var = ((speed_max - speed_min) / speed_avg) * 100
     
-        speed_var = ((speed_max - speed_min) / speed_avg) * 100
+    load_avg = data["Radial Load (N)"].mean()
+    load_max = data["Radial Load (N)"].max()
+    load_min = data["Radial Load (N)"].min()
+    load_var = ((load_max - load_min) / load_avg) * 100
     
-    
-        # ----------------------------
-        # Load Stability
-        # ----------------------------
-    
-        load_avg = data["Radial Load (N)"].mean()
-        load_max = data["Radial Load (N)"].max()
-        load_min = data["Radial Load (N)"].min()
-    
-        load_var = ((load_max - load_min) / load_avg) * 100
+    temp_cols = ["Temp 1# (°C)", "Temp 2# (°C)", "Temp 3# (°C)", "Temp 4# (°C)"]
+    temp_std = data[temp_cols].stack().std()
     
     
-        # ----------------------------
-        # Temperature Stability
-        # ----------------------------
+    # =========================
+    # STYLE SETTINGS
+    # =========================
     
-        temp_cols = [
-            "Temp 1# (°C)",
-            "Temp 2# (°C)",
-            "Temp 3# (°C)",
-            "Temp 4# (°C)"
-        ]
+    box_width = 250
+    label_size = 18
+    value_size = 22
     
-        temps = data[temp_cols]
-    
-        temp_std = temps.stack().std()
+    border_color = "white"
+    label_color = "white"
+    value_color = "white"
     
     
-        # ----------------------------
-        # Display Metrics
-        # ----------------------------
+    # =========================
+    # RESULT BOX FUNCTION
+    # =========================
     
-        col1, col2, col3 = st.columns(3)
+    def result_box(label, value):
     
+        st.markdown(f"""
+        <div style="
+            width:{box_width}px;
+            border:1px solid {border_color};
+            padding:14px;
+            margin-bottom:12px;
+            text-align:center;
+            border-radius:4px;
+        ">
+            <div style="font-size:{label_size}px; color:{label_color};">
+                {label}
+            </div>
     
-        with col1:
-    
-            st.markdown(
-                f"<div style='font-size:{stability_label_size}px; color:{stability_label_color};'>Speed Variation</div>",
-                unsafe_allow_html=True
-            )
-    
-            st.markdown(
-                f"<div style='font-size:{stability_value_size}px; color:{stability_value_color};'>{speed_var:.2f} %</div>",
-                unsafe_allow_html=True
-            )
-    
-    
-        with col2:
-    
-            st.markdown(
-                f"<div style='font-size:{stability_label_size}px; color:{stability_label_color};'>Load Variation</div>",
-                unsafe_allow_html=True
-            )
-    
-            st.markdown(
-                f"<div style='font-size:{stability_value_size}px; color:{stability_value_color};'>{load_var:.2f} %</div>",
-                unsafe_allow_html=True
-            )
+            <div style="font-size:{value_size}px; color:{value_color}; font-weight:600;">
+                {value}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     
     
-        with col3:
+    # =========================
+    # DISPLAY
+    # =========================
     
-            st.markdown(
-                f"<div style='font-size:{stability_label_size}px; color:{stability_label_color};'>Temperature Stability</div>",
-                unsafe_allow_html=True
-            )
-    
-            st.markdown(
-                f"<div style='font-size:{stability_value_size}px; color:{stability_value_color};'>{temp_std:.2f} °C</div>",
-                unsafe_allow_html=True
-            )
-    
-    
-    else:
-    
-        st.info("Upload test data first.")
-
+    result_box("Speed Variation", f"{speed_var:.2f}%")
+    result_box("Load Variation", f"{load_var:.2f}%")
+    result_box("Temperature Stability", f"± {temp_std:.2f} °C")
 
 
 
