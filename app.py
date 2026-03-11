@@ -8,6 +8,30 @@ st.set_page_config(
     layout="wide"
 )
 
+# ----------------------------------------------------
+# SESSION STATE DEFAULTS
+# ----------------------------------------------------
+
+defaults = {
+    "bearing_id": 40.0,
+    "bearing_od": 90.0,
+    "bearing_width": 23.0,
+    "ball_diameter": 15.88,
+    "number_of_balls": 8,
+    "dynamic_rating": 31500.0,
+    "static_rating": 24000.0,
+    "clearance_min": 0.01000,
+    "clearance_max": 0.03000,
+    "radial_load": 14000.0,
+    "axial_load": 0.0,
+    "rpm": 3000.0,
+    "ambient_temperature": 25.0
+}
+
+for key, value in defaults.items():
+    if key not in st.session_state:
+        st.session_state[key] = value
+
 
 # ----------------------------------------------------
 # GLOBAL STYLE
@@ -115,32 +139,64 @@ if page == "Test Setup":
 
         r1c1, r1c2 = st.columns([1,1])
         r1c1.markdown('<div class="param-row">ID (mm)</div>', unsafe_allow_html=True)
-        bearing_id = float(r1c2.text_input("", "40", label_visibility="collapsed"))
+        bearing_id = r1c2.number_input(
+            "",
+            value=st.session_state.bearing_id,
+            key="bearing_id",
+            label_visibility="collapsed"
+        )
 
         r2c1, r2c2 = st.columns([1,1])
         r2c1.markdown('<div class="param-row">OD (mm)</div>', unsafe_allow_html=True)
-        bearing_od = float(r2c2.text_input("", "90", label_visibility="collapsed"))
-
+        bearing_od = r2c2.number_input(
+            "",
+            value=st.session_state.bearing_od,
+            key="bearing_od",
+            label_visibility="collapsed"
+        )
         r3c1, r3c2 = st.columns([1,1])
         r3c1.markdown('<div class="param-row">Width (mm)</div>', unsafe_allow_html=True)
-        bearing_width = float(r3c2.text_input("", "23", label_visibility="collapsed"))
+        bearing_width = r3c2.number_input(
+            "",
+            value=st.session_state.bearing_width,
+            key="bearing_width",
+            label_visibility="collapsed"
+        )
 
         r4c1, r4c2 = st.columns([1,1])
         r4c1.markdown('<div class="param-row">Ball Diameter (mm)</div>', unsafe_allow_html=True)
-        ball_diameter = float(r4c2.text_input("", "15.88", label_visibility="collapsed"))
-
+        ball_diameter = r4c2.number_input(
+            "",
+            value=st.session_state.ball_diameter,
+            key="ball_diameter",
+            label_visibility="collapsed"
+        )
         r5c1, r5c2 = st.columns([1,1])
         r5c1.markdown('<div class="param-row">Number of Balls</div>', unsafe_allow_html=True)
-        number_of_balls = int(r5c2.text_input("", "8", label_visibility="collapsed"))
+        number_of_balls = r5c2.number_input(
+            "",
+            value=st.session_state.number_of_balls,
+            key="number_of_balls",
+            label_visibility="collapsed"
+        )
 
         r6c1, r6c2 = st.columns([1,1])
         r6c1.markdown('<div class="param-row">Dynamic Load Cr (N)</div>', unsafe_allow_html=True)
-        dynamic_rating = float(r6c2.text_input("", "31500", label_visibility="collapsed"))
+        dynamic_rating = r6c2.number_input(
+            "",
+            value=st.session_state.dynamic_rating,
+            key="dynamic_rating",
+            label_visibility="collapsed"
+        )
 
         r7c1, r7c2 = st.columns([1,1])
         r7c1.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
-        static_rating = float(r7c2.text_input("", "24000", label_visibility="collapsed"))
-
+        static_rating = r7c2.number_input(
+            "",
+            value=st.session_state.static_rating,
+            key="static_rating",
+            label_visibility="collapsed"
+        )
 
     # ----------------------------
     # BEARING VISUALIZATION
