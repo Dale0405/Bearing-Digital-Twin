@@ -946,10 +946,16 @@ if page == "Test Results":
 
 
     # ----------------------------
-    # DISPLAY
+    # LEFT SIDE RESULTS
     # ----------------------------
-
-    result_box("Speed Variation", f"{speed_var:.2f}%")
-    result_box("Load Variation", f"{load_var:.2f}%")
-    result_box("Temperature Stability", f"± {temp_std:.2f} °C")
-
+    
+    left_col, right_col = st.columns([1,3])
+    
+    with left_col:
+    
+        result_box("Speed Variation", f"{speed_var:.2f}%")
+    
+        result_box("Load Variation", f"{load_var:.2f}%")
+    
+        result_box("Temperature Stability", f"± {temp_std:.2f} °C")
+    
