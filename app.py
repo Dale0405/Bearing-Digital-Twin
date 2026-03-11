@@ -408,18 +408,19 @@ if page == "Test Setup":
     col1, col2, col3 = st.columns(3)
     
     with col1:
-       clearance_min = st.number_input(
+        clearance_min = st.number_input(
             "Min Clearance (mm)",
-            key="clearance_min",
+            value=0.01000,
             format="%.5f"
         )
-        
+    
     with col2:
-     clearance_max = st.number_input(
+        clearance_max = st.number_input(
             "Max Clearance (mm)",
-            key="clearance_max",
+            value=0.03000,
             format="%.5f"
         )
+
         
     # automatic calculation
     clearance_mean = (clearance_min + clearance_max) / 2
