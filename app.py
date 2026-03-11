@@ -835,7 +835,7 @@ elif page == "Test Data":
         
                 ax.set_ylabel("Speed (RPM)", fontsize=10, color=axis_color)
         
-                ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
+                ax.tick_params(axis="both", colors=tick_color, labelsize=8)
         
                 ax.spines["bottom"].set_color(axis_color)
                 ax.spines["left"].set_color(axis_color)
@@ -869,7 +869,7 @@ elif page == "Test Data":
         
                 ax.set_ylabel("Vibration (g)", fontsize=10, color=axis_color)
         
-                ax.tick_params(axis="both", colors=tick_color, labelsize=tick_label_size)
+                ax.tick_params(axis="both", colors=tick_color, labelsize=8)
         
                 ax.spines["bottom"].set_color(axis_color)
                 ax.spines["left"].set_color(axis_color)
