@@ -903,6 +903,76 @@ if page == "Test Results":
 
     st.write("Engineering results will appear here.")
 
+# ==================================
+# OPERATING STABILITY ANALYSIS
+# ==================================
+
+st.subheader("Operating Stability")
+
+if st.session_state.twin_data_table is not None:
+
+    data = st.session_state.twin_data_table
+
+    # ----------------------------
+    # Speed Stability
+    # ----------------------------
+
+    speed_avg = data["Speed (RPM)"].mean()
+    speed_max = data["Speed (RPM)"].max()
+    speed_min = data["Speed (RPM)"].min()
+
+    speed_var = ((speed_max - speed_min) / speed_avg) * 100
+
+    # ----------------------------
+    # Load Stability
+    # ----------------------------
+
+    load_avg = data["Radial Load (N)"].mean()
+    load_max = data["Radial Load (N)"].max()
+    load_min = data["Radial Load (N)"].min()
+
+    load_var = ((load_max - load_min) / load_avg) * 100
+
+    # ----------------------------
+    # Temperature Stability
+    # ----------------------------
+
+    temp_cols = [
+        "Temp 1# (°C)",
+        "Temp 2# (°C)",
+        "Temp 3# (°C)",
+        "Temp 4# (°C)"
+    ]
+
+    temps = data[temp_cols]
+
+    temp_std = temps.stack().std()
+
+    # ----------------------------
+    # Display Metrics
+    # ----------------------------
+
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric(
+        "Speed Variation",
+        f"{speed_var:.2f} %",
+    )
+
+    col2.metric(
+        "Load Variation",
+        f"{load_var:.2f} %",
+    )
+
+    col3.metric(
+        "Temperature Stability (σ)",
+        f"{temp_std:.2f} °C",
+    )
+
+else:
+
+    st.info("Upload test data first.")
+
 
 
 
