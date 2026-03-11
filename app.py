@@ -908,8 +908,8 @@ if page == "Test Results":
     # ==================================
     
     stability_title_size = 26
-    stability_label_size = 16
-    stability_value_size = 28
+    stability_label_size = 26
+    stability_value_size = 18
     
     stability_title_color = "white"
     stability_label_color = "white"
