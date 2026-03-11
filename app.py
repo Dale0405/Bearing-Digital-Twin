@@ -889,7 +889,8 @@ elif page == "Test Data":
         
             st.dataframe(
                 data_table,
-                use_container_width=True
+                use_container_width=True,
+                height=900
             )
 
 # ====================================================
