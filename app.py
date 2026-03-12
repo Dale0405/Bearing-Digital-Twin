@@ -28,9 +28,9 @@ defaults = {
     "ambient_temperature": 25.0
 }
 
-for key, value in defaults.items():
-    if key not in st.session_state:
-        st.session_state[key] = value
+for k, v in defaults.items():
+    if k not in st.session_state:
+        st.session_state[k] = v
 
 
 # ----------------------------------------------------
@@ -129,32 +129,37 @@ if page == "Test Setup":
 
         r1c1, r1c2 = st.columns([1,1])
         r1c1.markdown('<div class="param-row">ID (mm)</div>', unsafe_allow_html=True)
-        bearing_id = r1c2.number_input("", key="bearing_id", label_visibility="collapsed")
+        bearing_id = r1c2.number_input("", key="bearing_id")
 
         r2c1, r2c2 = st.columns([1,1])
         r2c1.markdown('<div class="param-row">OD (mm)</div>', unsafe_allow_html=True)
-        bearing_od = r2c2.number_input("", key="bearing_od", label_visibility="collapsed")
+        bearing_od = r2c2.number_input("", key="bearing_od")
 
         r3c1, r3c2 = st.columns([1,1])
         r3c1.markdown('<div class="param-row">Width (mm)</div>', unsafe_allow_html=True)
-        bearing_width = r3c2.number_input("", key="bearing_width", label_visibility="collapsed")
+        bearing_width = r3c2.number_input("", key="bearing_width")
 
         r4c1, r4c2 = st.columns([1,1])
         r4c1.markdown('<div class="param-row">Ball Diameter (mm)</div>', unsafe_allow_html=True)
-        ball_diameter = r4c2.number_input("", key="ball_diameter", label_visibility="collapsed")
+        ball_diameter = r4c2.number_input("", key="ball_diameter")
 
         r5c1, r5c2 = st.columns([1,1])
         r5c1.markdown('<div class="param-row">Number of Balls</div>', unsafe_allow_html=True)
-        number_of_balls = r5c2.number_input("", key="number_of_balls", step=1, format="%d", label_visibility="collapsed")
+        number_of_balls = r5c2.number_input(
+            "",
+            key="number_of_balls",
+            step=1,
+            format="%d"
+        )
 
         r6c1, r6c2 = st.columns([1,1])
         r6c1.markdown('<div class="param-row">Dynamic Load Cr (N)</div>', unsafe_allow_html=True)
-        dynamic_rating = r6c2.number_input("", key="dynamic_rating", label_visibility="collapsed")
+        dynamic_rating = r6c2.number_input("", key="dynamic_rating")
 
         r7c1, r7c2 = st.columns([1,1])
         r7c1.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
-        static_rating = r7c2.number_input("", key="static_rating", label_visibility="collapsed")
-
+        static_rating = r7c2.number_input("", key="static_rating")
+        
     # ----------------------------
     # BEARING VISUALIZATION
     # ----------------------------
@@ -213,7 +218,7 @@ if page == "Test Setup":
         clearance_min = st.number_input("Min Clearance (mm)", key="clearance_min", format="%.5f")
 
     with col2:
-        clearance_max = st.number_input("Max Clearance (mm)", key="clearance_max", format="%.5f")
+        clearance_mean = (clearance_min + clearance_max) / 2
 
     clearance_mean = (clearance_min + clearance_max) / 2
 
