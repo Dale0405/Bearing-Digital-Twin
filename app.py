@@ -466,12 +466,6 @@ if page == "Test Setup":
             value=90.00000,
             format="%.5f"
         )
-
-    bearing_id = st.session_state.bearing_id
-    bearing_od = st.session_state.bearing_od
-    bearing_width = st.session_state.bearing_width
-    ball_diameter = st.session_state.ball_diameter
-    number_of_balls = int(st.session_state.number_of_balls)
     
     
     # ----------------------------
