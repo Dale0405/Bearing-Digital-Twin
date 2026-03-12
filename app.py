@@ -13,6 +13,8 @@ st.set_page_config(
 # ----------------------------------------------------
 
 defaults = {
+
+    # Bearing Parameters
     "bearing_id": 40,
     "bearing_od": 90,
     "bearing_width": 23,
@@ -20,8 +22,21 @@ defaults = {
     "number_of_balls": 8,
     "dynamic_rating": 31500,
     "static_rating": 24000,
+
+    # Clearance
     "clearance_min": 0.01000,
     "clearance_max": 0.03000,
+
+    # Fit Conditions
+    "bearing_id_min": 40.00000,
+    "bearing_id_max": 40.02000,
+    "shaft_min": 40.01000,
+    "shaft_max": 40.03000,
+
+    "bearing_od_min": 90.00000,
+    "bearing_od_max": 90.02000,
+    "housing_min": 89.98000,
+    "housing_max": 90.00000
 }
 
 for key, value in defaults.items():
@@ -390,35 +405,35 @@ if page == "Test Setup":
     # ----------------------------
     
     st.subheader("Fit Conditions")
-    
+
     # Row 1
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        bearing_id_min = st.number_input(
+        st.session_state.bearing_id_min = st.number_input(
             "Bearing ID Min (mm)",
-            value=40.00000,
+            value=st.session_state.bearing_id_min,
             format="%.5f"
         )
     
     with col2:
-        bearing_id_max = st.number_input(
+        st.session_state.bearing_id_max = st.number_input(
             "Bearing ID Max (mm)",
-            value=40.02000,
+            value=st.session_state.bearing_id_max,
             format="%.5f"
         )
     
     with col3:
-        shaft_min = st.number_input(
+        st.session_state.shaft_min = st.number_input(
             "Shaft Min (mm)",
-            value=40.01000,
+            value=st.session_state.shaft_min,
             format="%.5f"
         )
     
     with col4:
-        shaft_max = st.number_input(
+        st.session_state.shaft_max = st.number_input(
             "Shaft Max (mm)",
-            value=40.03000,
+            value=st.session_state.shaft_max,
             format="%.5f"
         )
     
@@ -427,30 +442,30 @@ if page == "Test Setup":
     col5, col6, col7, col8 = st.columns(4)
     
     with col5:
-        bearing_od_min = st.number_input(
+        st.session_state.bearing_od_min = st.number_input(
             "Bearing OD Min (mm)",
-            value=90.00000,
+            value=st.session_state.bearing_od_min,
             format="%.5f"
         )
     
     with col6:
-        bearing_od_max = st.number_input(
+        st.session_state.bearing_od_max = st.number_input(
             "Bearing OD Max (mm)",
-            value=90.02000,
+            value=st.session_state.bearing_od_max,
             format="%.5f"
         )
     
     with col7:
-        housing_min = st.number_input(
+        st.session_state.housing_min = st.number_input(
             "Housing Min (mm)",
-            value=89.98000,
+            value=st.session_state.housing_min,
             format="%.5f"
         )
     
     with col8:
-        housing_max = st.number_input(
+        st.session_state.housing_max = st.number_input(
             "Housing Max (mm)",
-            value=90.00000,
+            value=st.session_state.housing_max,
             format="%.5f"
         )
     
@@ -460,8 +475,8 @@ if page == "Test Setup":
     # ----------------------------
     
     # Shaft interference
-    min_shaft_fit = shaft_min - bearing_id_max
-    max_shaft_fit = shaft_max - bearing_id_min
+    min_shaft_fit = st.session_state.shaft_min - st.session_state.bearing_id_max
+    max_shaft_fit = st.session_state.shaft_max - st.session_state.bearing_id_min
     
     effective_shaft_interference = (min_shaft_fit + max_shaft_fit) / 2
     
