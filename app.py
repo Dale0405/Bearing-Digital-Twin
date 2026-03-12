@@ -536,7 +536,7 @@ if page == "Test Setup":
 
     # Radial Load
     st.markdown("Radial Load (N)")
-    st.session_state.radial_load = float(
+    st.session_state.radial_load = int(
         st.text_input(
             "",
             value=str(st.session_state.radial_load),
@@ -546,7 +546,7 @@ if page == "Test Setup":
     
     # Axial Load
     st.markdown("Axial Load (N)")
-    st.session_state.axial_load = float(
+    st.session_state.axial_load = int(
         st.text_input(
             "",
             value=str(st.session_state.axial_load),
