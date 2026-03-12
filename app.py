@@ -8,29 +8,29 @@ st.set_page_config(
     layout="wide"
 )
 
-# -----------------------------
-# INITIALIZE SESSION STATE ONCE
-# -----------------------------
+# ----------------------------------------------------
+# SESSION STATE DEFAULTS
+# ----------------------------------------------------
 
-if "initialized" not in st.session_state:
+defaults = {
+    "bearing_id": 40.0,
+    "bearing_od": 90.0,
+    "bearing_width": 23.0,
+    "ball_diameter": 15.88,
+    "number_of_balls": 8,
+    "dynamic_rating": 31500.0,
+    "static_rating": 24000.0,
+    "clearance_min": 0.01000,
+    "clearance_max": 0.03000,
+    "radial_load": 14000.0,
+    "axial_load": 0.0,
+    "rpm": 3000.0,
+    "ambient_temperature": 25.0
+}
 
-    st.session_state.bearing_id = 40.0
-    st.session_state.bearing_od = 90.0
-    st.session_state.bearing_width = 23.0
-    st.session_state.ball_diameter = 15.88
-    st.session_state.number_of_balls = 8
-    st.session_state.dynamic_rating = 31500.0
-    st.session_state.static_rating = 24000.0
-
-    st.session_state.clearance_min = 0.01000
-    st.session_state.clearance_max = 0.03000
-
-    st.session_state.radial_load = 14000.0
-    st.session_state.axial_load = 0.0
-    st.session_state.rpm = 3000.0
-    st.session_state.ambient_temperature = 25.0
-
-    st.session_state.initialized = True
+for key, value in defaults.items():
+    if key not in st.session_state:
+        st.session_state[key] = value
 
 
 # ----------------------------------------------------
@@ -107,19 +107,24 @@ if page == "Test Setup":
 
     st.markdown("""
     <style>
+
     .param-header{
         text-align:center;
         font-weight:bold;
         margin-bottom:5px;
     }
+
     .param-row{
         border:1px solid #555;
         padding:6px;
     }
+
     </style>
     """, unsafe_allow_html=True)
 
+
     left, right = st.columns([1,1])
+
 
     # ----------------------------
     # PARAMETER TABLE
@@ -133,31 +138,64 @@ if page == "Test Setup":
 
         r1c1, r1c2 = st.columns([1,1])
         r1c1.markdown('<div class="param-row">ID (mm)</div>', unsafe_allow_html=True)
-        bearing_id = r1c2.number_input("", key="bearing_id", label_visibility="collapsed")
+        bearing_id = r1c2.number_input(
+            "",
+            value=st.session_state.bearing_id,
+            key="bearing_id",
+            label_visibility="collapsed"
+        )
 
         r2c1, r2c2 = st.columns([1,1])
         r2c1.markdown('<div class="param-row">OD (mm)</div>', unsafe_allow_html=True)
-        bearing_od = r2c2.number_input("", key="bearing_od", label_visibility="collapsed")
-
+        bearing_od = r2c2.number_input(
+            "",
+            value=st.session_state.bearing_od,
+            key="bearing_od",
+            label_visibility="collapsed"
+        )
         r3c1, r3c2 = st.columns([1,1])
         r3c1.markdown('<div class="param-row">Width (mm)</div>', unsafe_allow_html=True)
-        bearing_width = r3c2.number_input("", key="bearing_width", label_visibility="collapsed")
+        bearing_width = r3c2.number_input(
+            "",
+            value=st.session_state.bearing_width,
+            key="bearing_width",
+            label_visibility="collapsed"
+        )
 
         r4c1, r4c2 = st.columns([1,1])
         r4c1.markdown('<div class="param-row">Ball Diameter (mm)</div>', unsafe_allow_html=True)
-        ball_diameter = r4c2.number_input("", key="ball_diameter", label_visibility="collapsed")
-
+        ball_diameter = r4c2.number_input(
+            "",
+            value=st.session_state.ball_diameter,
+            key="ball_diameter",
+            label_visibility="collapsed"
+        )
         r5c1, r5c2 = st.columns([1,1])
         r5c1.markdown('<div class="param-row">Number of Balls</div>', unsafe_allow_html=True)
-        number_of_balls = r5c2.number_input("", key="number_of_balls", step=1, label_visibility="collapsed")
+        number_of_balls = r5c2.number_input(
+            "",
+            value=st.session_state.number_of_balls,
+            key="number_of_balls",
+            label_visibility="collapsed"
+        )
 
         r6c1, r6c2 = st.columns([1,1])
         r6c1.markdown('<div class="param-row">Dynamic Load Cr (N)</div>', unsafe_allow_html=True)
-        dynamic_rating = r6c2.number_input("", key="dynamic_rating", label_visibility="collapsed")
+        dynamic_rating = r6c2.number_input(
+            "",
+            value=st.session_state.dynamic_rating,
+            key="dynamic_rating",
+            label_visibility="collapsed"
+        )
 
         r7c1, r7c2 = st.columns([1,1])
         r7c1.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
-        static_rating = r7c2.number_input("", key="static_rating", label_visibility="collapsed")
+        static_rating = r7c2.number_input(
+            "",
+            value=st.session_state.static_rating,
+            key="static_rating",
+            label_visibility="collapsed"
+        )
 
     # ----------------------------
     # BEARING VISUALIZATION
@@ -165,17 +203,15 @@ if page == "Test Setup":
 
     with right:
 
-        fig, ax = plt.subplots(figsize=(5,5))
+        fig, ax = plt.subplots(figsize=(6,6))
 
         fig.patch.set_alpha(0)
         ax.set_facecolor("none")
 
-        safe_od = bearing_od if bearing_od != 0 else 1
-
         outer_r = 1.0
-        inner_r = bearing_id / safe_od
+        inner_r = bearing_id / bearing_od
         pitch_r = (outer_r + inner_r) / 2
-        ball_r = ball_diameter / safe_od * 0.35
+        ball_r = ball_diameter / bearing_od * 0.5
 
         ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#8c8f94"))
         ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#8c8f94"))
@@ -183,7 +219,7 @@ if page == "Test Setup":
         ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#8c8f94"))
         ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#8c8f94"))
 
-        angles = np.linspace(0, 2*np.pi, int(number_of_balls), endpoint=False)
+        angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
 
         for a in angles:
 
@@ -202,36 +238,301 @@ if page == "Test Setup":
 
         st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
 
-    # ----------------------------
-    # Bearing Internal Clearance
-    # ----------------------------
 
+
+        # ----------------------------
+        # Derived Geometry
+        # ----------------------------
+    
+        st.subheader("Derived Geometry")
+        
+        pitch_diameter = (bearing_id + bearing_od) / 2
+        ball_spacing = 360 / number_of_balls
+    
+        import matplotlib.pyplot as plt
+        import numpy as np
+    
+        col1, col2 = st.columns(2)
+    
+        # ----------------------------
+        # Pitch Diameter
+        # ----------------------------
+    
+        with col1:
+    
+            metric_col, img_col = st.columns([1,1])
+    
+            with metric_col:
+                st.metric("Pitch Diameter (mm)", f"{pitch_diameter:.3f}")
+    
+            with img_col:
+    
+                fig, ax = plt.subplots(figsize=(2.4,2.4))
+        
+                # transparent background
+                fig.patch.set_alpha(0)
+                ax.set_facecolor("none")
+        
+                outer_r = 1.0
+                inner_r = bearing_id / bearing_od
+                pitch_r = (outer_r + inner_r)/2
+        
+                # OD
+                ax.add_patch(plt.Circle((0,0), outer_r,
+                                        fill=False,
+                                        linewidth=2,
+                                        color="white"))
+        
+                # Pitch Diameter
+                ax.add_patch(plt.Circle((0,0), pitch_r,
+                                        fill=False,
+                                        linestyle=":",
+                                        linewidth=2,
+                                        color="red"))
+        
+                # ID
+                ax.add_patch(plt.Circle((0,0), inner_r,
+                                        fill=False,
+                                        linewidth=2,
+                                        color="white"))
+        
+                ax.set_xlim(-1.2,1.2)
+                ax.set_ylim(-1.2,1.2)
+        
+                ax.set_aspect("equal")
+                ax.axis("off")
+        
+                st.pyplot(fig)
+        
+    
+    
+        # ----------------------------
+        # Ball Angular Spacing
+        # ----------------------------
+    
+        with col2:
+    
+            metric_col, img_col = st.columns([1,1])
+    
+        with metric_col:
+            st.metric("Ball Angular Spacing (deg)", f"{ball_spacing:.3f}")
+    
+        with img_col:
+    
+            fig, ax = plt.subplots(figsize=(2.4,2.4))
+    
+            fig.patch.set_alpha(0)
+            ax.set_facecolor("none")
+    
+            outer_r = 1.0
+            inner_r = 0.6
+            pitch_r = (outer_r + inner_r)/2
+    
+            # rings
+            ax.add_patch(plt.Circle((0,0), outer_r,
+                                    fill=False,
+                                    linewidth=2,
+                                    color="white"))
+    
+            ax.add_patch(plt.Circle((0,0), inner_r,
+                                    fill=False,
+                                    linewidth=2,
+                                    color="white"))
+    
+            # two balls showing spacing
+            angles = [0, np.deg2rad(ball_spacing)]
+    
+            ball_r = 0.08
+    
+            for a in angles:
+    
+                x = pitch_r*np.cos(a)
+                y = pitch_r*np.sin(a)
+    
+                ball = plt.Circle((x,y), ball_r,
+                                  color="#cfd3d6",
+                                  ec="#222222")
+    
+                ax.add_patch(ball)
+    
+            # angular arc
+            theta = np.linspace(0, np.deg2rad(ball_spacing), 100)
+    
+            ax.plot(
+                pitch_r*np.cos(theta),
+                pitch_r*np.sin(theta),
+                color="red",
+                linewidth=2
+            )
+    
+            ax.text(
+                pitch_r*0.7*np.cos(np.deg2rad(ball_spacing/2)),
+                pitch_r*0.7*np.sin(np.deg2rad(ball_spacing/2)),
+                f"{ball_spacing:.1f}°",
+                color="red",
+                fontsize=8,
+                ha="center"
+            )
+    
+            ax.set_xlim(-1.2,1.2)
+            ax.set_ylim(-1.2,1.2)
+    
+            ax.set_aspect("equal")
+            ax.axis("off")
+    
+            st.pyplot(fig)
+    
     st.subheader("Bearing Internal Clearance")
-
+    
     col1, col2, col3 = st.columns(3)
-
+    
     with col1:
-        clearance_min = st.number_input("Min Clearance (mm)", key="clearance_min", format="%.5f")
-
+        clearance_min = st.number_input(
+            "Min Clearance (mm)",
+            value=0.01000,
+            format="%.5f"
+        )
+    
     with col2:
-        clearance_max = st.number_input("Max Clearance (mm)", key="clearance_max", format="%.5f")
-
+        clearance_max = st.number_input(
+            "Max Clearance (mm)",
+            value=0.03000,
+            format="%.5f"
+        )
+    
+    # automatic calculation
     clearance_mean = (clearance_min + clearance_max) / 2
-
+    
     with col3:
-        st.text_input("Mean Clearance (mm)", value=f"{clearance_mean:.5f}", disabled=True)
+        st.text_input(
+            "Mean Clearance (mm)",
+            value=f"{clearance_mean:.5f}",
+            disabled=True
+        )
 
+    # ----------------------------
+    # Fit Conditions
+    # ----------------------------
+    
+    st.subheader("Fit Conditions")
+    
+    # Row 1
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        bearing_id_min = st.number_input(
+            "Bearing ID Min (mm)",
+            value=40.00000,
+            format="%.5f"
+        )
+    
+    with col2:
+        bearing_id_max = st.number_input(
+            "Bearing ID Max (mm)",
+            value=40.02000,
+            format="%.5f"
+        )
+    
+    with col3:
+        shaft_min = st.number_input(
+            "Shaft Min (mm)",
+            value=40.01000,
+            format="%.5f"
+        )
+    
+    with col4:
+        shaft_max = st.number_input(
+            "Shaft Max (mm)",
+            value=40.03000,
+            format="%.5f"
+        )
+    
+    
+    # Row 2
+    col5, col6, col7, col8 = st.columns(4)
+    
+    with col5:
+        bearing_od_min = st.number_input(
+            "Bearing OD Min (mm)",
+            value=90.00000,
+            format="%.5f"
+        )
+    
+    with col6:
+        bearing_od_max = st.number_input(
+            "Bearing OD Max (mm)",
+            value=90.02000,
+            format="%.5f"
+        )
+    
+    with col7:
+        housing_min = st.number_input(
+            "Housing Min (mm)",
+            value=89.98000,
+            format="%.5f"
+        )
+    
+    with col8:
+        housing_max = st.number_input(
+            "Housing Max (mm)",
+            value=90.00000,
+            format="%.5f"
+        )
+    
+    
+    # ----------------------------
+    # Calculations
+    # ----------------------------
+    
+    # Shaft interference
+    min_shaft_fit = shaft_min - bearing_id_max
+    max_shaft_fit = shaft_max - bearing_id_min
+    
+    effective_shaft_interference = (min_shaft_fit + max_shaft_fit) / 2
+    
+    # RIC reduction assumption
+    ric_reduction = effective_shaft_interference * 0.8
+    
+    effective_radial_clearance = clearance_mean - ric_reduction
+    
+    
+    # ----------------------------
+    # Fit Results
+    # ----------------------------
+    
+    st.markdown("---")
+    st.subheader("Fit Results")
+    
+    st.markdown(f"""
+    <table style="width:100%; border-collapse:collapse; text-align:center;">
+    <tr>
+    <th style="border:1px solid gray; padding:8px; width:20%;">Minimum<br>Shaft Fit<br>(mm)</th>
+    <th style="border:1px solid gray; padding:8px; width:20%;">Maximum<br>Shaft Fit<br>(mm)</th>
+    <th style="border:1px solid gray; padding:8px; width:20%;">Effective Shaft<br>Interference<br>(mm)</th>
+    <th style="border:1px solid gray; padding:8px; width:20%;">RIC Reduction<br>due to Shaft Fit<br>(mm)</th>
+    <th style="border:1px solid gray; padding:8px; width:20%;">Effective Radial<br>Clearance<br>(mm)</th>
+    </tr>
+    <tr>
+    <td style="border:1px solid gray; padding:8px;">{min_shaft_fit:.5f}</td>
+    <td style="border:1px solid gray; padding:8px;">{max_shaft_fit:.5f}</td>
+    <td style="border:1px solid gray; padding:8px;">{effective_shaft_interference:.5f}</td>
+    <td style="border:1px solid gray; padding:8px;">{ric_reduction:.5f}</td>
+    <td style="border:1px solid gray; padding:8px;">{effective_radial_clearance:.5f}</td>
+    </tr>
+    </table>
+    """, unsafe_allow_html=True)
+    
+    
     # ----------------------------
     # Test Conditions
     # ----------------------------
-
+    
     st.header("Test Conditions")
-
-    radial_load = st.number_input("Radial Load (N)", key="radial_load")
-    axial_load = st.number_input("Axial Load (N)", key="axial_load")
-    rpm = st.number_input("RPM", key="rpm")
-    ambient_temperature = st.number_input("Ambient Temperature (°C)", key="ambient_temperature")
-
+    
+    radial_load = float(st.text_input("Radial Load (N)", "14000"))
+    axial_load = float(st.text_input("Axial Load (N)", "0"))
+    rpm = float(st.text_input("RPM", "3000"))
+    ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
     lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
     
 
@@ -644,7 +945,7 @@ elif page == "Test Data":
             st.dataframe(
                 data_table,
                 use_container_width=True,
-                height=1700
+                height=1200
             )
 
 # =========================
