@@ -196,10 +196,18 @@ if page == "Test Setup":
         fig.patch.set_alpha(0)
         ax.set_facecolor("none")
 
+        # --- GET INPUT VALUES FROM STREAMLIT ---
+        bearing_id = st.session_state.bearing_id
+        bearing_od = st.session_state.bearing_od
+        bearing_width = st.session_state.bearing_width
+        ball_diameter = st.session_state.ball_diameter
+        number_of_balls = int(st.session_state.number_of_balls)
+        
+        # --- BEARING GEOMETRY MODEL ---
         outer_r = 1.0
-        inner_r = st.session_state.bearing_id / st.session_state.bearing_od
+        inner_r = bearing_id / bearing_od
         pitch_r = (outer_r + inner_r) / 2
-        ball_r = st.session_state.ball_diameter / st.session_state.bearing_od * 0.5
+        ball_r = ball_diameter / bearing_od * 0.5
 
         ax.add_patch(plt.Circle((0,0), outer_r, fill=False, linewidth=3, color="#8c8f94"))
         ax.add_patch(plt.Circle((0,0), outer_r-0.07, fill=False, linewidth=2, color="#8c8f94"))
@@ -234,7 +242,7 @@ if page == "Test Setup":
     
         st.subheader("Derived Geometry")
         
-        pitch_diameter = (st.session_state.bearing_id + st.session_state.bearing_od) / 2
+        pitch_diameter = (bearing_id + bearing_od) / 2
         ball_spacing = 360 / number_of_balls
     
         import matplotlib.pyplot as plt
