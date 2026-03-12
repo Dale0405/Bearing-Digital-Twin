@@ -132,31 +132,31 @@ if page == "Test Setup":
     
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">ID (mm)</div>', unsafe_allow_html=True)
-        v.number_input("", value=st.session_state.bearing_id, key="bearing_id", label_visibility="collapsed")
+        st.session_state.bearing_id = v.number_input("", value=st.session_state.bearing_id, label_visibility="collapsed")
     
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">OD (mm)</div>', unsafe_allow_html=True)
-        v.number_input("", value=st.session_state.bearing_od, key="bearing_od", label_visibility="collapsed")
+        st.session_state.bearing_od = v.number_input("", value=st.session_state.bearing_od, label_visibility="collapsed")
     
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">Width (mm)</div>', unsafe_allow_html=True)
-        v.number_input("", value=st.session_state.bearing_width, key="bearing_width", label_visibility="collapsed")
+        st.session_state.bearing_width = v.number_input("", value=st.session_state.bearing_width, label_visibility="collapsed")
     
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">Ball Diameter (mm)</div>', unsafe_allow_html=True)
-        v.number_input("", value=st.session_state.ball_diameter, key="ball_diameter", label_visibility="collapsed")
+        st.session_state.ball_diameter = v.number_input("", value=st.session_state.ball_diameter, label_visibility="collapsed")
     
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">Number of Balls</div>', unsafe_allow_html=True)
-        v.number_input("", value=st.session_state.number_of_balls, key="number_of_balls", label_visibility="collapsed")
+        st.session_state.number_of_balls = v.number_input("", value=st.session_state.number_of_balls, label_visibility="collapsed")
     
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">Dynamic Load Cr (N)</div>', unsafe_allow_html=True)
-        v.number_input("", value=st.session_state.dynamic_rating, key="dynamic_rating", label_visibility="collapsed")
+        st.session_state.dynamic_rating = v.number_input("", value=st.session_state.dynamic_rating, label_visibility="collapsed")
     
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
-        v.number_input("", value=st.session_state.static_rating, key="static_rating", label_visibility="collapsed")
+        st.session_state.static_rating = v.number_input("", value=st.session_state.static_rating, label_visibility="collapsed")
         
 
     # ----------------------------
