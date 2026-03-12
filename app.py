@@ -19,9 +19,9 @@ defaults = {
     "ball_diameter": 15.88,
     "number_of_balls": 8,
     "dynamic_rating": 31500,
-    "static_rating": 24000
+    "static_rating": 24000,
     "clearance_min": 0.01000,
-    "clearance_max": 0.03000
+    "clearance_max": 0.03000,
 }
 
 for key, value in defaults.items():
