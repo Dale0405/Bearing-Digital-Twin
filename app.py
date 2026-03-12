@@ -203,7 +203,7 @@ if page == "Test Setup":
 
     with right:
 
-        fig, ax = plt.subplots(figsize=(4,4))
+        fig, ax = plt.subplots(figsize=(8,8))
 
         fig.patch.set_alpha(0)
         ax.set_facecolor("none")
