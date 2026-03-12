@@ -534,54 +534,54 @@ if page == "Test Setup":
     
     st.header("Test Conditions")
 
-    # Radial Load
+        # Radial Load
     st.markdown("Radial Load (N)")
-    st.session_state.radial_load = int(
+    st.session_state.radial_load = int(float(
         st.text_input(
             "",
             value=str(st.session_state.radial_load),
             label_visibility="collapsed"
         )
-    )
+    ))
     
     # Axial Load
     st.markdown("Axial Load (N)")
-    st.session_state.axial_load = int(
+    st.session_state.axial_load = int(float(
         st.text_input(
             "",
             value=str(st.session_state.axial_load),
             label_visibility="collapsed"
         )
-    )
+    ))
     
     # RPM
     st.markdown("RPM")
-    st.session_state.rpm = float(
+    st.session_state.rpm = int(float(
         st.text_input(
             "",
             value=str(st.session_state.rpm),
             label_visibility="collapsed"
         )
-    )
-    
-    # Ambient Temperature
-    st.markdown("Ambient Temperature (°C)")
-    st.session_state.ambient_temperature = float(
-        st.text_input(
+    ))
+        
+        # Ambient Temperature
+        st.markdown("Ambient Temperature (°C)")
+        st.session_state.ambient_temperature = float(
+            st.text_input(
+                "",
+                value=str(st.session_state.ambient_temperature),
+                label_visibility="collapsed"
+            )
+        )
+        
+        # Lubrication
+        st.markdown("Lubrication Type")
+        st.session_state.lubrication = st.selectbox(
             "",
-            value=str(st.session_state.ambient_temperature),
+            ["Grease", "Oil"],
+            index=["Grease", "Oil"].index(st.session_state.lubrication),
             label_visibility="collapsed"
         )
-    )
-    
-    # Lubrication
-    st.markdown("Lubrication Type")
-    st.session_state.lubrication = st.selectbox(
-        "",
-        ["Grease", "Oil"],
-        index=["Grease", "Oil"].index(st.session_state.lubrication),
-        label_visibility="collapsed"
-    )
 
 # ====================================================
 # TEST DATA PAGE
