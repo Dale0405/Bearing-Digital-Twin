@@ -1069,17 +1069,87 @@ if page == "Test Results":
     # ----------------------------
     
     rpm = st.session_state.rpm
-    dynamic_rating = st.session_state.dynamic_rating
-    
-    mean_load = data["Radial Load (N)"].mean()
-    
-    # Ideal life
-    P_ideal = mean_load
-    L10_rev_ideal = (dynamic_rating / P_ideal) ** 3 * 1e6
-    L10_hours_ideal = L10_rev_ideal / (60 * rpm)
+    C = st.session_state.dynamic_rating
+    Fr = st.session_state.radial_load
+    Fa = st.session_state.axial_load
+    contact_angle = st.session_state.contact_angle
     
     
-    # Actual life using fluctuating loads
+    # ----------------------------
+    # ISO 281 TABLE (SIMPLIFIED)
+    # ----------------------------
+    
+    iso281_table = {
+    
+        0: [
+            {"FaFr": 0.172, "X": 1.0, "Y": 0.0},
+            {"FaFr": 0.345, "X": 0.56, "Y": 2.3},
+            {"FaFr": 0.689, "X": 0.56, "Y": 1.99},
+            {"FaFr": 1.03, "X": 0.56, "Y": 1.71},
+            {"FaFr": 1.38, "X": 0.56, "Y": 1.55},
+            {"FaFr": 2.07, "X": 0.56, "Y": 1.45},
+            {"FaFr": 3.45, "X": 0.56, "Y": 1.31},
+            {"FaFr": 5.17, "X": 0.56, "Y": 1.15},
+            {"FaFr": 6.89, "X": 0.56, "Y": 1.04},
+        ],
+    
+        10: [
+            {"FaFr": 0.345, "X": 1.0, "Y": 0.0},
+            {"FaFr": 0.689, "X": 0.46, "Y": 1.88},
+            {"FaFr": 1.03, "X": 0.46, "Y": 1.71},
+            {"FaFr": 1.38, "X": 0.46, "Y": 1.52},
+            {"FaFr": 2.07, "X": 0.46, "Y": 1.41},
+            {"FaFr": 3.45, "X": 0.46, "Y": 1.23},
+            {"FaFr": 5.17, "X": 0.46, "Y": 1.10},
+            {"FaFr": 6.89, "X": 0.46, "Y": 1.01},
+        ],
+    
+        15: [
+            {"FaFr": 0.345, "X": 1.0, "Y": 0.0},
+            {"FaFr": 0.689, "X": 0.44, "Y": 1.47},
+            {"FaFr": 1.03, "X": 0.44, "Y": 1.40},
+            {"FaFr": 1.38, "X": 0.44, "Y": 1.23},
+            {"FaFr": 2.07, "X": 0.44, "Y": 1.19},
+            {"FaFr": 3.45, "X": 0.44, "Y": 1.12},
+            {"FaFr": 5.17, "X": 0.44, "Y": 1.07},
+            {"FaFr": 6.89, "X": 0.44, "Y": 1.02},
+        ]
+    
+    }
+    
+    
+    # ----------------------------
+    # SELECT CLOSEST CONTACT ANGLE
+    # ----------------------------
+    
+    angle_key = min(iso281_table.keys(), key=lambda x: abs(x - contact_angle))
+    
+    FaFr = Fa / Fr if Fr != 0 else 0
+    
+    table = iso281_table[angle_key]
+    
+    for row in table:
+    
+        if FaFr <= row["FaFr"]:
+            X = row["X"]
+            Y = row["Y"]
+            break
+    
+    
+    # ----------------------------
+    # IDEAL LIFE (TEST SETUP)
+    # ----------------------------
+    
+    P_ideal = X * Fr + Y * Fa
+    
+    L10_rev_ideal = (C / P_ideal) ** 3 * 1e6 if P_ideal > 0 else 0
+    L10_hours_ideal = L10_rev_ideal / (60 * rpm) if rpm > 0 else 0
+    
+    
+    # ----------------------------
+    # ACTUAL LIFE (MEASURED LOADS)
+    # ----------------------------
+    
     loads = data["Radial Load (N)"]
     
     damage_sum = 0
@@ -1088,7 +1158,7 @@ if page == "Test Results":
     
         if load > 0:
     
-            L10_rev = (dynamic_rating / load) ** 3 * 1e6
+            L10_rev = (C / load) ** 3 * 1e6
             life_hours = L10_rev / (60 * rpm)
     
             damage_sum += 1 / life_hours
@@ -1097,9 +1167,13 @@ if page == "Test Results":
     L10_hours_actual = len(loads) / damage_sum if damage_sum != 0 else 0
     
     
-    # Life consumption
+    # ----------------------------
+    # LIFE CONSUMPTION
+    # ----------------------------
+    
     test_duration = data["Test Time (hr)"].max()
-    life_consumption = (test_duration / L10_hours_actual) * 100
+    
+    life_consumption = (test_duration / L10_hours_actual) * 100 if L10_hours_actual > 0 else 0
     
     
     # ----------------------------
