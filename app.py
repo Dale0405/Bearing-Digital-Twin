@@ -181,10 +181,16 @@ if page == "Test Setup":
     
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
-        st.session_state.static_rating = v.number_input("", value=st.session_state.static_rating, label_visibility="collapsed")
-
+        
+        st.session_state.static_rating = v.number_input(
+            "",
+            value=st.session_state.static_rating,
+            label_visibility="collapsed"
+        )
+        
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">Contact Angle (deg)</div>', unsafe_allow_html=True)
+        
         st.session_state.contact_angle = v.number_input(
             "",
             value=st.session_state.contact_angle,
