@@ -96,7 +96,7 @@ page = st.sidebar.radio(
     # PARAMETER TABLE
     # ----------------------------
 
-    with left:
+with left:
 
         h1, h2 = st.columns([1,1])
         h1.markdown('<div class="param-header">Parameters</div>', unsafe_allow_html=True)
