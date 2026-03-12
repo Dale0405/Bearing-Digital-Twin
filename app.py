@@ -413,6 +413,7 @@ if page == "Test Setup":
         st.session_state.bearing_id_min = st.number_input(
             "Bearing ID Min (mm)",
             value=st.session_state.bearing_id_min,
+            step=0.00001
             format="%.5f"
         )
     
@@ -420,6 +421,7 @@ if page == "Test Setup":
         st.session_state.bearing_id_max = st.number_input(
             "Bearing ID Max (mm)",
             value=st.session_state.bearing_id_max,
+            step=0.00001
             format="%.5f"
         )
     
@@ -427,6 +429,7 @@ if page == "Test Setup":
         st.session_state.shaft_min = st.number_input(
             "Shaft Min (mm)",
             value=st.session_state.shaft_min,
+            step=0.00001
             format="%.5f"
         )
     
@@ -434,6 +437,7 @@ if page == "Test Setup":
         st.session_state.shaft_max = st.number_input(
             "Shaft Max (mm)",
             value=st.session_state.shaft_max,
+            step=0.00001
             format="%.5f"
         )
     
@@ -445,6 +449,7 @@ if page == "Test Setup":
         st.session_state.bearing_od_min = st.number_input(
             "Bearing OD Min (mm)",
             value=st.session_state.bearing_od_min,
+            step=0.00001
             format="%.5f"
         )
     
@@ -452,6 +457,7 @@ if page == "Test Setup":
         st.session_state.bearing_od_max = st.number_input(
             "Bearing OD Max (mm)",
             value=st.session_state.bearing_od_max,
+            step=0.00001
             format="%.5f"
         )
     
@@ -459,6 +465,7 @@ if page == "Test Setup":
         st.session_state.housing_min = st.number_input(
             "Housing Min (mm)",
             value=st.session_state.housing_min,
+            step=0.00001
             format="%.5f"
         )
     
@@ -466,6 +473,7 @@ if page == "Test Setup":
         st.session_state.housing_max = st.number_input(
             "Housing Max (mm)",
             value=st.session_state.housing_max,
+            step=0.00001
             format="%.5f"
         )
     
