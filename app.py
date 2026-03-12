@@ -156,7 +156,7 @@ if page == "Test Setup":
     
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
-        v.number_input("", value=st.session_state.static_rating, key="static_rating", label_visibility="collapsed"))
+        v.number_input("", value=st.session_state.static_rating, key="static_rating", label_visibility="collapsed")
         
 
     # ----------------------------
