@@ -91,6 +91,7 @@ page = st.sidebar.radio(
     ["Test Setup", "Test Data", "Test Results"]
 )
 
+
 # ====================================================
 # TEST SETUP PAGE
 # ====================================================
@@ -1004,8 +1005,8 @@ if page == "Test Results":
     # L10 LIFE CALCULATIONS
     # ----------------------------
     
-    rpm = st.session_state.rpm
-    dynamic_rating = st.session_state.dynamic_rating
+    rpm = 3000
+    dynamic_rating = 31500
     
     mean_load = data["Radial Load (N)"].mean()
     
