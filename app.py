@@ -167,7 +167,7 @@ with left:
     # BEARING VISUALIZATION
     # ----------------------------
 
-    with right:
+with right:
 
         fig, ax = plt.subplots(figsize=(6,6))
 
