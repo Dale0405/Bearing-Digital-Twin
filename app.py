@@ -534,42 +534,54 @@ if page == "Test Setup":
     
     st.header("Test Conditions")
 
-    col1, col2, col3, col4, col5 = st.columns(5)
-    
-    with col1:
-        st.session_state.radial_load = st.number_input(
-            "Radial Load (N)",
-            value=st.session_state.radial_load,
-            step=100
+    # Radial Load
+    st.markdown("Radial Load (N)")
+    st.session_state.radial_load = float(
+        st.text_input(
+            "",
+            value=str(st.session_state.radial_load),
+            label_visibility="collapsed"
         )
+    )
     
-    with col2:
-        st.session_state.axial_load = st.number_input(
-            "Axial Load (N)",
-            value=st.session_state.axial_load,
-            step=100
+    # Axial Load
+    st.markdown("Axial Load (N)")
+    st.session_state.axial_load = float(
+        st.text_input(
+            "",
+            value=str(st.session_state.axial_load),
+            label_visibility="collapsed"
         )
+    )
     
-    with col3:
-        st.session_state.rpm = st.number_input(
-            "RPM",
-            value=st.session_state.rpm,
-            step=100
+    # RPM
+    st.markdown("RPM")
+    st.session_state.rpm = float(
+        st.text_input(
+            "",
+            value=str(st.session_state.rpm),
+            label_visibility="collapsed"
         )
+    )
     
-    with col4:
-        st.session_state.ambient_temperature = st.number_input(
-            "Ambient Temperature (°C)",
-            value=st.session_state.ambient_temperature,
-            step=1
+    # Ambient Temperature
+    st.markdown("Ambient Temperature (°C)")
+    st.session_state.ambient_temperature = float(
+        st.text_input(
+            "",
+            value=str(st.session_state.ambient_temperature),
+            label_visibility="collapsed"
         )
+    )
     
-    with col5:
-        st.session_state.lubrication = st.selectbox(
-            "Lubrication Type",
-            ["Grease", "Oil"],
-            index=["Grease", "Oil"].index(st.session_state.lubrication)
-        )
+    # Lubrication
+    st.markdown("Lubrication Type")
+    st.session_state.lubrication = st.selectbox(
+        "",
+        ["Grease", "Oil"],
+        index=["Grease", "Oil"].index(st.session_state.lubrication),
+        label_visibility="collapsed"
+    )
 
 # ====================================================
 # TEST DATA PAGE
