@@ -93,14 +93,6 @@ if page == "Test Setup":
 
     st.title("Test Setup")
 
-    st.number_input("ID (mm)", key="bearing_id")
-    st.number_input("OD (mm)", key="bearing_od")
-    st.number_input("Width (mm)", key="bearing_width")
-    st.number_input("Ball Diameter (mm)", key="ball_diameter")
-    st.number_input("Number of Balls", key="number_of_balls")
-    st.number_input("Dynamic Load Cr (N)", key="dynamic_rating")
-    st.number_input("Static Load Co (N)", key="static_rating")
-
     # ----------------------------
     # Bearing Parameters
     # ----------------------------
