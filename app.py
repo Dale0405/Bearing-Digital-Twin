@@ -205,8 +205,6 @@ if page == "Test Setup":
 
         fig, ax = plt.subplots(figsize=(4,4))
 
-        st.pyplot(fig, use_container_width=False)
-
         fig.patch.set_alpha(0)
         ax.set_facecolor("none")
 
