@@ -197,7 +197,7 @@ if page == "Test Setup":
         ax.set_facecolor("none")
 
         outer_r = 1.0
-        inner_r = bearing_id / bearing_od
+        inner_r = st.session_state.bearing_id / st.session_state.bearing_od
         pitch_r = (outer_r + inner_r) / 2
         ball_r = ball_diameter / bearing_od * 0.5
 
@@ -262,7 +262,7 @@ if page == "Test Setup":
                 ax.set_facecolor("none")
         
                 outer_r = 1.0
-                inner_r = bearing_id / bearing_od
+                inner_r = st.session_state.bearing_id / st.session_state.bearing_od
                 pitch_r = (outer_r + inner_r)/2
         
                 # OD
