@@ -8,29 +8,29 @@ st.set_page_config(
     layout="wide"
 )
 
-# ----------------------------------------------------
-# SESSION STATE DEFAULTS
-# ----------------------------------------------------
+# -----------------------------
+# INITIALIZE SESSION STATE ONCE
+# -----------------------------
 
-defaults = {
-    "bearing_id": 40.0,
-    "bearing_od": 90.0,
-    "bearing_width": 23.0,
-    "ball_diameter": 15.88,
-    "number_of_balls": 8,
-    "dynamic_rating": 31500.0,
-    "static_rating": 24000.0,
-    "clearance_min": 0.01000,
-    "clearance_max": 0.03000,
-    "radial_load": 14000.0,
-    "axial_load": 0.0,
-    "rpm": 3000.0,
-    "ambient_temperature": 25.0
-}
+if "initialized" not in st.session_state:
 
-for key, value in defaults.items():
-    if key not in st.session_state:
-        st.session_state[key] = value
+    st.session_state.bearing_id = 40.0
+    st.session_state.bearing_od = 90.0
+    st.session_state.bearing_width = 23.0
+    st.session_state.ball_diameter = 15.88
+    st.session_state.number_of_balls = 8
+    st.session_state.dynamic_rating = 31500.0
+    st.session_state.static_rating = 24000.0
+
+    st.session_state.clearance_min = 0.01000
+    st.session_state.clearance_max = 0.03000
+
+    st.session_state.radial_load = 14000.0
+    st.session_state.axial_load = 0.0
+    st.session_state.rpm = 3000.0
+    st.session_state.ambient_temperature = 25.0
+
+    st.session_state.initialized = True
 
 
 # ----------------------------------------------------
