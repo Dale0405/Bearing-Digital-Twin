@@ -123,66 +123,40 @@ if page == "Test Setup":
     # ----------------------------
     # PARAMETER TABLE
     # ----------------------------
-
+    
     with left:
-
-        h1, h2 = st.columns([1,1])
-        h1.markdown('<div class="param-header">Parameters</div>', unsafe_allow_html=True)
-        h2.markdown('<div class="param-header">Values</div>', unsafe_allow_html=True)
-
-        r1c1, r1c2 = st.columns([1,1])
-        r1c1.markdown('<div class="param-row">ID (mm)</div>', unsafe_allow_html=True)
-        r1c2.number_input(
-            "",
-            key="bearing_id",
-            label_visibility="collapsed"
-        )
-
-        r2c1, r2c2 = st.columns([1,1])
-        r2c1.markdown('<div class="param-row">OD (mm)</div>', unsafe_allow_html=True)
-        r2c2.number_input(
-            "",
-            key="bearing_od",
-            label_visibility="collapsed"
-        )
-        r3c1, r3c2 = st.columns([1,1])
-        r3c1.markdown('<div class="param-row">Width (mm)</div>', unsafe_allow_html=True)
-        r3c2.number_input(
-            "",
-            key="bearing_width",
-            label_visibility="collapsed"
-        )
-
-        r4c1, r4c2 = st.columns([1,1])
-        r4c1.markdown('<div class="param-row">Ball Diameter (mm)</div>', unsafe_allow_html=True)
-        r4c2.number_input(
-            "",
-            key="ball_diameter",
-            label_visibility="collapsed"
-        )
-        r5c1, r5c2 = st.columns([1,1])
-        r5c1.markdown('<div class="param-row">Number of Balls</div>', unsafe_allow_html=True)
-        r5c2.number_input(
-            "",
-            key="number_of_balls",
-            label_visibility="collapsed"
-        )
-
-        r6c1, r6c2 = st.columns([1,1])
-        r6c1.markdown('<div class="param-row">Dynamic Load Cr (N)</div>', unsafe_allow_html=True)
-        r6c2.number_input(
-            "",
-            key="dynamic_rating",
-            label_visibility="collapsed"
-        )
-
-        r7c1, r7c2 = st.columns([1,1])
-        r7c1.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
-        r7c2.number_input(
-            "",
-            key="static_rating",
-            label_visibility="collapsed"
-        )
+    
+        col_param, col_val = st.columns([1,1])
+        col_param.markdown('<div class="param-header">Parameters</div>', unsafe_allow_html=True)
+        col_val.markdown('<div class="param-header">Values</div>', unsafe_allow_html=True)
+    
+        p, v = st.columns([1,1])
+        p.markdown('<div class="param-row">ID (mm)</div>', unsafe_allow_html=True)
+        v.number_input("", key="bearing_id", label_visibility="collapsed")
+    
+        p, v = st.columns([1,1])
+        p.markdown('<div class="param-row">OD (mm)</div>', unsafe_allow_html=True)
+        v.number_input("", key="bearing_od", label_visibility="collapsed")
+    
+        p, v = st.columns([1,1])
+        p.markdown('<div class="param-row">Width (mm)</div>', unsafe_allow_html=True)
+        v.number_input("", key="bearing_width", label_visibility="collapsed")
+    
+        p, v = st.columns([1,1])
+        p.markdown('<div class="param-row">Ball Diameter (mm)</div>', unsafe_allow_html=True)
+        v.number_input("", key="ball_diameter", label_visibility="collapsed")
+    
+        p, v = st.columns([1,1])
+        p.markdown('<div class="param-row">Number of Balls</div>', unsafe_allow_html=True)
+        v.number_input("", key="number_of_balls", label_visibility="collapsed")
+    
+        p, v = st.columns([1,1])
+        p.markdown('<div class="param-row">Dynamic Load Cr (N)</div>', unsafe_allow_html=True)
+        v.number_input("", key="dynamic_rating", label_visibility="collapsed")
+    
+        p, v = st.columns([1,1])
+        p.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
+        v.number_input("", key="static_rating", label_visibility="collapsed")
         
 
     # ----------------------------
