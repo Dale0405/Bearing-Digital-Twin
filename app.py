@@ -20,6 +20,8 @@ defaults = {
     "number_of_balls": 8,
     "dynamic_rating": 31500,
     "static_rating": 24000
+    "clearance_min": 0.01000,
+    "clearance_max": 0.03000
 }
 
 for key, value in defaults.items():
@@ -356,25 +358,25 @@ if page == "Test Setup":
         # ----------------------------
     
     st.subheader("Bearing Internal Clearance")
-    
+
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        clearance_min = st.number_input(
+        st.session_state.clearance_min = st.number_input(
             "Min Clearance (mm)",
-            value=0.01000,
+            value=st.session_state.clearance_min,
             format="%.5f"
         )
     
     with col2:
-        clearance_max = st.number_input(
+        st.session_state.clearance_max = st.number_input(
             "Max Clearance (mm)",
-            value=0.03000,
+            value=st.session_state.clearance_max,
             format="%.5f"
         )
     
     # automatic calculation
-    clearance_mean = (clearance_min + clearance_max) / 2
+    clearance_mean = (st.session_state.clearance_min + st.session_state.clearance_max) / 2
     
     with col3:
         st.text_input(
@@ -382,7 +384,7 @@ if page == "Test Setup":
             value=f"{clearance_mean:.5f}",
             disabled=True
         )
-
+        
     # ----------------------------
     # Fit Conditions
     # ----------------------------
