@@ -99,12 +99,13 @@ if page == "Test Setup":
 
     st.title("Test Setup")
 
+    left, right = st.columns([1,1])
+
     # ----------------------------
     # Bearing Parameters
     # ----------------------------
 
-with left:
-
+    with left:
     h1, h2 = st.columns([1,1])
     h1.markdown('<div class="param-header">Parameters</div>', unsafe_allow_html=True)
     h2.markdown('<div class="param-header">Values</div>', unsafe_allow_html=True)
