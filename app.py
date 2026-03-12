@@ -564,23 +564,23 @@ if page == "Test Setup":
         )
     ))
         
-        # Ambient Temperature
-        st.markdown("Ambient Temperature (°C)")
-        st.session_state.ambient_temperature = float(
-            st.text_input(
-                "",
-                value=str(st.session_state.ambient_temperature),
-                label_visibility="collapsed"
-            )
-        )
-        
-        # Lubrication
-        st.markdown("Lubrication Type")
-        st.session_state.lubrication = st.selectbox(
+    # Ambient Temperature
+    st.markdown("Ambient Temperature (°C)")
+    st.session_state.ambient_temperature = float(
+        st.text_input(
             "",
-            ["Grease", "Oil"],
-            index=["Grease", "Oil"].index(st.session_state.lubrication),
+            value=str(st.session_state.ambient_temperature),
             label_visibility="collapsed"
+        )
+    )
+    
+    # Lubrication
+    st.markdown("Lubrication Type")
+    st.session_state.lubrication = st.selectbox(
+        "",
+        ["Grease", "Oil"],
+        index=["Grease", "Oil"].index(st.session_state.lubrication),
+        label_visibility="collapsed"
         )
 
 # ====================================================
