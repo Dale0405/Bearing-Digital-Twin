@@ -138,7 +138,7 @@ if page == "Test Setup":
 
         r1c1, r1c2 = st.columns([1,1])
         r1c1.markdown('<div class="param-row">ID (mm)</div>', unsafe_allow_html=True)
-       bearing_id = r1c2.number_input(
+        bearing_id = r1c2.number_input(
             "",
             value=st.session_state["bearing_id"],
             key="bearing_id",
