@@ -213,7 +213,7 @@ if page == "Test Setup":
         ax.add_patch(plt.Circle((0,0), inner_r, fill=False, linewidth=3, color="#8c8f94"))
         ax.add_patch(plt.Circle((0,0), inner_r+0.07, fill=False, linewidth=2, color="#8c8f94"))
 
-        angles = np.linspace(0, 2*np.pi, number_of_balls, endpoint=False)
+        angles = np.linspace(0, 2*np.pi, int(st.session_state.number_of_balls), endpoint=False)
 
         for a in angles:
 
