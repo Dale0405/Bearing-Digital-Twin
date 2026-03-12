@@ -37,6 +37,13 @@ defaults = {
     "bearing_od_max": 90.02000,
     "housing_min": 89.98000,
     "housing_max": 90.00000
+
+    # test conditions
+    "radial_load": 14000,
+    "axial_load": 0,
+    "rpm": 3000,
+    "ambient_temperature": 25,
+    "lubrication": "Grease"
 }
 
 for key, value in defaults.items():
@@ -526,13 +533,43 @@ if page == "Test Setup":
     # ----------------------------
     
     st.header("Test Conditions")
+
+    col1, col2, col3, col4, col5 = st.columns(5)
     
-    radial_load = float(st.text_input("Radial Load (N)", "14000"))
-    axial_load = float(st.text_input("Axial Load (N)", "0"))
-    rpm = float(st.text_input("RPM", "3000"))
-    ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
-    lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
+    with col1:
+        st.session_state.radial_load = st.number_input(
+            "Radial Load (N)",
+            value=st.session_state.radial_load,
+            step=100
+        )
     
+    with col2:
+        st.session_state.axial_load = st.number_input(
+            "Axial Load (N)",
+            value=st.session_state.axial_load,
+            step=100
+        )
+    
+    with col3:
+        st.session_state.rpm = st.number_input(
+            "RPM",
+            value=st.session_state.rpm,
+            step=100
+        )
+    
+    with col4:
+        st.session_state.ambient_temperature = st.number_input(
+            "Ambient Temperature (°C)",
+            value=st.session_state.ambient_temperature,
+            step=1
+        )
+    
+    with col5:
+        st.session_state.lubrication = st.selectbox(
+            "Lubrication Type",
+            ["Grease", "Oil"],
+            index=["Grease", "Oil"].index(st.session_state.lubrication)
+        )
 
 # ====================================================
 # TEST DATA PAGE
