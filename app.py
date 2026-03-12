@@ -208,8 +208,7 @@ if page == "Test Setup":
 
         st.markdown("<div style='text-align:center;'>Front View</div>", unsafe_allow_html=True)
 
-
-
+        
         # ----------------------------
         # Derived Geometry
         # ----------------------------
@@ -351,6 +350,10 @@ if page == "Test Setup":
             ax.axis("off")
     
             st.pyplot(fig)
+
+        # ----------------------------
+        # Bearing Internal Clearance
+        # ----------------------------
     
     st.subheader("Bearing Internal Clearance")
     
