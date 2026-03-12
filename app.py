@@ -28,9 +28,9 @@ defaults = {
     "ambient_temperature": 25.0
 }
 
-for k, v in defaults.items():
-    if k not in st.session_state:
-        st.session_state[k] = v
+for key, value in defaults.items():
+    if key not in st.session_state:
+        st.session_state[key] = value
 
 
 # ----------------------------------------------------
@@ -534,7 +534,6 @@ if page == "Test Setup":
     rpm = float(st.text_input("RPM", "3000"))
     ambient_temperature = float(st.text_input("Ambient Temperature (°C)", "25"))
     lubrication = st.selectbox("Lubrication Type", ["Grease", "Oil"])
-
     
 
 # ====================================================
