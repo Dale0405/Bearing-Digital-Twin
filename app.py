@@ -22,7 +22,8 @@ defaults = {
     "number_of_balls": 8,
     "dynamic_rating": 31500,
     "static_rating": 24000,
-
+    "contact_angle": 0.0,
+    
     # Clearance
     "clearance_min": 0.01000,
     "clearance_max": 0.03000,
@@ -181,6 +182,16 @@ if page == "Test Setup":
         p, v = st.columns([1,1])
         p.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
         st.session_state.static_rating = v.number_input("", value=st.session_state.static_rating, label_visibility="collapsed")
+
+        p, v = st.columns([1,1])
+        p.markdown('<div class="param-row">Contact Angle (deg)</div>', unsafe_allow_html=True)
+        st.session_state.contact_angle = v.number_input(
+            "",
+            value=st.session_state.contact_angle,
+            step=0.1,
+            format="%.1f",
+            label_visibility="collapsed"
+)
         
 
     # ----------------------------
