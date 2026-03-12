@@ -13,19 +13,13 @@ st.set_page_config(
 # ----------------------------------------------------
 
 defaults = {
-    "bearing_id": 40.0,
-    "bearing_od": 90.0,
-    "bearing_width": 23.0,
+    "bearing_id": 40,
+    "bearing_od": 90,
+    "bearing_width": 23,
     "ball_diameter": 15.88,
     "number_of_balls": 8,
-    "dynamic_rating": 31500.0,
-    "static_rating": 24000.0,
-    "clearance_min": 0.01000,
-    "clearance_max": 0.03000,
-    "radial_load": 14000.0,
-    "axial_load": 0.0,
-    "rpm": 3000.0,
-    "ambient_temperature": 25.0
+    "dynamic_rating": 31500,
+    "static_rating": 24000
 }
 
 for key, value in defaults.items():
@@ -98,6 +92,14 @@ page = st.sidebar.radio(
 if page == "Test Setup":
 
     st.title("Test Setup")
+
+    st.number_input("ID (mm)", key="bearing_id")
+    st.number_input("OD (mm)", key="bearing_od")
+    st.number_input("Width (mm)", key="bearing_width")
+    st.number_input("Ball Diameter (mm)", key="ball_diameter")
+    st.number_input("Number of Balls", key="number_of_balls")
+    st.number_input("Dynamic Load Cr (N)", key="dynamic_rating")
+    st.number_input("Static Load Co (N)", key="static_rating")
 
     # ----------------------------
     # Bearing Parameters
