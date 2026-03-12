@@ -171,6 +171,8 @@ if page == "Test Setup":
         number_of_balls = r5c2.number_input(
             "",
             key="number_of_balls",
+            step=1,
+            format="%d",
             label_visibility="collapsed"
         )
 
