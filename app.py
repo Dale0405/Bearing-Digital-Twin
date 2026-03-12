@@ -91,12 +91,58 @@ page = st.sidebar.radio(
     ["Test Setup", "Test Data", "Test Results"]
 )
 
+# ====================================================
+# TEST SETUP PAGE
+# ====================================================
 
-# ----------------------------
-    # PARAMETER TABLE
+if page == "Test Setup":
+
+    st.title("Test Setup")
+
+    # ----------------------------
+    # Bearing Parameters
     # ----------------------------
 
 with left:
+
+    h1, h2 = st.columns([1,1])
+    h1.markdown('<div class="param-header">Parameters</div>', unsafe_allow_html=True)
+    h2.markdown('<div class="param-header">Values</div>', unsafe_allow_html=True)
+
+    r1c1, r1c2 = st.columns([1,1])
+    r1c1.markdown('<div class="param-row">ID (mm)</div>', unsafe_allow_html=True)
+    bearing_id = r1c2.number_input("", key="bearing_id", label_visibility="collapsed")
+
+    r2c1, r2c2 = st.columns([1,1])
+    r2c1.markdown('<div class="param-row">OD (mm)</div>', unsafe_allow_html=True)
+    bearing_od = r2c2.number_input("", key="bearing_od", label_visibility="collapsed")
+
+    r3c1, r3c2 = st.columns([1,1])
+    r3c1.markdown('<div class="param-row">Width (mm)</div>', unsafe_allow_html=True)
+    bearing_width = r3c2.number_input("", key="bearing_width", label_visibility="collapsed")
+
+    r4c1, r4c2 = st.columns([1,1])
+    r4c1.markdown('<div class="param-row">Ball Diameter (mm)</div>', unsafe_allow_html=True)
+    ball_diameter = r4c2.number_input("", key="ball_diameter", label_visibility="collapsed")
+
+    r5c1, r5c2 = st.columns([1,1])
+    r5c1.markdown('<div class="param-row">Number of Balls</div>', unsafe_allow_html=True)
+    number_of_balls = r5c2.number_input("", key="number_of_balls", label_visibility="collapsed")
+
+    r6c1, r6c2 = st.columns([1,1])
+    r6c1.markdown('<div class="param-row">Dynamic Load Cr (N)</div>', unsafe_allow_html=True)
+    dynamic_rating = r6c2.number_input("", key="dynamic_rating", label_visibility="collapsed")
+
+    r7c1, r7c2 = st.columns([1,1])
+    r7c1.markdown('<div class="param-row">Static Load Co (N)</div>', unsafe_allow_html=True)
+    static_rating = r7c2.number_input("", key="static_rating", label_visibility="collapsed")
+
+
+    # ----------------------------
+    # PARAMETER TABLE
+    # ----------------------------
+
+    with left:
 
         h1, h2 = st.columns([1,1])
         h1.markdown('<div class="param-header">Parameters</div>', unsafe_allow_html=True)
@@ -167,7 +213,7 @@ with left:
     # BEARING VISUALIZATION
     # ----------------------------
 
-with right:
+    with right:
 
         fig, ax = plt.subplots(figsize=(6,6))
 
