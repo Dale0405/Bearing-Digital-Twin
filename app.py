@@ -234,7 +234,7 @@ if page == "Test Setup":
     
         st.subheader("Derived Geometry")
         
-        pitch_diameter = (bearing_id + bearing_od) / 2
+        pitch_diameter = (st.session_state.bearing_id + st.session_state.bearing_od) / 2
         ball_spacing = 360 / number_of_balls
     
         import matplotlib.pyplot as plt
