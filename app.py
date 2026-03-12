@@ -36,7 +36,7 @@ defaults = {
     "bearing_od_min": 90.00000,
     "bearing_od_max": 90.02000,
     "housing_min": 89.98000,
-    "housing_max": 90.00000
+    "housing_max": 90.00000,
 
     # test conditions
     "radial_load": 14000,
