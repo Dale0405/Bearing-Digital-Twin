@@ -1025,7 +1025,7 @@ if page == "Test Results":
     # TABLE STYLE CONTROLS
     # ----------------------------
     
-    with st.sidebar.expander("Results Table Style", expanded=False):
+with st.sidebar.expander("Results Table Style", expanded=False):
 
     table_width = st.slider("Table Width (%)", 60, 100, 100)
     table_height = st.slider("Row Height (px)", 30, 120, 60)
