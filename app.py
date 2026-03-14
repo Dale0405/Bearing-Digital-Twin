@@ -1021,6 +1021,17 @@ if page == "Test Results":
     st.title("Test Results")
     st.caption("Engineering results will appear here.")
 
+    # ----------------------------
+    # TABLE STYLE CONTROLS
+    # ----------------------------
+    
+    st.sidebar.subheader("Results Table Style")
+    
+    table_width = st.sidebar.slider("Table Width (%)", 60, 100, 100)
+    table_height = st.sidebar.slider("Row Height (px)", 30, 120, 60)
+    text_size = st.sidebar.slider("Text Size (px)", 12, 36, 18)
+    header_text_size = st.sidebar.slider("Header Text Size (px)", 14, 40, 20)
+
     data = st.session_state.get("twin_data_table")
 
     if data is None:
@@ -1177,34 +1188,78 @@ if page == "Test Results":
     
     
     # ----------------------------
-    # RESULT GRID
+    # RESULTS TABLE LAYOUT
     # ----------------------------
     
-    row1_col1, row1_col2 = st.columns(2)
-    row2_col1, row2_col2 = st.columns(2)
-    row3_col1, row3_col2 = st.columns(2)
+    st.markdown(f"""
+    <table style="
+    width:{table_width}%;
+    border-collapse:collapse;
+    text-align:center;
+    margin:auto;
+    font-size:{text_size}px;
+    ">
     
+    <tr>
+    <th colspan="3" style="
+    border:1px solid white;
+    padding:{table_height/3}px;
+    font-size:{header_text_size}px;
+    ">
+    Test Consistency
+    </th>
+    </tr>
     
-    # Row 1
-    with row1_col1:
-        result_box("Speed Variation", f"{speed_var:.2f}%")
+    <tr>
+    <td style="border:1px solid white; height:{table_height}px;">Speed Variation</td>
+    <td style="border:1px solid white; height:{table_height}px;">Load Variation</td>
+    <td style="border:1px solid white; height:{table_height}px;">Temperature Stability</td>
+    </tr>
     
-    with row1_col2:
-        result_box("L10 Life (Ideal)", f"{L10_hours_ideal:,.0f} hr")
+    <tr>
+    <td style="border:1px solid white; height:{table_height}px; font-weight:bold;">
+    {speed_var:.2f} %
+    </td>
     
+    <td style="border:1px solid white; height:{table_height}px; font-weight:bold;">
+    {load_var:.2f} %
+    </td>
     
-    # Row 2
-    with row2_col1:
-        result_box("Load Variation", f"{load_var:.2f}%")
+    <td style="border:1px solid white; height:{table_height}px; font-weight:bold;">
+    ± {temp_std:.2f} °C
+    </td>
+    </tr>
     
-    with row2_col2:
-        result_box("L10 Life (Actual)", f"{L10_hours_actual:,.0f} hr")
+    <tr>
+    <th colspan="3" style="
+    border:1px solid white;
+    padding:{table_height/3}px;
+    font-size:{header_text_size}px;
+    ">
+    Bearing Life
+    </th>
+    </tr>
     
+    <tr>
+    <td style="border:1px solid white; height:{table_height}px;">Ideal L10</td>
+    <td style="border:1px solid white; height:{table_height}px;">Actual L10</td>
+    <td style="border:1px solid white; height:{table_height}px;">Life Consumption</td>
+    </tr>
     
-    # Row 3
-    with row3_col1:
-        result_box("Temperature Stability", f"± {temp_std:.2f} °C")
+    <tr>
+    <td style="border:1px solid white; height:{table_height}px; font-weight:bold;">
+    {L10_hours_ideal:,.0f} hr
+    </td>
     
-    with row3_col2:
-        result_box("Life Consumption", f"{life_consumption:.2f}%")
+    <td style="border:1px solid white; height:{table_height}px; font-weight:bold;">
+    {L10_hours_actual:,.0f} hr
+    </td>
+    
+    <td style="border:1px solid white; height:{table_height}px; font-weight:bold;">
+    {life_consumption:.2f} %
+    </td>
+    </tr>
+    
+    </table>
+    """, unsafe_allow_html=True)
     
