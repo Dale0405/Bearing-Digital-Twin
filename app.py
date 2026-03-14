@@ -1258,6 +1258,6 @@ if page == "Test Results":
     </td>
     </tr>
         
-        </table>
-        """, unsafe_allow_html=True)
+    </table>
+    """, unsafe_allow_html=True)
     
