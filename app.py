@@ -1188,8 +1188,6 @@ if page == "Test Results":
     # ----------------------------
     # RESULTS TABLE LAYOUT
     # ----------------------------
-
-with st.expander("Test Results Summary", expanded=True):
         
     st.markdown(f"""
     <table style="
