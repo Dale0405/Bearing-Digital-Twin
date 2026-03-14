@@ -1149,11 +1149,8 @@ if page == "Test Results":
     # IDEAL LIFE (TEST SETUP)
     # ----------------------------
     
-    # Load per bearing (4 bearings share the load)
-    Fr_per_bearing = Fr / 4
-    Fa_per_bearing = Fa / 4
-    
-    P_ideal = X * Fr_per_bearing + Y * Fa_per_bearing
+    # Loads from Test Setup already represent load per bearing
+    P_ideal = X * Fr + Y * Fa
     
     L10_rev_ideal = (C / P_ideal) ** 3 * 1e6 if P_ideal > 0 else 0
     L10_hours_ideal = L10_rev_ideal / (60 * rpm) if rpm > 0 else 0
@@ -1169,11 +1166,15 @@ if page == "Test Results":
     
     for load in loads:
     
-        load_per_bearing = load / 4
+        # Machine records 2Fr → convert to Fr
+        Fr_actual = load / 2
     
-        if load_per_bearing > 0:
+        # Axial load remains the same
+        P_actual = X * Fr_actual + Y * Fa
     
-            L10_rev = (C / load_per_bearing) ** 3 * 1e6
+        if P_actual > 0:
+    
+            L10_rev = (C / P_actual) ** 3 * 1e6
             life_hours = L10_rev / (60 * rpm)
     
             damage_sum += 1 / life_hours
