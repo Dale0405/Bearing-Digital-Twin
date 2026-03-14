@@ -1032,11 +1032,6 @@ with st.sidebar.expander("Results Table Style", expanded=False):
     text_size = st.slider("Text Size (px)", 12, 36, 18)
     header_text_size = st.slider("Header Text Size (px)", 14, 40, 20)
     
-    table_width = st.sidebar.slider("Table Width (%)", 60, 100, 100)
-    table_height = st.sidebar.slider("Row Height (px)", 30, 120, 60)
-    text_size = st.sidebar.slider("Text Size (px)", 12, 36, 18)
-    header_text_size = st.sidebar.slider("Header Text Size (px)", 14, 40, 20)
-
     data = st.session_state.get("twin_data_table")
 
     if data is None:
