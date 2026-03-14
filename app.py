@@ -1022,15 +1022,13 @@ if page == "Test Results":
     st.caption("Engineering results will appear here.")
 
     # ----------------------------
-    # TABLE STYLE CONTROLS
+    # FIXED TABLE STYLE
     # ----------------------------
     
-with st.sidebar.expander("Results Table Style", expanded=False):
-
-    table_width = st.slider("Table Width (%)", 60, 100, 100)
-    table_height = st.slider("Row Height (px)", 30, 120, 60)
-    text_size = st.slider("Text Size (px)", 12, 36, 18)
-    header_text_size = st.slider("Header Text Size (px)", 14, 40, 20)
+    table_width = 100        # %
+    table_height = 30        # px
+    text_size = 20           # px
+    header_text_size = 25    # px
     
     data = st.session_state.get("twin_data_table")
 
